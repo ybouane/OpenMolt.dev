@@ -1,0 +1,57 @@
+{
+	"name": "openmolt",
+	"version": "0.1.0",
+	"description": "Programmatic AI Agent System – create, configure, and run intelligent agents that can use tools, integrations, and LLMs.",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"bin": {
+		"openmolt": "./dist/cli/index.js"
+	},
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch",
+		"prepublishOnly": "npm run build",
+		"docs": "typedoc"
+	},
+	"keywords": [
+		"ai",
+		"agent",
+		"llm",
+		"openai",
+		"anthropic",
+		"gemini",
+		"automation",
+		"tools",
+		"integrations"
+	],
+	"author": "OpenMolt",
+	"license": "MIT",
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"dependencies": {
+		"liquidjs": "^10.17.0",
+		"zod": "^3.22.4",
+		"@fal-ai/client": "^1.0.0",
+		"@aws-sdk/client-s3": "^3.600.0",
+		"@aws-sdk/s3-request-presigner": "^3.600.0",
+		"dotenv": "^16.4.5"
+	},
+	"devDependencies": {
+		"@types/node": "^20.0.0",
+		"typescript": "^5.0.0",
+		"typedoc": "^0.26.0"
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	]
+}

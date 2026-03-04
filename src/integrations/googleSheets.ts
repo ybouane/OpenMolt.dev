@@ -1,0 +1,421 @@
+import { z } from 'zod';
+import type { IntegrationDefinition, ToolContext } from '../types/index.js';
+
+export const googleSheetsDefinition: IntegrationDefinition = {
+	name: 'Google Sheets',
+	apiSetup: {
+		baseUrl: 'https://sheets.googleapis.com/v4',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		requestFormat: 'json',
+		responseFormat: 'json',
+	},
+	credentialSetup: [
+		{
+			type: 'oauth2',
+			authUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+			tokenUrl: 'https://oauth2.googleapis.com/token',
+			clientId: '{{ config.clientId }}',
+			clientSecret: '{{ config.clientSecret }}',
+			refreshToken: '{{ config.refreshToken }}',
+			scopes: [
+				'https://www.googleapis.com/auth/spreadsheets',
+				'https://www.googleapis.com/auth/spreadsheets.readonly',
+			],
+		},
+	],
+	scopes: {
+		read: 'Read spreadsheet data and metadata',
+		write: 'Create and modify spreadsheets and their data',
+	},
+	tools: [
+		{
+			handle: 'getSpreadsheet',
+			description: 'Get spreadsheet metadata including sheet properties and named ranges',
+			scopes: ['read'],
+			method: 'GET',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}',
+			queryParams: {
+				ranges: '{{ input.ranges }}',
+				includeGridData: '{{ input.includeGridData }}',
+			},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet to retrieve'),
+				ranges: z.array(z.string()).optional().describe('Ranges to retrieve from the spreadsheet'),
+				includeGridData: z.boolean().optional().describe('Whether to include grid data in the response'),
+			}),
+			outputSchema: z.object({
+				spreadsheetId: z.string(),
+				properties: z.object({
+					title: z.string(),
+					locale: z.string().optional(),
+					timeZone: z.string().optional(),
+				}).optional(),
+				sheets: z.array(z.object({
+					properties: z.object({
+						sheetId: z.number(),
+						title: z.string(),
+						index: z.number(),
+						sheetType: z.string(),
+					}),
+				})).optional(),
+				spreadsheetUrl: z.string().optional(),
+			}),
+		},
+		{
+			handle: 'createSpreadsheet',
+			description: 'Create a new Google Sheets spreadsheet',
+			scopes: ['write'],
+			method: 'POST',
+			endpoint: '/spreadsheets',
+			body: {
+				properties: {
+					title: '{{ input.title }}',
+				},
+				sheets: '{{ input.sheets }}',
+			},
+			inputSchema: z.object({
+				title: z.string().describe('Title of the new spreadsheet'),
+				sheets: z.array(z.object({
+					properties: z.object({
+						title: z.string().optional(),
+						gridProperties: z.object({
+							rowCount: z.number().optional(),
+							columnCount: z.number().optional(),
+						}).optional(),
+					}).optional(),
+				})).optional().describe('Initial sheet configurations'),
+			}),
+			outputSchema: z.object({
+				spreadsheetId: z.string(),
+				spreadsheetUrl: z.string(),
+				properties: z.object({
+					title: z.string(),
+				}).optional(),
+				sheets: z.array(z.object({
+					properties: z.object({
+						sheetId: z.number(),
+						title: z.string(),
+					}),
+				})).optional(),
+			}),
+		},
+		{
+			handle: 'getValues',
+			description: 'Get values from a specific range in a spreadsheet',
+			scopes: ['read'],
+			method: 'GET',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}/values/{{ input.range }}',
+			queryParams: {
+				majorDimension: '{{ input.majorDimension }}',
+				valueRenderOption: '{{ input.valueRenderOption }}',
+				dateTimeRenderOption: '{{ input.dateTimeRenderOption }}',
+			},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
+				range: z.string().describe('The A1 notation of the range to retrieve (e.g. Sheet1!A1:D10)'),
+				majorDimension: z.enum(['ROWS', 'COLUMNS']).optional().describe('The major dimension of the values'),
+				valueRenderOption: z.string().optional().describe('How values should be represented (FORMATTED_VALUE, UNFORMATTED_VALUE, FORMULA)'),
+				dateTimeRenderOption: z.string().optional().describe('How dates, times, and durations should be represented'),
+			}),
+			outputSchema: z.object({
+				range: z.string(),
+				majorDimension: z.string(),
+				values: z.array(z.array(z.unknown())).optional(),
+			}),
+		},
+		{
+			handle: 'batchGetValues',
+			description: 'Get values from multiple ranges in a spreadsheet in a single request',
+			scopes: ['read'],
+			method: 'GET',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}/values:batchGet',
+			queryParams: {
+				ranges: '{{ input.ranges }}',
+				majorDimension: '{{ input.majorDimension }}',
+				valueRenderOption: '{{ input.valueRenderOption }}',
+			},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
+				ranges: z.array(z.string()).describe('The A1 notation ranges to retrieve'),
+				majorDimension: z.string().optional().describe('The major dimension of the values'),
+				valueRenderOption: z.string().optional().describe('How values should be represented'),
+			}),
+			outputSchema: z.object({
+				spreadsheetId: z.string(),
+				valueRanges: z.array(z.object({
+					range: z.string(),
+					majorDimension: z.string(),
+					values: z.array(z.array(z.unknown())).optional(),
+				})),
+			}),
+		},
+		{
+			handle: 'updateValues',
+			description: 'Update values in a specific range of a spreadsheet',
+			scopes: ['write'],
+			method: 'PUT',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}/values/{{ input.range }}',
+			queryParams: {
+				valueInputOption: '{{ input.valueInputOption }}',
+			},
+			body: {
+				range: '{{ input.range }}',
+				majorDimension: '{{ input.majorDimension }}',
+				values: '{{ input.values }}',
+			},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
+				range: z.string().describe('The A1 notation of the range to update'),
+				values: z.array(z.array(z.unknown())).describe('The data to write'),
+				majorDimension: z.string().optional().describe('The major dimension of the values'),
+				valueInputOption: z.enum(['RAW', 'USER_ENTERED']).optional().default('USER_ENTERED').describe('How input data should be interpreted'),
+			}),
+			outputSchema: z.object({
+				spreadsheetId: z.string(),
+				updatedRange: z.string(),
+				updatedRows: z.number(),
+				updatedColumns: z.number(),
+				updatedCells: z.number(),
+			}),
+		},
+		{
+			handle: 'batchUpdateValues',
+			description: 'Update values in multiple ranges of a spreadsheet in a single request',
+			scopes: ['write'],
+			method: 'POST',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}/values:batchUpdate',
+			body: {
+				valueInputOption: '{{ input.valueInputOption }}',
+				data: '{{ input.data }}',
+			},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
+				data: z.array(z.object({
+					range: z.string().describe('The A1 notation range'),
+					values: z.array(z.array(z.unknown())).describe('The data to write'),
+					majorDimension: z.string().optional(),
+				})).describe('Array of range/value pairs to update'),
+				valueInputOption: z.string().optional().default('USER_ENTERED').describe('How input data should be interpreted'),
+			}),
+			outputSchema: z.object({
+				spreadsheetId: z.string(),
+				totalUpdatedRows: z.number(),
+				totalUpdatedColumns: z.number(),
+				totalUpdatedCells: z.number(),
+				responses: z.array(z.object({
+					updatedRange: z.string(),
+					updatedRows: z.number(),
+					updatedColumns: z.number(),
+					updatedCells: z.number(),
+				})),
+			}),
+		},
+		{
+			handle: 'appendValues',
+			description: 'Append values to a spreadsheet after the last row of data in a range',
+			scopes: ['write'],
+			method: 'POST',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}/values/{{ input.range }}:append',
+			queryParams: {
+				valueInputOption: '{{ input.valueInputOption }}',
+				insertDataOption: '{{ input.insertDataOption }}',
+			},
+			body: {
+				range: '{{ input.range }}',
+				values: '{{ input.values }}',
+			},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
+				range: z.string().describe('The A1 notation of the range to append to'),
+				values: z.array(z.array(z.unknown())).describe('The data to append'),
+				valueInputOption: z.string().optional().default('USER_ENTERED').describe('How input data should be interpreted'),
+				insertDataOption: z.string().optional().describe('How input data should be inserted (OVERWRITE or INSERT_ROWS)'),
+			}),
+			outputSchema: z.object({
+				spreadsheetId: z.string(),
+				tableRange: z.string().optional(),
+				updates: z.object({
+					updatedRange: z.string(),
+					updatedRows: z.number(),
+					updatedColumns: z.number(),
+					updatedCells: z.number(),
+				}),
+			}),
+		},
+		{
+			handle: 'clearValues',
+			description: 'Clear values from a specific range in a spreadsheet',
+			scopes: ['write'],
+			method: 'POST',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}/values/{{ input.range }}:clear',
+			body: {},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
+				range: z.string().describe('The A1 notation of the range to clear'),
+			}),
+			outputSchema: z.object({
+				spreadsheetId: z.string(),
+				clearedRange: z.string(),
+			}),
+		},
+		{
+			handle: 'batchClearValues',
+			description: 'Clear values from multiple ranges in a spreadsheet in a single request',
+			scopes: ['write'],
+			method: 'POST',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}/values:batchClear',
+			body: {
+				ranges: '{{ input.ranges }}',
+			},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
+				ranges: z.array(z.string()).describe('The A1 notation ranges to clear'),
+			}),
+			outputSchema: z.object({
+				spreadsheetId: z.string(),
+				clearedRanges: z.array(z.string()),
+			}),
+		},
+		{
+			handle: 'batchUpdate',
+			description: 'Execute one or more batch update requests to modify spreadsheet structure or formatting',
+			scopes: ['write'],
+			method: 'POST',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}:batchUpdate',
+			body: {
+				requests: '{{ input.requests }}',
+				includeSpreadsheetInResponse: false,
+			},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
+				requests: z.array(z.record(z.unknown())).describe('List of update requests (addSheet, deleteSheet, updateSheetProperties, addConditionalFormatRule, etc.)'),
+			}),
+			outputSchema: z.object({
+				spreadsheetId: z.string(),
+				replies: z.array(z.record(z.unknown())),
+			}),
+		},
+		{
+			handle: 'addSheet',
+			description: 'Add a new sheet (tab) to an existing spreadsheet',
+			scopes: ['write'],
+			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
+				const config = context.config as Record<string, unknown>;
+				const accessToken = config?.accessToken as string;
+				const spreadsheetId = input.spreadsheetId as string;
+
+				const addSheetRequest: Record<string, unknown> = {
+					properties: {
+						title: input.title,
+					},
+				};
+
+				if (input.rowCount !== undefined || input.columnCount !== undefined) {
+					const gridProperties: Record<string, number> = {};
+					if (input.rowCount !== undefined) gridProperties.rowCount = input.rowCount as number;
+					if (input.columnCount !== undefined) gridProperties.columnCount = input.columnCount as number;
+					(addSheetRequest.properties as Record<string, unknown>).gridProperties = gridProperties;
+				}
+
+				const response = await fetch(
+					`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
+					{
+						method: 'POST',
+						headers: {
+							'Authorization': `Bearer ${accessToken}`,
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							requests: [{ addSheet: addSheetRequest }],
+						}),
+					},
+				);
+
+				if (!response.ok) {
+					const error = await response.text();
+					throw new Error(`Failed to add sheet: ${error}`);
+				}
+
+				const result = await response.json() as { replies?: Array<{ addSheet?: { properties?: unknown } }> };
+				const sheetProperties = result.replies?.[0]?.addSheet?.properties;
+				return { spreadsheetId, sheetProperties };
+			},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
+				title: z.string().describe('Title for the new sheet'),
+				rowCount: z.number().int().optional().describe('Number of rows in the new sheet'),
+				columnCount: z.number().int().optional().describe('Number of columns in the new sheet'),
+			}),
+			outputSchema: z.object({
+				spreadsheetId: z.string(),
+				sheetProperties: z.object({
+					sheetId: z.number(),
+					title: z.string(),
+					index: z.number(),
+				}).optional(),
+			}),
+		},
+		{
+			handle: 'deleteSheet',
+			description: 'Delete a sheet (tab) from a spreadsheet by its sheet ID',
+			scopes: ['write'],
+			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
+				const config = context.config as Record<string, unknown>;
+				const accessToken = config?.accessToken as string;
+				const spreadsheetId = input.spreadsheetId as string;
+
+				const response = await fetch(
+					`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
+					{
+						method: 'POST',
+						headers: {
+							'Authorization': `Bearer ${accessToken}`,
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							requests: [{ deleteSheet: { sheetId: input.sheetId } }],
+						}),
+					},
+				);
+
+				if (!response.ok) {
+					const error = await response.text();
+					throw new Error(`Failed to delete sheet: ${error}`);
+				}
+
+				return { success: true, spreadsheetId, deletedSheetId: input.sheetId };
+			},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
+				sheetId: z.number().int().describe('The numeric ID of the sheet to delete'),
+			}),
+			outputSchema: z.object({
+				success: z.boolean(),
+				spreadsheetId: z.string(),
+				deletedSheetId: z.number(),
+			}),
+		},
+		{
+			handle: 'getSheetData',
+			description: 'Get all data from a named sheet in a spreadsheet',
+			scopes: ['read'],
+			method: 'GET',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}/values/{{ input.sheetName }}',
+			queryParams: {
+				valueRenderOption: '{{ input.valueRenderOption }}',
+			},
+			inputSchema: z.object({
+				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
+				sheetName: z.string().describe('The name of the sheet to retrieve data from'),
+				valueRenderOption: z.string().optional().describe('How values should be represented (FORMATTED_VALUE, UNFORMATTED_VALUE, FORMULA)'),
+			}),
+			outputSchema: z.object({
+				range: z.string(),
+				majorDimension: z.string(),
+				values: z.array(z.array(z.unknown())).optional(),
+			}),
+		},
+	],
+};
