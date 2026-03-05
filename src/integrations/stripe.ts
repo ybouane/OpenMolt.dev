@@ -1,50 +1,20 @@
 /**
  * @module integrations/stripe
  * Stripe API v1 integration definition.
+ * All write operations use url-encoded request format (Stripe's standard).
  */
 
 import { z } from 'zod';
-import type { IntegrationDefinition, ToolContext } from '../types/index.js';
-
-/** Encode a plain object as an x-www-form-urlencoded string, supporting nested objects/arrays. */
-function toFormEncoded(obj: Record<string, unknown>, prefix = ''): string {
-	const params = new URLSearchParams();
-
-	function flatten(value: unknown, key: string): void {
-		if (value === null || value === undefined) return;
-		if (Array.isArray(value)) {
-			value.forEach((item, idx) => flatten(item, `${key}[${idx}]`));
-		} else if (typeof value === 'object') {
-			Object.entries(value as Record<string, unknown>).forEach(([k, v]) => flatten(v, `${key}[${k}]`));
-		} else {
-			params.append(key, String(value));
-		}
-	}
-
-	Object.entries(obj).forEach(([k, v]) => flatten(v, prefix ? `${prefix}[${k}]` : k));
-	return params.toString();
-}
-
-function stripeHeaders(context: ToolContext): Record<string, string> {
-	const config = context.config ?? {};
-	return {
-		Authorization: `Bearer ${config.apiKey ?? ''}`,
-		'Content-Type': 'application/x-www-form-urlencoded',
-		'Stripe-Version': '2024-06-20',
-	};
-}
-
-const STRIPE_BASE = 'https://api.stripe.com/v1';
+import type { IntegrationDefinition } from '../types/index.js';
 
 export const stripeDefinition: IntegrationDefinition = {
 	name: 'Stripe',
 	apiSetup: {
-		baseUrl: STRIPE_BASE,
+		baseUrl: 'https://api.stripe.com/v1',
 		headers: {
-			Authorization: 'Bearer {{ config.apiKey }}',
 			'Stripe-Version': '2024-06-20',
 		},
-		requestFormat: 'form-data',
+		requestFormat: 'url-encoded',
 		responseFormat: 'json',
 	},
 	credentialSetup: [
@@ -80,7 +50,6 @@ export const stripeDefinition: IntegrationDefinition = {
 				starting_after: z.string().optional().describe('Cursor: return results after this customer ID'),
 				ending_before: z.string().optional().describe('Cursor: return results before this customer ID'),
 				email: z.string().optional().describe('Filter by exact email address'),
-				created: z.record(z.unknown()).optional().describe('Filter by creation timestamp (e.g. {gte: 1680000000})'),
 			}),
 		},
 
@@ -99,25 +68,20 @@ export const stripeDefinition: IntegrationDefinition = {
 			handle: 'createCustomer',
 			description: 'Create a new Stripe customer.',
 			scopes: ['write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { id: _id, ...fields } = input;
-				const response = await fetch(`${STRIPE_BASE}/customers`, {
-					method: 'POST',
-					headers: stripeHeaders(context),
-					body: toFormEncoded(fields as Record<string, unknown>),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Stripe createCustomer failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/customers',
+			body: {
+				email: '{{ input.email }}',
+				name: '{{ input.name }}',
+				phone: '{{ input.phone }}',
+				description: '{{ input.description }}',
+				metadata: '{{ input.metadata }}',
 			},
 			inputSchema: z.object({
 				email: z.string().email().optional().describe('Customer email address'),
 				name: z.string().optional().describe('Customer full name'),
 				phone: z.string().optional().describe('Customer phone number'),
 				description: z.string().optional().describe('Internal description of the customer'),
-				address: z.record(z.unknown()).optional().describe('Customer address object'),
 				metadata: z.record(z.string()).optional().describe('Set of key-value pairs for metadata'),
 			}),
 		},
@@ -126,18 +90,13 @@ export const stripeDefinition: IntegrationDefinition = {
 			handle: 'updateCustomer',
 			description: 'Update an existing Stripe customer.',
 			scopes: ['write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { id, ...fields } = input as Record<string, unknown>;
-				const response = await fetch(`${STRIPE_BASE}/customers/${id}`, {
-					method: 'POST',
-					headers: stripeHeaders(context),
-					body: toFormEncoded(fields),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Stripe updateCustomer failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/customers/{{ input.id }}',
+			body: {
+				email: '{{ input.email }}',
+				name: '{{ input.name }}',
+				description: '{{ input.description }}',
+				metadata: '{{ input.metadata }}',
 			},
 			inputSchema: z.object({
 				id: z.string().describe('The Stripe customer ID to update'),
@@ -176,7 +135,6 @@ export const stripeDefinition: IntegrationDefinition = {
 				limit: z.number().int().min(1).max(100).optional().describe('Number of results to return'),
 				starting_after: z.string().optional().describe('Cursor: return results after this PaymentIntent ID'),
 				customer: z.string().optional().describe('Filter by customer ID'),
-				created: z.record(z.unknown()).optional().describe('Filter by creation timestamp'),
 			}),
 		},
 
@@ -195,18 +153,17 @@ export const stripeDefinition: IntegrationDefinition = {
 			handle: 'createPaymentIntent',
 			description: 'Create a Stripe PaymentIntent to collect a payment.',
 			scopes: ['write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { id: _id, ...fields } = input;
-				const response = await fetch(`${STRIPE_BASE}/payment_intents`, {
-					method: 'POST',
-					headers: stripeHeaders(context),
-					body: toFormEncoded(fields as Record<string, unknown>),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Stripe createPaymentIntent failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/payment_intents',
+			body: {
+				amount: '{{ input.amount }}',
+				currency: '{{ input.currency }}',
+				customer: '{{ input.customer }}',
+				description: '{{ input.description }}',
+				metadata: '{{ input.metadata }}',
+				payment_method_types: '{{ input.payment_method_types }}',
+				confirm: '{{ input.confirm }}',
+				receipt_email: '{{ input.receipt_email }}',
 			},
 			inputSchema: z.object({
 				amount: z.number().int().describe('Amount in the smallest currency unit (e.g. cents)'),
@@ -215,7 +172,6 @@ export const stripeDefinition: IntegrationDefinition = {
 				description: z.string().optional().describe('Description of the payment'),
 				metadata: z.record(z.string()).optional().describe('Metadata key-value pairs'),
 				payment_method_types: z.array(z.string()).optional().describe('List of payment method types (e.g. ["card"])'),
-				automatic_payment_methods: z.record(z.unknown()).optional().describe('Automatic payment method configuration'),
 				confirm: z.boolean().optional().describe('Whether to confirm the PaymentIntent immediately'),
 				receipt_email: z.string().email().optional().describe('Email for the receipt'),
 			}),
@@ -225,18 +181,11 @@ export const stripeDefinition: IntegrationDefinition = {
 			handle: 'confirmPaymentIntent',
 			description: 'Confirm a Stripe PaymentIntent to attempt the payment.',
 			scopes: ['write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { id, ...fields } = input as Record<string, unknown>;
-				const response = await fetch(`${STRIPE_BASE}/payment_intents/${id}/confirm`, {
-					method: 'POST',
-					headers: stripeHeaders(context),
-					body: toFormEncoded(fields),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Stripe confirmPaymentIntent failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/payment_intents/{{ input.id }}/confirm',
+			body: {
+				payment_method: '{{ input.payment_method }}',
+				return_url: '{{ input.return_url }}',
 			},
 			inputSchema: z.object({
 				id: z.string().describe('The PaymentIntent ID to confirm'),
@@ -249,18 +198,10 @@ export const stripeDefinition: IntegrationDefinition = {
 			handle: 'cancelPaymentIntent',
 			description: 'Cancel a Stripe PaymentIntent that has not yet been confirmed.',
 			scopes: ['write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { id, ...fields } = input as Record<string, unknown>;
-				const response = await fetch(`${STRIPE_BASE}/payment_intents/${id}/cancel`, {
-					method: 'POST',
-					headers: stripeHeaders(context),
-					body: toFormEncoded(fields),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Stripe cancelPaymentIntent failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/payment_intents/{{ input.id }}/cancel',
+			body: {
+				cancellation_reason: '{{ input.cancellation_reason }}',
 			},
 			inputSchema: z.object({
 				id: z.string().describe('The PaymentIntent ID to cancel'),
@@ -292,18 +233,14 @@ export const stripeDefinition: IntegrationDefinition = {
 			handle: 'createProduct',
 			description: 'Create a new Stripe product.',
 			scopes: ['write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { id: _id, ...fields } = input;
-				const response = await fetch(`${STRIPE_BASE}/products`, {
-					method: 'POST',
-					headers: stripeHeaders(context),
-					body: toFormEncoded(fields as Record<string, unknown>),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Stripe createProduct failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/products',
+			body: {
+				name: '{{ input.name }}',
+				description: '{{ input.description }}',
+				active: '{{ input.active }}',
+				metadata: '{{ input.metadata }}',
+				images: '{{ input.images }}',
 			},
 			inputSchema: z.object({
 				name: z.string().describe('Product name'),
@@ -340,18 +277,14 @@ export const stripeDefinition: IntegrationDefinition = {
 			handle: 'createPrice',
 			description: 'Create a new Stripe price for a product.',
 			scopes: ['write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { id: _id, ...fields } = input;
-				const response = await fetch(`${STRIPE_BASE}/prices`, {
-					method: 'POST',
-					headers: stripeHeaders(context),
-					body: toFormEncoded(fields as Record<string, unknown>),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Stripe createPrice failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/prices',
+			body: {
+				product: '{{ input.product }}',
+				unit_amount: '{{ input.unit_amount }}',
+				currency: '{{ input.currency }}',
+				recurring: '{{ input.recurring }}',
+				metadata: '{{ input.metadata }}',
 			},
 			inputSchema: z.object({
 				product: z.string().describe('The product ID this price belongs to'),
@@ -368,23 +301,19 @@ export const stripeDefinition: IntegrationDefinition = {
 			handle: 'createRefund',
 			description: 'Create a refund for a charge or payment intent.',
 			scopes: ['write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { id: _id, ...fields } = input;
-				const response = await fetch(`${STRIPE_BASE}/refunds`, {
-					method: 'POST',
-					headers: stripeHeaders(context),
-					body: toFormEncoded(fields as Record<string, unknown>),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Stripe createRefund failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/refunds',
+			body: {
+				charge: '{{ input.charge }}',
+				payment_intent: '{{ input.payment_intent }}',
+				amount: '{{ input.amount }}',
+				reason: '{{ input.reason }}',
+				metadata: '{{ input.metadata }}',
 			},
 			inputSchema: z.object({
 				charge: z.string().optional().describe('Charge ID to refund (ch_...)'),
 				payment_intent: z.string().optional().describe('PaymentIntent ID to refund (pi_...)'),
-				amount: z.number().int().optional().describe('Amount to refund in smallest currency unit; omit to refund the full charge'),
+				amount: z.number().int().optional().describe('Amount to refund; omit to refund the full charge'),
 				reason: z.enum(['duplicate', 'fraudulent', 'requested_by_customer']).optional().describe('Reason for the refund'),
 				metadata: z.record(z.string()).optional().describe('Metadata key-value pairs'),
 			}),
@@ -429,18 +358,17 @@ export const stripeDefinition: IntegrationDefinition = {
 			handle: 'createCheckoutSession',
 			description: 'Create a Stripe Checkout Session for payment, subscription, or setup mode.',
 			scopes: ['checkout'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { id: _id, ...fields } = input;
-				const response = await fetch(`${STRIPE_BASE}/checkout/sessions`, {
-					method: 'POST',
-					headers: stripeHeaders(context),
-					body: toFormEncoded(fields as Record<string, unknown>),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Stripe createCheckoutSession failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/checkout/sessions',
+			body: {
+				mode: '{{ input.mode }}',
+				success_url: '{{ input.success_url }}',
+				cancel_url: '{{ input.cancel_url }}',
+				line_items: '{{ input.line_items }}',
+				customer: '{{ input.customer }}',
+				customer_email: '{{ input.customer_email }}',
+				payment_method_types: '{{ input.payment_method_types }}',
+				metadata: '{{ input.metadata }}',
 			},
 			inputSchema: z.object({
 				mode: z.enum(['payment', 'subscription', 'setup']).describe('The mode of the Checkout Session'),
@@ -506,18 +434,12 @@ export const stripeDefinition: IntegrationDefinition = {
 			handle: 'createWebhookEndpoint',
 			description: 'Register a new webhook endpoint to receive Stripe events.',
 			scopes: ['write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { id: _id, ...fields } = input;
-				const response = await fetch(`${STRIPE_BASE}/webhook_endpoints`, {
-					method: 'POST',
-					headers: stripeHeaders(context),
-					body: toFormEncoded(fields as Record<string, unknown>),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Stripe createWebhookEndpoint failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/webhook_endpoints',
+			body: {
+				url: '{{ input.url }}',
+				enabled_events: '{{ input.enabled_events }}',
+				description: '{{ input.description }}',
 			},
 			inputSchema: z.object({
 				url: z.string().url().describe('The URL to deliver webhook events to'),

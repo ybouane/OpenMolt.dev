@@ -4,14 +4,13 @@
  */
 
 import { z } from 'zod';
-import type { IntegrationDefinition, ToolContext } from '../types/index.js';
+import type { IntegrationDefinition } from '../types/index.js';
 
 export const shopifyDefinition: IntegrationDefinition = {
 	name: 'Shopify',
 	apiSetup: {
 		baseUrl: 'https://{{ config.shopDomain }}/admin/api/2024-10',
 		headers: {
-			'X-Shopify-Access-Token': '{{ config.accessToken }}',
 			'Content-Type': 'application/json',
 		},
 		requestFormat: 'json',
@@ -37,7 +36,7 @@ export const shopifyDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'listProducts',
-			description: 'List products in the Shopify store with optional filters for status, vendor, type, collection, and pagination.',
+			description: 'List products in the Shopify store with optional filters.',
 			scopes: ['products'],
 			method: 'GET',
 			endpoint: '/products.json',
@@ -88,25 +87,22 @@ export const shopifyDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'createProduct',
-			description: 'Create a new product in the Shopify store with variants, images, and options.',
+			description: 'Create a new product in the Shopify store.',
 			scopes: ['products'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const config = context.config ?? {};
-				const { id: _id, ...productFields } = input as Record<string, unknown>;
-				const baseUrl = `https://${config.shopDomain}/admin/api/2024-10`;
-				const response = await fetch(`${baseUrl}/products.json`, {
-					method: 'POST',
-					headers: {
-						'X-Shopify-Access-Token': String(config.accessToken ?? ''),
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ product: productFields }),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Shopify createProduct failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/products.json',
+			body: {
+				product: {
+					title: '{{ input.title }}',
+					body_html: '{{ input.body_html }}',
+					vendor: '{{ input.vendor }}',
+					product_type: '{{ input.product_type }}',
+					tags: '{{ input.tags }}',
+					status: '{{ input.status }}',
+					variants: '{{ input.variants }}',
+					images: '{{ input.images }}',
+					options: '{{ input.options }}',
+				},
 			},
 			inputSchema: z.object({
 				title: z.string().describe('Product title'),
@@ -125,23 +121,19 @@ export const shopifyDefinition: IntegrationDefinition = {
 			handle: 'updateProduct',
 			description: 'Update an existing product by ID.',
 			scopes: ['products'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const config = context.config ?? {};
-				const { id, ...productFields } = input as Record<string, unknown>;
-				const baseUrl = `https://${config.shopDomain}/admin/api/2024-10`;
-				const response = await fetch(`${baseUrl}/products/${id}.json`, {
-					method: 'PUT',
-					headers: {
-						'X-Shopify-Access-Token': String(config.accessToken ?? ''),
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ product: { id, ...productFields } }),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Shopify updateProduct failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'PUT',
+			endpoint: '/products/{{ input.id }}.json',
+			body: {
+				product: {
+					id: '{{ input.id }}',
+					title: '{{ input.title }}',
+					body_html: '{{ input.body_html }}',
+					vendor: '{{ input.vendor }}',
+					product_type: '{{ input.product_type }}',
+					status: '{{ input.status }}',
+					tags: '{{ input.tags }}',
+					variants: '{{ input.variants }}',
+				},
 			},
 			inputSchema: z.object({
 				id: z.union([z.string(), z.number()]).describe('The product ID to update'),
@@ -170,7 +162,7 @@ export const shopifyDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'listOrders',
-			description: 'List orders in the Shopify store with optional filters for status, financial status, and fulfillment status.',
+			description: 'List orders in the Shopify store with optional filters.',
 			scopes: ['orders'],
 			method: 'GET',
 			endpoint: '/orders.json',
@@ -217,23 +209,16 @@ export const shopifyDefinition: IntegrationDefinition = {
 			handle: 'updateOrder',
 			description: 'Update an existing order (tags, note, email, shipping address).',
 			scopes: ['orders'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const config = context.config ?? {};
-				const { id, ...orderFields } = input as Record<string, unknown>;
-				const baseUrl = `https://${config.shopDomain}/admin/api/2024-10`;
-				const response = await fetch(`${baseUrl}/orders/${id}.json`, {
-					method: 'PUT',
-					headers: {
-						'X-Shopify-Access-Token': String(config.accessToken ?? ''),
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ order: { id, ...orderFields } }),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Shopify updateOrder failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'PUT',
+			endpoint: '/orders/{{ input.id }}.json',
+			body: {
+				order: {
+					id: '{{ input.id }}',
+					tags: '{{ input.tags }}',
+					note: '{{ input.note }}',
+					email: '{{ input.email }}',
+					shipping_address: '{{ input.shipping_address }}',
+				},
 			},
 			inputSchema: z.object({
 				id: z.union([z.string(), z.number()]).describe('The order ID to update'),
@@ -246,7 +231,7 @@ export const shopifyDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'cancelOrder',
-			description: 'Cancel an order by its ID, with optional refund and notification settings.',
+			description: 'Cancel an order by its ID.',
 			scopes: ['orders'],
 			method: 'POST',
 			endpoint: '/orders/{{ input.id }}/cancel.json',
@@ -269,7 +254,7 @@ export const shopifyDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'listCustomers',
-			description: 'List customers in the Shopify store with optional filters.',
+			description: 'List customers in the Shopify store.',
 			scopes: ['customers'],
 			method: 'GET',
 			endpoint: '/customers.json',
@@ -312,22 +297,19 @@ export const shopifyDefinition: IntegrationDefinition = {
 			handle: 'createCustomer',
 			description: 'Create a new customer record in Shopify.',
 			scopes: ['customers'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const config = context.config ?? {};
-				const baseUrl = `https://${config.shopDomain}/admin/api/2024-10`;
-				const response = await fetch(`${baseUrl}/customers.json`, {
-					method: 'POST',
-					headers: {
-						'X-Shopify-Access-Token': String(config.accessToken ?? ''),
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ customer: input }),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Shopify createCustomer failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/customers.json',
+			body: {
+				customer: {
+					first_name: '{{ input.first_name }}',
+					last_name: '{{ input.last_name }}',
+					email: '{{ input.email }}',
+					phone: '{{ input.phone }}',
+					tags: '{{ input.tags }}',
+					note: '{{ input.note }}',
+					addresses: '{{ input.addresses }}',
+					accepts_marketing: '{{ input.accepts_marketing }}',
+				},
 			},
 			inputSchema: z.object({
 				first_name: z.string().optional().describe('Customer first name'),
@@ -419,25 +401,16 @@ export const shopifyDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'createFulfillment',
-			description: 'Create a fulfillment for an order, optionally specifying line items and tracking information.',
+			description: 'Create a fulfillment for an order.',
 			scopes: ['fulfillments'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const config = context.config ?? {};
-				const { orderId, ...fulfillmentFields } = input as Record<string, unknown>;
-				const baseUrl = `https://${config.shopDomain}/admin/api/2024-10`;
-				const response = await fetch(`${baseUrl}/orders/${orderId}/fulfillments.json`, {
-					method: 'POST',
-					headers: {
-						'X-Shopify-Access-Token': String(config.accessToken ?? ''),
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ fulfillment: fulfillmentFields }),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Shopify createFulfillment failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/orders/{{ input.orderId }}/fulfillments.json',
+			body: {
+				fulfillment: {
+					line_items: '{{ input.line_items }}',
+					notify_customer: '{{ input.notify_customer }}',
+					tracking_info: '{{ input.tracking_info }}',
+				},
 			},
 			inputSchema: z.object({
 				orderId: z.union([z.string(), z.number()]).describe('The order ID to fulfill'),
@@ -451,7 +424,7 @@ export const shopifyDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'getShop',
-			description: 'Get information about the Shopify store (shop) such as name, email, currency, and plan.',
+			description: 'Get information about the Shopify store.',
 			scopes: ['products'],
 			method: 'GET',
 			endpoint: '/shop.json',

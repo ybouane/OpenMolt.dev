@@ -89,40 +89,23 @@ export const tiktokDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'uploadVideoInit',
-			description: 'Initialize a video upload session. Returns a publish_id and upload URL. Use PULL_FROM_URL source to have TikTok pull the video from a URL.',
+			description: 'Initialize a video upload session. Returns a publish_id. Set source to PULL_FROM_URL and provide videoUrl to have TikTok pull the video from a URL, or use FILE_UPLOAD for direct uploads.',
 			scopes: ['video.write'],
-			execute: async (input, context) => {
-				const accessToken = context.config?.accessToken as string;
-
-				const postInfo: Record<string, unknown> = {
-					title: input.title,
-					privacy_level: input.privacyLevel,
-				};
-				if (input.disableComment !== undefined) postInfo.disable_comment = input.disableComment;
-				if (input.disableDuet !== undefined) postInfo.disable_duet = input.disableDuet;
-				if (input.disableStitch !== undefined) postInfo.disable_stitch = input.disableStitch;
-				if (input.videoCoverTimestampMs !== undefined) postInfo.video_cover_timestamp_ms = input.videoCoverTimestampMs;
-
-				const body: Record<string, unknown> = { post_info: postInfo };
-
-				if (input.videoUrl) {
-					body.source_info = {
-						source: 'PULL_FROM_URL',
-						video_url: input.videoUrl,
-					};
-				} else {
-					body.source_info = { source: 'FILE_UPLOAD' };
-				}
-
-				const response = await fetch('https://open.tiktokapis.com/v2/post/video/init/', {
-					method: 'POST',
-					headers: {
-						Authorization: `Bearer ${accessToken}`,
-						'Content-Type': 'application/json; charset=UTF-8',
-					},
-					body: JSON.stringify(body),
-				});
-				return response.json();
+			method: 'POST',
+			endpoint: 'https://open.tiktokapis.com/v2/post/video/init/',
+			body: {
+				post_info: {
+					title: '{{ input.title }}',
+					privacy_level: '{{ input.privacyLevel }}',
+					disable_comment: '{{ input.disableComment }}',
+					disable_duet: '{{ input.disableDuet }}',
+					disable_stitch: '{{ input.disableStitch }}',
+					video_cover_timestamp_ms: '{{ input.videoCoverTimestampMs }}',
+				},
+				source_info: {
+					source: '{{ input.source }}',
+					video_url: '{{ input.videoUrl }}',
+				},
 			},
 			inputSchema: z.object({
 				title: z.string().max(150).describe('Video title/caption (max 150 characters)'),
@@ -132,11 +115,12 @@ export const tiktokDefinition: IntegrationDefinition = {
 					'FOLLOWER_OF_CREATOR',
 					'PUBLIC_TO_EVERYONE',
 				]).describe('Who can see the video'),
+				source: z.enum(['PULL_FROM_URL', 'FILE_UPLOAD']).default('PULL_FROM_URL').describe('Upload source type'),
+				videoUrl: z.string().url().optional().describe('Public URL for TikTok to pull the video from (required when source is PULL_FROM_URL)'),
 				disableComment: z.boolean().optional().describe('Disable comments on the video'),
 				disableDuet: z.boolean().optional().describe('Disable duet for the video'),
 				disableStitch: z.boolean().optional().describe('Disable stitch for the video'),
 				videoCoverTimestampMs: z.number().int().optional().describe('Timestamp in milliseconds for the video cover frame'),
-				videoUrl: z.string().url().optional().describe('Public URL for TikTok to pull the video from (uses PULL_FROM_URL source)'),
 			}),
 		},
 

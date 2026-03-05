@@ -33,52 +33,31 @@ export const airtableDefinition: IntegrationDefinition = {
 	tools: [
 		{
 			handle: 'listRecords',
-			description: 'List records in an Airtable table with optional filtering, sorting, and pagination. Handles array query params correctly.',
+			description: 'List records in an Airtable table with optional filtering, sorting, and pagination.',
 			scopes: ['read'],
-			execute: async (input, context) => {
-				const apiKey = context.config?.apiKey as string;
-				const baseId = input.baseId as string;
-				const tableIdOrName = encodeURIComponent(input.tableIdOrName as string);
-
-				const params = new URLSearchParams();
-				if (input.filterByFormula) params.set('filterByFormula', input.filterByFormula as string);
-				if (input.maxRecords) params.set('maxRecords', String(input.maxRecords));
-				if (input.pageSize) params.set('pageSize', String(input.pageSize));
-				if (input.view) params.set('view', input.view as string);
-				if (input.offset) params.set('offset', input.offset as string);
-				if (input.returnFieldsByFieldId) params.set('returnFieldsByFieldId', String(input.returnFieldsByFieldId));
-
-				if (Array.isArray(input.fields)) {
-					for (const field of input.fields as string[]) {
-						params.append('fields[]', field);
-					}
-				}
-
-				if (Array.isArray(input.sort)) {
-					const sortArr = input.sort as Array<{ field: string; direction?: string }>;
-					sortArr.forEach((s, i) => {
-						params.append(`sort[${i}][field]`, s.field);
-						if (s.direction) params.append(`sort[${i}][direction]`, s.direction);
-					});
-				}
-
-				const url = `https://api.airtable.com/v0/${baseId}/${tableIdOrName}?${params.toString()}`;
-				const response = await fetch(url, {
-					headers: { Authorization: `Bearer ${apiKey}` },
-				});
-				return response.json();
+			method: 'GET',
+			endpoint: '/{{ input.baseId }}/{{ input.tableIdOrName }}',
+			queryParams: {
+				filterByFormula: '{{ input.filterByFormula }}',
+				maxRecords: '{{ input.maxRecords }}',
+				pageSize: '{{ input.pageSize }}',
+				view: '{{ input.view }}',
+				offset: '{{ input.offset }}',
+				returnFieldsByFieldId: '{{ input.returnFieldsByFieldId }}',
+				'fields[]': '{{ input.fields }}',
+				sort: '{{ input.sort }}',
 			},
 			inputSchema: z.object({
 				baseId: z.string().describe('The Airtable base ID (e.g. appXXXXXXXXXXXXXX)'),
 				tableIdOrName: z.string().describe('The table name or table ID'),
-				filterByFormula: z.string().optional().describe('Airtable formula to filter records (e.g. "{Status} = \'Active\'")'),
+				filterByFormula: z.string().optional().describe('Airtable formula to filter records'),
 				maxRecords: z.number().int().min(1).optional().describe('Maximum total number of records to return'),
 				pageSize: z.number().int().min(1).max(100).optional().describe('Number of records per page (max 100)'),
 				sort: z.array(z.object({
 					field: z.string().describe('Field name to sort by'),
 					direction: z.enum(['asc', 'desc']).optional().describe('Sort direction'),
 				})).optional().describe('Array of sort criteria'),
-				view: z.string().optional().describe('Name or ID of a view to use for filtering and sorting'),
+				view: z.string().optional().describe('Name or ID of a view to use'),
 				fields: z.array(z.string()).optional().describe('Array of field names to include in records'),
 				offset: z.string().optional().describe('Pagination offset from a previous response'),
 				returnFieldsByFieldId: z.boolean().optional().describe('Return field IDs instead of field names as keys'),
@@ -134,7 +113,7 @@ export const airtableDefinition: IntegrationDefinition = {
 				baseId: z.string().describe('The Airtable base ID'),
 				tableIdOrName: z.string().describe('The table name or table ID'),
 				recordId: z.string().describe('The ID of the record to update'),
-				fields: z.record(z.unknown()).describe('Field values to update (only specified fields are changed)'),
+				fields: z.record(z.unknown()).describe('Field values to update'),
 				typecast: z.boolean().optional().describe('Automatically convert string values to appropriate field types'),
 			}),
 		},
@@ -198,23 +177,10 @@ export const airtableDefinition: IntegrationDefinition = {
 			handle: 'deleteRecords',
 			description: 'Delete multiple records from an Airtable table in a single request (max 10).',
 			scopes: ['write'],
-			execute: async (input, context) => {
-				const apiKey = context.config?.apiKey as string;
-				const baseId = input.baseId as string;
-				const tableIdOrName = encodeURIComponent(input.tableIdOrName as string);
-				const records = input.records as string[];
-
-				const params = new URLSearchParams();
-				for (const id of records) {
-					params.append('records[]', id);
-				}
-
-				const url = `https://api.airtable.com/v0/${baseId}/${tableIdOrName}?${params.toString()}`;
-				const response = await fetch(url, {
-					method: 'DELETE',
-					headers: { Authorization: `Bearer ${apiKey}` },
-				});
-				return response.json();
+			method: 'DELETE',
+			endpoint: '/{{ input.baseId }}/{{ input.tableIdOrName }}',
+			queryParams: {
+				'records[]': '{{ input.records }}',
 			},
 			inputSchema: z.object({
 				baseId: z.string().describe('The Airtable base ID'),
@@ -239,7 +205,7 @@ export const airtableDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'getBaseSchema',
-			description: 'Retrieve the schema of all tables in an Airtable base, including field types and configurations.',
+			description: 'Retrieve the schema of all tables in an Airtable base.',
 			scopes: ['schema'],
 			method: 'GET',
 			endpoint: '/meta/bases/{{ input.baseId }}/tables',
@@ -306,42 +272,28 @@ export const airtableDefinition: IntegrationDefinition = {
 				baseId: z.string().describe('The Airtable base ID'),
 				tableId: z.string().describe('The table ID to add the field to'),
 				name: z.string().describe('Name for the new field'),
-				type: z.string().describe('Field type (e.g. singleLineText, number, checkbox, singleSelect, date, email, url, attachment, multipleRecordLinks)'),
+				type: z.string().describe('Field type (e.g. singleLineText, number, checkbox, singleSelect, date)'),
 				description: z.string().optional().describe('Optional description for the field'),
-				options: z.record(z.unknown()).optional().describe('Field type-specific options (e.g. choices for singleSelect)'),
+				options: z.record(z.unknown()).optional().describe('Field type-specific options'),
 			}),
 		},
 
 		{
 			handle: 'searchRecords',
-			description: 'Search for records in a table using an Airtable formula. A convenience wrapper around listRecords.',
+			description: 'Search for records in a table using an Airtable formula.',
 			scopes: ['read'],
-			execute: async (input, context) => {
-				const apiKey = context.config?.apiKey as string;
-				const baseId = input.baseId as string;
-				const tableIdOrName = encodeURIComponent(input.tableIdOrName as string);
-
-				const params = new URLSearchParams();
-				params.set('filterByFormula', input.formula as string);
-				if (input.maxRecords) params.set('maxRecords', String(input.maxRecords));
-				if (input.view) params.set('view', input.view as string);
-
-				if (Array.isArray(input.fields)) {
-					for (const field of input.fields as string[]) {
-						params.append('fields[]', field);
-					}
-				}
-
-				const url = `https://api.airtable.com/v0/${baseId}/${tableIdOrName}?${params.toString()}`;
-				const response = await fetch(url, {
-					headers: { Authorization: `Bearer ${apiKey}` },
-				});
-				return response.json();
+			method: 'GET',
+			endpoint: '/{{ input.baseId }}/{{ input.tableIdOrName }}',
+			queryParams: {
+				filterByFormula: '{{ input.formula }}',
+				maxRecords: '{{ input.maxRecords }}',
+				view: '{{ input.view }}',
+				'fields[]': '{{ input.fields }}',
 			},
 			inputSchema: z.object({
 				baseId: z.string().describe('The Airtable base ID'),
 				tableIdOrName: z.string().describe('The table name or table ID'),
-				formula: z.string().describe('Airtable formula to filter records (e.g. "AND({Status}=\'Active\', {Priority}=\'High\')")'),
+				formula: z.string().describe('Airtable formula to filter records'),
 				maxRecords: z.number().int().min(1).optional().describe('Maximum number of records to return'),
 				fields: z.array(z.string()).optional().describe('Array of field names to include in the response'),
 				view: z.string().optional().describe('Name or ID of a view to restrict the search'),

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { IntegrationDefinition, ToolContext } from '../types/index.js';
+import type { IntegrationDefinition } from '../types/index.js';
 
 export const googleSheetsDefinition: IntegrationDefinition = {
 	name: 'Google Sheets',
@@ -301,46 +301,23 @@ export const googleSheetsDefinition: IntegrationDefinition = {
 			handle: 'addSheet',
 			description: 'Add a new sheet (tab) to an existing spreadsheet',
 			scopes: ['write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const config = context.config as Record<string, unknown>;
-				const accessToken = config?.accessToken as string;
-				const spreadsheetId = input.spreadsheetId as string;
-
-				const addSheetRequest: Record<string, unknown> = {
-					properties: {
-						title: input.title,
-					},
-				};
-
-				if (input.rowCount !== undefined || input.columnCount !== undefined) {
-					const gridProperties: Record<string, number> = {};
-					if (input.rowCount !== undefined) gridProperties.rowCount = input.rowCount as number;
-					if (input.columnCount !== undefined) gridProperties.columnCount = input.columnCount as number;
-					(addSheetRequest.properties as Record<string, unknown>).gridProperties = gridProperties;
-				}
-
-				const response = await fetch(
-					`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
+			method: 'POST',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}:batchUpdate',
+			body: {
+				requests: [
 					{
-						method: 'POST',
-						headers: {
-							'Authorization': `Bearer ${accessToken}`,
-							'Content-Type': 'application/json',
+						addSheet: {
+							properties: {
+								title: '{{ input.title }}',
+								gridProperties: {
+									rowCount: '{{ input.rowCount }}',
+									columnCount: '{{ input.columnCount }}',
+								},
+							},
 						},
-						body: JSON.stringify({
-							requests: [{ addSheet: addSheetRequest }],
-						}),
 					},
-				);
-
-				if (!response.ok) {
-					const error = await response.text();
-					throw new Error(`Failed to add sheet: ${error}`);
-				}
-
-				const result = await response.json() as { replies?: Array<{ addSheet?: { properties?: unknown } }> };
-				const sheetProperties = result.replies?.[0]?.addSheet?.properties;
-				return { spreadsheetId, sheetProperties };
+				],
+				includeSpreadsheetInResponse: false,
 			},
 			inputSchema: z.object({
 				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
@@ -350,51 +327,32 @@ export const googleSheetsDefinition: IntegrationDefinition = {
 			}),
 			outputSchema: z.object({
 				spreadsheetId: z.string(),
-				sheetProperties: z.object({
-					sheetId: z.number(),
-					title: z.string(),
-					index: z.number(),
-				}).optional(),
+				replies: z.array(z.record(z.unknown())).optional(),
 			}),
 		},
 		{
 			handle: 'deleteSheet',
 			description: 'Delete a sheet (tab) from a spreadsheet by its sheet ID',
 			scopes: ['write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const config = context.config as Record<string, unknown>;
-				const accessToken = config?.accessToken as string;
-				const spreadsheetId = input.spreadsheetId as string;
-
-				const response = await fetch(
-					`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
+			method: 'POST',
+			endpoint: '/spreadsheets/{{ input.spreadsheetId }}:batchUpdate',
+			body: {
+				requests: [
 					{
-						method: 'POST',
-						headers: {
-							'Authorization': `Bearer ${accessToken}`,
-							'Content-Type': 'application/json',
+						deleteSheet: {
+							sheetId: '{{ input.sheetId }}',
 						},
-						body: JSON.stringify({
-							requests: [{ deleteSheet: { sheetId: input.sheetId } }],
-						}),
 					},
-				);
-
-				if (!response.ok) {
-					const error = await response.text();
-					throw new Error(`Failed to delete sheet: ${error}`);
-				}
-
-				return { success: true, spreadsheetId, deletedSheetId: input.sheetId };
+				],
+				includeSpreadsheetInResponse: false,
 			},
 			inputSchema: z.object({
 				spreadsheetId: z.string().describe('The ID of the spreadsheet'),
 				sheetId: z.number().int().describe('The numeric ID of the sheet to delete'),
 			}),
 			outputSchema: z.object({
-				success: z.boolean(),
 				spreadsheetId: z.string(),
-				deletedSheetId: z.number(),
+				replies: z.array(z.record(z.unknown())).optional(),
 			}),
 		},
 		{

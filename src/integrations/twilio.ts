@@ -1,6 +1,10 @@
 /**
  * @module integrations/twilio
  * Twilio REST API integration definition.
+ *
+ * Credential config fields:
+ *   - username: Twilio Account SID (also used in endpoint paths via {{ config.username }})
+ *   - password: Twilio Auth Token
  */
 
 import { z } from 'zod';
@@ -10,17 +14,14 @@ export const twilioDefinition: IntegrationDefinition = {
 	name: 'Twilio',
 	apiSetup: {
 		baseUrl: 'https://api.twilio.com/2010-04-01',
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
-		},
-		requestFormat: 'form-data',
+		requestFormat: 'url-encoded',
 		responseFormat: 'json',
 	},
 	credentialSetup: [
 		{
 			type: 'basic',
-			username: '{{ config.accountSid }}',
-			password: '{{ config.authToken }}',
+			username: '{{ config.username }}',
+			password: '{{ config.password }}',
 		},
 	],
 	scopes: {
@@ -32,270 +33,160 @@ export const twilioDefinition: IntegrationDefinition = {
 	tools: [
 		{
 			handle: 'sendSMS',
-			description: 'Send an SMS message via Twilio. Supports optional status callback and media URLs for MMS.',
+			description: 'Send an SMS message via Twilio.',
 			scopes: ['sms'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const body = new URLSearchParams();
-				body.set('From', input.from as string);
-				body.set('To', input.to as string);
-				body.set('Body', input.body as string);
-				if (input.statusCallback) body.set('StatusCallback', input.statusCallback as string);
-				if (input.mediaUrl) body.set('MediaUrl', input.mediaUrl as string);
-
-				const response = await fetch(
-					`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`,
-					{
-						method: 'POST',
-						headers: {
-							Authorization: `Basic ${auth}`,
-							'Content-Type': 'application/x-www-form-urlencoded',
-						},
-						body: body.toString(),
-					},
-				);
-				return response.json();
+			method: 'POST',
+			endpoint: '/Accounts/{{ config.username }}/Messages.json',
+			body: {
+				From: '{{ input.from }}',
+				To: '{{ input.to }}',
+				Body: '{{ input.body }}',
+				StatusCallback: '{{ input.statusCallback }}',
+				MediaUrl: '{{ input.mediaUrl }}',
 			},
 			inputSchema: z.object({
-				from: z.string().describe('The sender phone number (E.164 format, e.g. +15551234567)'),
-				to: z.string().describe('The recipient phone number (E.164 format)'),
-				body: z.string().describe('The text body of the SMS message'),
-				statusCallback: z.string().url().optional().describe('URL to receive status callback webhooks'),
-				mediaUrl: z.string().url().optional().describe('URL of media to include (for MMS)'),
+				from: z.string().describe('Sender phone number (E.164, e.g. +15551234567)'),
+				to: z.string().describe('Recipient phone number (E.164)'),
+				body: z.string().describe('Text body of the SMS message'),
+				statusCallback: z.string().url().optional().describe('URL for status callback webhooks'),
+				mediaUrl: z.string().url().optional().describe('URL of media to include (MMS)'),
 			}),
 		},
 
 		{
 			handle: 'sendWhatsApp',
-			description: 'Send a WhatsApp message via Twilio. The from/to numbers should be prefixed with "whatsapp:".',
+			description: 'Send a WhatsApp message via Twilio. Prefix from/to with "whatsapp:".',
 			scopes: ['sms'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const body = new URLSearchParams();
-				body.set('From', input.from as string);
-				body.set('To', input.to as string);
-				body.set('Body', input.body as string);
-				if (input.mediaUrl) body.set('MediaUrl', input.mediaUrl as string);
-
-				const response = await fetch(
-					`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`,
-					{
-						method: 'POST',
-						headers: {
-							Authorization: `Basic ${auth}`,
-							'Content-Type': 'application/x-www-form-urlencoded',
-						},
-						body: body.toString(),
-					},
-				);
-				return response.json();
+			method: 'POST',
+			endpoint: '/Accounts/{{ config.username }}/Messages.json',
+			body: {
+				From: '{{ input.from }}',
+				To: '{{ input.to }}',
+				Body: '{{ input.body }}',
+				MediaUrl: '{{ input.mediaUrl }}',
 			},
 			inputSchema: z.object({
-				from: z.string().describe('The sender WhatsApp number prefixed with "whatsapp:" (e.g. whatsapp:+14155238886)'),
-				to: z.string().describe('The recipient WhatsApp number prefixed with "whatsapp:" (e.g. whatsapp:+15551234567)'),
-				body: z.string().describe('The text body of the WhatsApp message'),
-				mediaUrl: z.string().url().optional().describe('URL of media to include in the WhatsApp message'),
+				from: z.string().describe('Sender WhatsApp number prefixed with "whatsapp:" (e.g. whatsapp:+14155238886)'),
+				to: z.string().describe('Recipient WhatsApp number prefixed with "whatsapp:"'),
+				body: z.string().describe('Text body of the WhatsApp message'),
+				mediaUrl: z.string().url().optional().describe('URL of media to include'),
 			}),
 		},
 
 		{
 			handle: 'makeCall',
-			description: 'Initiate an outbound phone call via Twilio. Provide either a TwiML URL or inline TwiML.',
+			description: 'Initiate an outbound phone call via Twilio.',
 			scopes: ['voice'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const body = new URLSearchParams();
-				body.set('From', input.from as string);
-				body.set('To', input.to as string);
-				if (input.url) body.set('Url', input.url as string);
-				if (input.twiml) body.set('Twiml', input.twiml as string);
-				if (input.method) body.set('Method', input.method as string);
-				if (input.statusCallback) body.set('StatusCallback', input.statusCallback as string);
-				if (input.record !== undefined) body.set('Record', String(input.record));
-
-				const response = await fetch(
-					`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls.json`,
-					{
-						method: 'POST',
-						headers: {
-							Authorization: `Basic ${auth}`,
-							'Content-Type': 'application/x-www-form-urlencoded',
-						},
-						body: body.toString(),
-					},
-				);
-				return response.json();
+			method: 'POST',
+			endpoint: '/Accounts/{{ config.username }}/Calls.json',
+			body: {
+				From: '{{ input.from }}',
+				To: '{{ input.to }}',
+				Url: '{{ input.url }}',
+				Twiml: '{{ input.twiml }}',
+				Method: '{{ input.method }}',
+				StatusCallback: '{{ input.statusCallback }}',
+				Record: '{{ input.record }}',
 			},
 			inputSchema: z.object({
-				from: z.string().describe('The caller phone number (E.164 format)'),
-				to: z.string().describe('The callee phone number (E.164 format)'),
-				url: z.string().url().optional().describe('URL of TwiML instructions for the call'),
-				twiml: z.string().optional().describe('Inline TwiML instructions for the call'),
-				method: z.string().optional().describe('HTTP method to use when fetching the TwiML URL (GET or POST)'),
-				statusCallback: z.string().url().optional().describe('URL to receive call status webhooks'),
+				from: z.string().describe('Caller phone number (E.164)'),
+				to: z.string().describe('Callee phone number (E.164)'),
+				url: z.string().url().optional().describe('URL of TwiML instructions'),
+				twiml: z.string().optional().describe('Inline TwiML instructions'),
+				method: z.string().optional().describe('HTTP method for fetching TwiML URL (GET or POST)'),
+				statusCallback: z.string().url().optional().describe('URL for call status webhooks'),
 				record: z.boolean().optional().describe('Whether to record the call'),
 			}),
 		},
 
 		{
 			handle: 'listMessages',
-			description: 'List SMS/MMS messages for the account with optional filters.',
+			description: 'List SMS/MMS messages for the account.',
 			scopes: ['sms'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const params = new URLSearchParams();
-				if (input.to) params.set('To', input.to as string);
-				if (input.from) params.set('From', input.from as string);
-				if (input.dateSent) params.set('DateSent', input.dateSent as string);
-				if (input.pageSize) params.set('PageSize', String(input.pageSize));
-				if (input.page !== undefined) params.set('Page', String(input.page));
-
-				const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json?${params.toString()}`;
-				const response = await fetch(url, {
-					headers: { Authorization: `Basic ${auth}` },
-				});
-				return response.json();
+			method: 'GET',
+			endpoint: '/Accounts/{{ config.username }}/Messages.json',
+			queryParams: {
+				To: '{{ input.to }}',
+				From: '{{ input.from }}',
+				DateSent: '{{ input.dateSent }}',
+				PageSize: '{{ input.pageSize }}',
+				Page: '{{ input.page }}',
 			},
 			inputSchema: z.object({
-				to: z.string().optional().describe('Filter messages sent to this phone number'),
-				from: z.string().optional().describe('Filter messages sent from this phone number'),
-				dateSent: z.string().optional().describe('Filter messages sent on this date (YYYY-MM-DD)'),
-				pageSize: z.number().int().min(1).max(1000).optional().describe('Number of records per page (max 1000)'),
+				to: z.string().optional().describe('Filter by recipient phone number'),
+				from: z.string().optional().describe('Filter by sender phone number'),
+				dateSent: z.string().optional().describe('Filter by date sent (YYYY-MM-DD)'),
+				pageSize: z.number().int().min(1).max(1000).optional().describe('Records per page (max 1000)'),
 				page: z.number().int().min(0).optional().describe('Page number (zero-indexed)'),
 			}),
 		},
 
 		{
 			handle: 'getMessage',
-			description: 'Retrieve a single SMS/MMS message by its SID.',
+			description: 'Retrieve a single message by SID.',
 			scopes: ['sms'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const response = await fetch(
-					`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages/${input.messageSid}.json`,
-					{
-						headers: { Authorization: `Basic ${auth}` },
-					},
-				);
-				return response.json();
-			},
+			method: 'GET',
+			endpoint: '/Accounts/{{ config.username }}/Messages/{{ input.messageSid }}.json',
 			inputSchema: z.object({
-				messageSid: z.string().describe('The SID of the message to retrieve (e.g. SMxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)'),
+				messageSid: z.string().describe('Message SID (SMxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)'),
 			}),
 		},
 
 		{
 			handle: 'deleteMessage',
-			description: 'Delete a message record from Twilio by its SID.',
+			description: 'Delete a message record by SID.',
 			scopes: ['sms'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const response = await fetch(
-					`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages/${input.messageSid}.json`,
-					{
-						method: 'DELETE',
-						headers: { Authorization: `Basic ${auth}` },
-					},
-				);
-				if (response.status === 204) return { success: true };
-				return response.json();
-			},
+			method: 'DELETE',
+			endpoint: '/Accounts/{{ config.username }}/Messages/{{ input.messageSid }}.json',
 			inputSchema: z.object({
-				messageSid: z.string().describe('The SID of the message to delete'),
+				messageSid: z.string().describe('Message SID to delete'),
 			}),
 		},
 
 		{
 			handle: 'listCalls',
-			description: 'List phone calls for the account with optional filters.',
+			description: 'List phone calls for the account.',
 			scopes: ['voice'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const params = new URLSearchParams();
-				if (input.to) params.set('To', input.to as string);
-				if (input.from) params.set('From', input.from as string);
-				if (input.status) params.set('Status', input.status as string);
-				if (input.pageSize) params.set('PageSize', String(input.pageSize));
-
-				const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls.json?${params.toString()}`;
-				const response = await fetch(url, {
-					headers: { Authorization: `Basic ${auth}` },
-				});
-				return response.json();
+			method: 'GET',
+			endpoint: '/Accounts/{{ config.username }}/Calls.json',
+			queryParams: {
+				To: '{{ input.to }}',
+				From: '{{ input.from }}',
+				Status: '{{ input.status }}',
+				PageSize: '{{ input.pageSize }}',
 			},
 			inputSchema: z.object({
-				to: z.string().optional().describe('Filter calls made to this phone number'),
-				from: z.string().optional().describe('Filter calls made from this phone number'),
-				status: z.string().optional().describe('Filter calls by status (e.g. completed, in-progress, failed)'),
-				pageSize: z.number().int().min(1).max(1000).optional().describe('Number of records per page (max 1000)'),
+				to: z.string().optional().describe('Filter by callee phone number'),
+				from: z.string().optional().describe('Filter by caller phone number'),
+				status: z.string().optional().describe('Filter by status (completed, in-progress, failed)'),
+				pageSize: z.number().int().min(1).max(1000).optional().describe('Records per page (max 1000)'),
 			}),
 		},
 
 		{
 			handle: 'getCall',
-			description: 'Retrieve details of a single phone call by its SID.',
+			description: 'Retrieve a single call by SID.',
 			scopes: ['voice'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const response = await fetch(
-					`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Calls/${input.callSid}.json`,
-					{
-						headers: { Authorization: `Basic ${auth}` },
-					},
-				);
-				return response.json();
-			},
+			method: 'GET',
+			endpoint: '/Accounts/{{ config.username }}/Calls/{{ input.callSid }}.json',
 			inputSchema: z.object({
-				callSid: z.string().describe('The SID of the call to retrieve (e.g. CAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)'),
+				callSid: z.string().describe('Call SID (CAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)'),
 			}),
 		},
 
 		{
 			handle: 'listPhoneNumbers',
-			description: 'List all phone numbers purchased and associated with the Twilio account.',
+			description: 'List phone numbers purchased on the Twilio account.',
 			scopes: ['sms', 'voice'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const params = new URLSearchParams();
-				if (input.pageSize) params.set('PageSize', String(input.pageSize));
-				if (input.friendlyName) params.set('FriendlyName', input.friendlyName as string);
-
-				const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/IncomingPhoneNumbers.json?${params.toString()}`;
-				const response = await fetch(url, {
-					headers: { Authorization: `Basic ${auth}` },
-				});
-				return response.json();
+			method: 'GET',
+			endpoint: '/Accounts/{{ config.username }}/IncomingPhoneNumbers.json',
+			queryParams: {
+				PageSize: '{{ input.pageSize }}',
+				FriendlyName: '{{ input.friendlyName }}',
 			},
 			inputSchema: z.object({
-				pageSize: z.number().int().min(1).max(1000).optional().describe('Number of records per page (max 1000)'),
-				friendlyName: z.string().optional().describe('Filter by friendly name of the phone number'),
+				pageSize: z.number().int().min(1).max(1000).optional().describe('Records per page (max 1000)'),
+				friendlyName: z.string().optional().describe('Filter by friendly name'),
 			}),
 		},
 
@@ -303,90 +194,48 @@ export const twilioDefinition: IntegrationDefinition = {
 			handle: 'lookupNumber',
 			description: 'Look up information about a phone number using the Twilio Lookup API v2.',
 			scopes: ['lookup'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const params = new URLSearchParams();
-				if (input.fields) params.set('Fields', input.fields as string);
-
-				const encodedNumber = encodeURIComponent(input.phoneNumber as string);
-				const url = `https://lookups.twilio.com/v2/PhoneNumbers/${encodedNumber}?${params.toString()}`;
-				const response = await fetch(url, {
-					headers: { Authorization: `Basic ${auth}` },
-				});
-				return response.json();
+			method: 'GET',
+			endpoint: 'https://lookups.twilio.com/v2/PhoneNumbers/{{ input.phoneNumber }}',
+			queryParams: {
+				Fields: '{{ input.fields }}',
 			},
 			inputSchema: z.object({
-				phoneNumber: z.string().describe('The phone number to look up in E.164 format (e.g. +15551234567)'),
-				fields: z.string().optional().describe('Comma-separated list of data packages to include (e.g. "line_type_intelligence,caller_name,sim_swap")'),
+				phoneNumber: z.string().describe('Phone number to look up (E.164, e.g. +15551234567)'),
+				fields: z.string().optional().describe('Comma-separated data packages (e.g. "line_type_intelligence,caller_name")'),
 			}),
 		},
 
 		{
 			handle: 'createVerification',
-			description: 'Start a verification flow by sending an OTP to a user via SMS, call, or email.',
+			description: 'Start a verification flow by sending an OTP via SMS, call, or email.',
 			scopes: ['verify'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const body = new URLSearchParams();
-				body.set('To', input.to as string);
-				body.set('Channel', input.channel as string);
-
-				const response = await fetch(
-					`https://verify.twilio.com/v2/Services/${input.serviceSid}/Verifications`,
-					{
-						method: 'POST',
-						headers: {
-							Authorization: `Basic ${auth}`,
-							'Content-Type': 'application/x-www-form-urlencoded',
-						},
-						body: body.toString(),
-					},
-				);
-				return response.json();
+			method: 'POST',
+			endpoint: 'https://verify.twilio.com/v2/Services/{{ input.serviceSid }}/Verifications',
+			body: {
+				To: '{{ input.to }}',
+				Channel: '{{ input.channel }}',
 			},
 			inputSchema: z.object({
-				serviceSid: z.string().describe('The SID of the Verify service to use (VAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)'),
-				to: z.string().describe('The phone number or email address to send the verification to'),
-				channel: z.enum(['sms', 'call', 'email']).describe('The verification channel to use'),
+				serviceSid: z.string().describe('Verify service SID (VAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)'),
+				to: z.string().describe('Phone number or email to send the verification to'),
+				channel: z.enum(['sms', 'call', 'email']).describe('Verification channel'),
 			}),
 		},
 
 		{
 			handle: 'checkVerification',
-			description: 'Check a verification code submitted by a user to complete the verification flow.',
+			description: 'Check a verification code to complete the verification flow.',
 			scopes: ['verify'],
-			execute: async (input, context) => {
-				const accountSid = context.config?.accountSid as string;
-				const authToken = context.config?.authToken as string;
-				const auth = Buffer.from(`${accountSid}:${authToken}`).toString('base64');
-
-				const body = new URLSearchParams();
-				body.set('To', input.to as string);
-				body.set('Code', input.code as string);
-
-				const response = await fetch(
-					`https://verify.twilio.com/v2/Services/${input.serviceSid}/VerificationCheck`,
-					{
-						method: 'POST',
-						headers: {
-							Authorization: `Basic ${auth}`,
-							'Content-Type': 'application/x-www-form-urlencoded',
-						},
-						body: body.toString(),
-					},
-				);
-				return response.json();
+			method: 'POST',
+			endpoint: 'https://verify.twilio.com/v2/Services/{{ input.serviceSid }}/VerificationCheck',
+			body: {
+				To: '{{ input.to }}',
+				Code: '{{ input.code }}',
 			},
 			inputSchema: z.object({
-				serviceSid: z.string().describe('The SID of the Verify service (VAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)'),
-				to: z.string().describe('The phone number or email address that received the code'),
-				code: z.string().describe('The verification code entered by the user'),
+				serviceSid: z.string().describe('Verify service SID (VAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)'),
+				to: z.string().describe('Phone number or email that received the code'),
+				code: z.string().describe('Verification code entered by the user'),
 			}),
 		},
 	],

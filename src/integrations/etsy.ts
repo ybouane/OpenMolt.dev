@@ -4,25 +4,13 @@
  */
 
 import { z } from 'zod';
-import type { IntegrationDefinition, ToolContext } from '../types/index.js';
-
-const ETSY_BASE = 'https://openapi.etsy.com/v3';
-
-function etsyHeaders(context: ToolContext): Record<string, string> {
-	const config = context.config ?? {};
-	return {
-		Authorization: `Bearer ${config.accessToken ?? ''}`,
-		'x-api-key': String(config.apiKey ?? ''),
-		'Content-Type': 'application/json',
-	};
-}
+import type { IntegrationDefinition } from '../types/index.js';
 
 export const etsyDefinition: IntegrationDefinition = {
 	name: 'Etsy',
 	apiSetup: {
-		baseUrl: ETSY_BASE,
+		baseUrl: 'https://openapi.etsy.com/v3',
 		headers: {
-			Authorization: 'Bearer {{ config.accessToken }}',
 			'x-api-key': '{{ config.apiKey }}',
 			'Content-Type': 'application/json',
 		},
@@ -54,20 +42,8 @@ export const etsyDefinition: IntegrationDefinition = {
 			handle: 'getMe',
 			description: 'Get information about the authenticated Etsy user.',
 			scopes: ['shops.read'],
-			execute: async (_input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const headers = etsyHeaders(context);
-				const pingRes = await fetch(`${ETSY_BASE}/application/openapi-ping`, { headers });
-				if (!pingRes.ok) {
-					const err = await pingRes.text();
-					throw new Error(`Etsy API ping failed (${pingRes.status}): ${err}`);
-				}
-				const userRes = await fetch(`${ETSY_BASE}/application/users/me`, { headers });
-				if (!userRes.ok) {
-					const err = await userRes.text();
-					throw new Error(`Etsy getMe failed (${userRes.status}): ${err}`);
-				}
-				return userRes.json();
-			},
+			method: 'GET',
+			endpoint: '/application/users/me',
 			inputSchema: z.object({}),
 		},
 
@@ -134,43 +110,30 @@ export const etsyDefinition: IntegrationDefinition = {
 			handle: 'createListing',
 			description: 'Create a new listing in an Etsy shop.',
 			scopes: ['listings.write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { shopId, ...body } = input as Record<string, unknown>;
-				const payload = {
-					quantity: body.quantity,
-					title: body.title,
-					description: body.description,
-					price: body.price,
-					who_made: body.whoMade,
-					when_made: body.whenMade,
-					taxonomy_id: body.taxonomyId,
-					shipping_profile_id: body.shippingProfileId,
-					return_policy_id: body.returnsPolicyId,
-					materials: body.materials,
-					shop_section_id: body.shopSectionId,
-					processing_min: body.processingMin,
-					processing_max: body.processingMax,
-					tags: body.tags,
-					is_supply: body.isSupply,
-					is_customizable: body.isCustomizable,
-					is_personalizable: body.isPersonalizable,
-					item_weight: body.itemWeight,
-					item_length: body.itemLength,
-					item_width: body.itemWidth,
-					item_height: body.itemHeight,
-				};
-				// Remove undefined keys
-				const cleanPayload = Object.fromEntries(Object.entries(payload).filter(([, v]) => v !== undefined));
-				const response = await fetch(`${ETSY_BASE}/application/shops/${shopId}/listings`, {
-					method: 'POST',
-					headers: etsyHeaders(context),
-					body: JSON.stringify(cleanPayload),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Etsy createListing failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/application/shops/{{ input.shopId }}/listings',
+			body: {
+				quantity: '{{ input.quantity }}',
+				title: '{{ input.title }}',
+				description: '{{ input.description }}',
+				price: '{{ input.price }}',
+				who_made: '{{ input.whoMade }}',
+				when_made: '{{ input.whenMade }}',
+				taxonomy_id: '{{ input.taxonomyId }}',
+				shipping_profile_id: '{{ input.shippingProfileId }}',
+				return_policy_id: '{{ input.returnsPolicyId }}',
+				materials: '{{ input.materials }}',
+				shop_section_id: '{{ input.shopSectionId }}',
+				processing_min: '{{ input.processingMin }}',
+				processing_max: '{{ input.processingMax }}',
+				tags: '{{ input.tags }}',
+				is_supply: '{{ input.isSupply }}',
+				is_customizable: '{{ input.isCustomizable }}',
+				is_personalizable: '{{ input.isPersonalizable }}',
+				item_weight: '{{ input.itemWeight }}',
+				item_length: '{{ input.itemLength }}',
+				item_width: '{{ input.itemWidth }}',
+				item_height: '{{ input.itemHeight }}',
 			},
 			inputSchema: z.object({
 				shopId: z.union([z.string(), z.number()]).describe('The shop ID to create the listing in'),
@@ -202,19 +165,16 @@ export const etsyDefinition: IntegrationDefinition = {
 			handle: 'updateListing',
 			description: 'Update an existing Etsy listing.',
 			scopes: ['listings.write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { shopId, listingId, ...body } = input as Record<string, unknown>;
-				const cleanBody = Object.fromEntries(Object.entries(body).filter(([, v]) => v !== undefined));
-				const response = await fetch(`${ETSY_BASE}/application/shops/${shopId}/listings/${listingId}`, {
-					method: 'PATCH',
-					headers: etsyHeaders(context),
-					body: JSON.stringify(cleanBody),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Etsy updateListing failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'PATCH',
+			endpoint: '/application/shops/{{ input.shopId }}/listings/{{ input.listingId }}',
+			body: {
+				quantity: '{{ input.quantity }}',
+				title: '{{ input.title }}',
+				description: '{{ input.description }}',
+				price: '{{ input.price }}',
+				state: '{{ input.state }}',
+				tags: '{{ input.tags }}',
+				materials: '{{ input.materials }}',
 			},
 			inputSchema: z.object({
 				shopId: z.union([z.string(), z.number()]).describe('The shop ID'),
@@ -257,29 +217,17 @@ export const etsyDefinition: IntegrationDefinition = {
 			handle: 'updateShop',
 			description: 'Update shop details such as title, announcement, and policies.',
 			scopes: ['shops.write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { shopId, ...body } = input as Record<string, unknown>;
-				const payload = {
-					title: body.title,
-					announcement: body.announcement,
-					sale_message: body.saleMessage,
-					digital_sale_message: body.digitalSaleMessage,
-					policy_welcome: body.policyWelcome,
-					policy_payment: body.policyPayment,
-					policy_shipping: body.policyShipping,
-					policy_refunds: body.policyRefunds,
-				};
-				const cleanPayload = Object.fromEntries(Object.entries(payload).filter(([, v]) => v !== undefined));
-				const response = await fetch(`${ETSY_BASE}/application/shops/${shopId}`, {
-					method: 'PUT',
-					headers: etsyHeaders(context),
-					body: JSON.stringify(cleanPayload),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Etsy updateShop failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'PUT',
+			endpoint: '/application/shops/{{ input.shopId }}',
+			body: {
+				title: '{{ input.title }}',
+				announcement: '{{ input.announcement }}',
+				sale_message: '{{ input.saleMessage }}',
+				digital_sale_message: '{{ input.digitalSaleMessage }}',
+				policy_welcome: '{{ input.policyWelcome }}',
+				policy_payment: '{{ input.policyPayment }}',
+				policy_shipping: '{{ input.policyShipping }}',
+				policy_refunds: '{{ input.policyRefunds }}',
 			},
 			inputSchema: z.object({
 				shopId: z.union([z.string(), z.number()]).describe('The shop ID to update'),
@@ -298,7 +246,7 @@ export const etsyDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'getListingInventory',
-			description: 'Get the inventory details (products, prices, quantities) for a listing.',
+			description: 'Get the inventory details for a listing.',
 			scopes: ['listings.read'],
 			method: 'GET',
 			endpoint: '/application/listings/{{ input.listingId }}/inventory',
@@ -311,25 +259,13 @@ export const etsyDefinition: IntegrationDefinition = {
 			handle: 'updateListingInventory',
 			description: 'Update the inventory products, prices, and quantities for a listing.',
 			scopes: ['listings.write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { listingId, ...body } = input as Record<string, unknown>;
-				const payload = {
-					products: body.products,
-					price_on_property: body.priceOnProperty,
-					quantity_on_property: body.quantityOnProperty,
-					sku_on_property: body.skuOnProperty,
-				};
-				const cleanPayload = Object.fromEntries(Object.entries(payload).filter(([, v]) => v !== undefined));
-				const response = await fetch(`${ETSY_BASE}/application/listings/${listingId}/inventory`, {
-					method: 'PUT',
-					headers: etsyHeaders(context),
-					body: JSON.stringify(cleanPayload),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Etsy updateListingInventory failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'PUT',
+			endpoint: '/application/listings/{{ input.listingId }}/inventory',
+			body: {
+				products: '{{ input.products }}',
+				price_on_property: '{{ input.priceOnProperty }}',
+				quantity_on_property: '{{ input.quantityOnProperty }}',
+				sku_on_property: '{{ input.skuOnProperty }}',
 			},
 			inputSchema: z.object({
 				listingId: z.union([z.string(), z.number()]).describe('The listing ID to update inventory for'),
@@ -344,7 +280,7 @@ export const etsyDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'getShopReceipts',
-			description: 'Get orders (receipts) for a shop with optional filters for payment, shipment, and date range.',
+			description: 'Get orders (receipts) for a shop with optional filters.',
 			scopes: ['orders.read'],
 			method: 'GET',
 			endpoint: '/application/shops/{{ input.shopId }}/receipts',
@@ -391,24 +327,12 @@ export const etsyDefinition: IntegrationDefinition = {
 			handle: 'createReceiptShipment',
 			description: 'Add tracking information to a receipt (create a shipment).',
 			scopes: ['orders.read'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { shopId, receiptId, ...body } = input as Record<string, unknown>;
-				const payload = {
-					tracking_code: body.trackingCode,
-					carrier_name: body.carrierId,
-					send_bcc: body.sendBcc,
-				};
-				const cleanPayload = Object.fromEntries(Object.entries(payload).filter(([, v]) => v !== undefined));
-				const response = await fetch(`${ETSY_BASE}/application/shops/${shopId}/receipts/${receiptId}/tracking_codes`, {
-					method: 'POST',
-					headers: etsyHeaders(context),
-					body: JSON.stringify(cleanPayload),
-				});
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`Etsy createReceiptShipment failed (${response.status}): ${err}`);
-				}
-				return response.json();
+			method: 'POST',
+			endpoint: '/application/shops/{{ input.shopId }}/receipts/{{ input.receiptId }}/tracking_codes',
+			body: {
+				tracking_code: '{{ input.trackingCode }}',
+				carrier_name: '{{ input.carrierId }}',
+				send_bcc: '{{ input.sendBcc }}',
 			},
 			inputSchema: z.object({
 				shopId: z.union([z.string(), z.number()]).describe('The shop ID'),
@@ -436,7 +360,7 @@ export const etsyDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'searchListings',
-			description: 'Search for active Etsy listings across the marketplace using keyword and filter parameters.',
+			description: 'Search for active Etsy listings across the marketplace.',
 			scopes: ['listings.read'],
 			method: 'GET',
 			endpoint: '/application/listings/active',

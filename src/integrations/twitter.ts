@@ -9,7 +9,7 @@
  */
 
 import { z } from 'zod';
-import type { IntegrationDefinition, ToolContext } from '../types/index.js';
+import type { IntegrationDefinition } from '../types/index.js';
 
 export const twitterDefinition: IntegrationDefinition = {
 	name: 'Twitter / X',
@@ -409,29 +409,12 @@ export const twitterDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'getTrends',
-			description: 'Get trending topics for a given Yahoo! Where On Earth ID (WOEID). Uses the Twitter v1.1 trends endpoint (still available). WOEID 1 = worldwide.',
+			description: 'Get trending topics for a given Yahoo! Where On Earth ID (WOEID). Uses the Twitter v1.1 trends endpoint. WOEID 1 = worldwide.',
 			scopes: ['read'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const apiKey = context.config?.apiKey as string;
-				if (!apiKey) throw new Error('Twitter API key / Bearer token (config.apiKey) is required');
-
-				const woeid = input.woeid as number;
-
-				const response = await fetch(
-					`https://api.twitter.com/1.1/trends/place.json?id=${encodeURIComponent(String(woeid))}`,
-					{
-						headers: {
-							Authorization: `Bearer ${apiKey}`,
-						},
-					}
-				);
-
-				if (!response.ok) {
-					const error = await response.text();
-					throw new Error(`Twitter trends API error: ${response.status} — ${error}`);
-				}
-
-				return response.json();
+			method: 'GET',
+			endpoint: 'https://api.twitter.com/1.1/trends/place.json',
+			queryParams: {
+				id: '{{ input.woeid }}',
 			},
 			inputSchema: z.object({
 				woeid: z.number().int().describe('Yahoo! Where On Earth ID for the location (1 = worldwide, 23424977 = United States, etc.)'),

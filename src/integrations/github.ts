@@ -4,24 +4,12 @@
  */
 
 import { z } from 'zod';
-import type { IntegrationDefinition, ToolContext } from '../types/index.js';
-
-const GITHUB_BASE = 'https://api.github.com';
-
-function githubHeaders(context: ToolContext): Record<string, string> {
-	const config = context.config ?? {};
-	return {
-		Authorization: `Bearer ${config.apiKey ?? ''}`,
-		Accept: 'application/vnd.github+json',
-		'X-GitHub-Api-Version': '2022-11-28',
-		'Content-Type': 'application/json',
-	};
-}
+import type { IntegrationDefinition } from '../types/index.js';
 
 export const githubDefinition: IntegrationDefinition = {
 	name: 'GitHub',
 	apiSetup: {
-		baseUrl: GITHUB_BASE,
+		baseUrl: 'https://api.github.com',
 		headers: {
 			Authorization: 'Bearer {{ config.apiKey }}',
 			Accept: 'application/vnd.github+json',
@@ -331,22 +319,12 @@ export const githubDefinition: IntegrationDefinition = {
 
 		{
 			handle: 'getFileContents',
-			description: 'Get the contents of a file in a repository. The content is returned decoded from base64.',
+			description: 'Get the contents of a file in a repository. The content field in the response is base64-encoded.',
 			scopes: ['contents'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const { owner, repo, path, ref } = input as Record<string, string>;
-				const url = new URL(`${GITHUB_BASE}/repos/${owner}/${repo}/contents/${path}`);
-				if (ref) url.searchParams.set('ref', ref);
-				const response = await fetch(url.toString(), { headers: githubHeaders(context) });
-				if (!response.ok) {
-					const err = await response.text();
-					throw new Error(`GitHub getFileContents failed (${response.status}): ${err}`);
-				}
-				const data = await response.json() as Record<string, unknown>;
-				if (data.encoding === 'base64' && typeof data.content === 'string') {
-					data.content_decoded = Buffer.from(data.content as string, 'base64').toString('utf8');
-				}
-				return data;
+			method: 'GET',
+			endpoint: '/repos/{{ input.owner }}/{{ input.repo }}/contents/{{ input.path }}',
+			queryParams: {
+				ref: '{{ input.ref }}',
 			},
 			inputSchema: z.object({
 				owner: z.string().describe('Repository owner'),

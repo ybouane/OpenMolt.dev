@@ -105,38 +105,19 @@ export const googleDriveDefinition: IntegrationDefinition = {
 			handle: 'createFolder',
 			description: 'Create a new folder in Google Drive',
 			scopes: ['write', 'files'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const config = context.config as Record<string, unknown>;
-				const accessToken = config?.accessToken as string;
-
-				const body: Record<string, unknown> = {
-					name: input.name,
-					mimeType: 'application/vnd.google-apps.folder',
-				};
-
-				if (input.parentId) {
-					body.parents = [input.parentId];
-				}
-
-				const response = await fetch('https://www.googleapis.com/drive/v3/files', {
-					method: 'POST',
-					headers: {
-						'Authorization': `Bearer ${accessToken}`,
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(body),
-				});
-
-				if (!response.ok) {
-					const error = await response.text();
-					throw new Error(`Failed to create folder: ${error}`);
-				}
-
-				return response.json();
+			method: 'POST',
+			endpoint: '/files',
+			queryParams: {
+				supportsAllDrives: 'true',
+			},
+			body: {
+				name: '{{ input.name }}',
+				mimeType: 'application/vnd.google-apps.folder',
+				parents: '{{ input.parentIds }}',
 			},
 			inputSchema: z.object({
 				name: z.string().describe('Name of the folder to create'),
-				parentId: z.string().optional().describe('ID of the parent folder'),
+				parentIds: z.array(z.string()).optional().describe('IDs of parent folders (wrap a single parentId in an array)'),
 			}),
 			outputSchema: z.object({
 				id: z.string(),
@@ -219,55 +200,20 @@ export const googleDriveDefinition: IntegrationDefinition = {
 		},
 		{
 			handle: 'moveFile',
-			description: 'Move a file to a different folder in Google Drive',
+			description: 'Move a file to a different folder in Google Drive. Use getFile to find the current parentId if unknown.',
 			scopes: ['write', 'files'],
-			execute: async (input: Record<string, unknown>, context: ToolContext): Promise<unknown> => {
-				const config = context.config as Record<string, unknown>;
-				const accessToken = config?.accessToken as string;
-				const fileId = input.fileId as string;
-				const newParentId = input.newParentId as string;
-
-				const queryParams = new URLSearchParams({ addParents: newParentId, supportsAllDrives: 'true' });
-
-				if (input.oldParentId) {
-					queryParams.set('removeParents', input.oldParentId as string);
-				} else {
-					// Fetch current parents to remove them
-					const metaResponse = await fetch(
-						`https://www.googleapis.com/drive/v3/files/${fileId}?fields=parents&supportsAllDrives=true`,
-						{ headers: { 'Authorization': `Bearer ${accessToken}` } },
-					);
-					if (metaResponse.ok) {
-						const meta = await metaResponse.json() as { parents?: string[] };
-						if (meta.parents && meta.parents.length > 0) {
-							queryParams.set('removeParents', meta.parents.join(','));
-						}
-					}
-				}
-
-				const response = await fetch(
-					`https://www.googleapis.com/drive/v3/files/${fileId}?${queryParams.toString()}`,
-					{
-						method: 'PATCH',
-						headers: {
-							'Authorization': `Bearer ${accessToken}`,
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify({}),
-					},
-				);
-
-				if (!response.ok) {
-					const error = await response.text();
-					throw new Error(`Failed to move file: ${error}`);
-				}
-
-				return response.json();
+			method: 'PATCH',
+			endpoint: '/files/{{ input.fileId }}',
+			queryParams: {
+				addParents: '{{ input.newParentId }}',
+				removeParents: '{{ input.oldParentId }}',
+				supportsAllDrives: 'true',
 			},
+			body: {},
 			inputSchema: z.object({
 				fileId: z.string().describe('The ID of the file to move'),
 				newParentId: z.string().describe('ID of the destination parent folder'),
-				oldParentId: z.string().optional().describe('ID of the current parent folder (auto-detected if not provided)'),
+				oldParentId: z.string().optional().describe('ID of the current parent folder to remove (use getFile to find it; omitting may create a second location instead of moving)'),
 			}),
 			outputSchema: z.object({
 				id: z.string(),

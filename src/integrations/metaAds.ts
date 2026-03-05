@@ -2,25 +2,26 @@
  * @module integrations/metaAds
  * Meta (Facebook) Marketing API v20.0 integration definition.
  * Supports campaign, ad set, ad, and insights management.
+ *
+ * Note: Meta Graph API requires access_token as a query parameter on all requests.
+ * This is passed alongside bearer auth via queryParams templates.
  */
 
 import { z } from 'zod';
-import type { IntegrationDefinition, ToolContext } from '../types/index.js';
+import type { IntegrationDefinition } from '../types/index.js';
 
 export const metaAdsDefinition: IntegrationDefinition = {
 	name: 'Meta Ads',
 	apiSetup: {
 		baseUrl: 'https://graph.facebook.com/v20.0',
-		headers: {
-			'Content-Type': 'application/json',
-		},
+		requestFormat: 'json',
 		responseFormat: 'json',
 	},
 	credentialSetup: [
 		{
-			type: 'bearer',
-			headers: {
-				Authorization: 'Bearer {{ config.apiKey }}',
+			type: 'custom',
+			queryParams: {
+				access_token: '{{ config.apiKey }}',
 			},
 		},
 	],
@@ -38,17 +39,17 @@ export const metaAdsDefinition: IntegrationDefinition = {
 			method: 'GET',
 			endpoint: '/me/adaccounts',
 			queryParams: {
-				fields: '{{ input.fields || "id,name,currency,account_status,timezone_name,spend_cap,amount_spent" }}',
+				fields: '{{ input.fields }}',
 				limit: '{{ input.limit }}',
 				after: '{{ input.after }}',
-				access_token: '{{ config.apiKey }}',
 			},
 			inputSchema: z.object({
-				fields: z.string().optional().describe('Comma-separated fields to return'),
+				fields: z.string().optional().describe('Comma-separated fields to return (default: id,name,currency,account_status,timezone_name,spend_cap,amount_spent)'),
 				limit: z.number().optional().describe('Number of results per page'),
 				after: z.string().optional().describe('Cursor for pagination'),
 			}),
 		},
+
 		{
 			handle: 'getAdAccount',
 			description: 'Get details for a specific ad account.',
@@ -56,14 +57,14 @@ export const metaAdsDefinition: IntegrationDefinition = {
 			method: 'GET',
 			endpoint: '/{{ input.actId }}',
 			queryParams: {
-				fields: '{{ input.fields || "id,name,currency,account_status,timezone_name,spend_cap,amount_spent,business" }}',
-				access_token: '{{ config.apiKey }}',
+				fields: '{{ input.fields }}',
 			},
 			inputSchema: z.object({
 				actId: z.string().describe('Ad account ID (e.g. act_123456)'),
-				fields: z.string().optional(),
+				fields: z.string().optional().describe('Comma-separated fields to return'),
 			}),
 		},
+
 		{
 			handle: 'listCampaigns',
 			description: 'List campaigns for an ad account.',
@@ -71,20 +72,20 @@ export const metaAdsDefinition: IntegrationDefinition = {
 			method: 'GET',
 			endpoint: '/{{ input.actId }}/campaigns',
 			queryParams: {
-				fields: '{{ input.fields || "id,name,status,objective,daily_budget,lifetime_budget,start_time,stop_time,created_time,updated_time" }}',
+				fields: '{{ input.fields }}',
 				effective_status: '{{ input.status }}',
 				limit: '{{ input.limit }}',
 				after: '{{ input.after }}',
-				access_token: '{{ config.apiKey }}',
 			},
 			inputSchema: z.object({
 				actId: z.string().describe('Ad account ID'),
-				fields: z.string().optional(),
+				fields: z.string().optional().describe('Comma-separated fields to return'),
 				status: z.array(z.string()).optional().describe('Filter by status array, e.g. ["ACTIVE","PAUSED"]'),
 				limit: z.number().optional(),
 				after: z.string().optional(),
 			}),
 		},
+
 		{
 			handle: 'getCampaign',
 			description: 'Get details for a specific campaign.',
@@ -92,41 +93,31 @@ export const metaAdsDefinition: IntegrationDefinition = {
 			method: 'GET',
 			endpoint: '/{{ input.campaignId }}',
 			queryParams: {
-				fields: '{{ input.fields || "id,name,status,objective,daily_budget,lifetime_budget,start_time,stop_time,created_time,updated_time,bid_strategy" }}',
-				access_token: '{{ config.apiKey }}',
+				fields: '{{ input.fields }}',
 			},
 			inputSchema: z.object({
 				campaignId: z.string().describe('Campaign ID'),
-				fields: z.string().optional(),
+				fields: z.string().optional().describe('Comma-separated fields to return'),
 			}),
 		},
+
 		{
 			handle: 'createCampaign',
 			description: 'Create a new campaign.',
 			scopes: ['campaigns.write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext) => {
-				const actId = input.actId as string;
-				const params = new URLSearchParams();
-				params.set('name', input.name as string);
-				params.set('objective', input.objective as string);
-				params.set('status', (input.status as string) || 'PAUSED');
-				params.set('access_token', (context.config?.apiKey as string) || '');
-				if (input.specialAdCategories) {
-					(input.specialAdCategories as string[]).forEach(c => params.append('special_ad_categories[]', c));
-				}
-				if (input.dailyBudget) params.set('daily_budget', String(input.dailyBudget));
-				if (input.lifetimeBudget) params.set('lifetime_budget', String(input.lifetimeBudget));
-				if (input.spendCap) params.set('spend_cap', String(input.spendCap));
-				if (input.startTime) params.set('start_time', input.startTime as string);
-				if (input.stopTime) params.set('stop_time', input.stopTime as string);
-				if (input.buyingType) params.set('buying_type', input.buyingType as string);
-
-				const res = await fetch(`https://graph.facebook.com/v20.0/${actId}/campaigns`, {
-					method: 'POST',
-					body: params,
-				});
-				if (!res.ok) throw new Error(`Meta API error ${res.status}: ${await res.text()}`);
-				return res.json();
+			method: 'POST',
+			endpoint: '/{{ input.actId }}/campaigns',
+			body: {
+				name: '{{ input.name }}',
+				objective: '{{ input.objective }}',
+				status: '{{ input.status }}',
+				special_ad_categories: '{{ input.specialAdCategories }}',
+				daily_budget: '{{ input.dailyBudget }}',
+				lifetime_budget: '{{ input.lifetimeBudget }}',
+				spend_cap: '{{ input.spendCap }}',
+				start_time: '{{ input.startTime }}',
+				stop_time: '{{ input.stopTime }}',
+				buying_type: '{{ input.buyingType }}',
 			},
 			inputSchema: z.object({
 				actId: z.string().describe('Ad account ID'),
@@ -142,26 +133,19 @@ export const metaAdsDefinition: IntegrationDefinition = {
 				buyingType: z.string().optional().describe('AUCTION or RESERVED'),
 			}),
 		},
+
 		{
 			handle: 'updateCampaign',
 			description: 'Update an existing campaign.',
 			scopes: ['campaigns.write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext) => {
-				const campaignId = input.campaignId as string;
-				const params = new URLSearchParams();
-				params.set('access_token', (context.config?.apiKey as string) || '');
-				if (input.name) params.set('name', input.name as string);
-				if (input.status) params.set('status', input.status as string);
-				if (input.dailyBudget) params.set('daily_budget', String(input.dailyBudget));
-				if (input.lifetimeBudget) params.set('lifetime_budget', String(input.lifetimeBudget));
-				if (input.spendCap) params.set('spend_cap', String(input.spendCap));
-
-				const res = await fetch(`https://graph.facebook.com/v20.0/${campaignId}`, {
-					method: 'POST',
-					body: params,
-				});
-				if (!res.ok) throw new Error(`Meta API error ${res.status}: ${await res.text()}`);
-				return res.json();
+			method: 'POST',
+			endpoint: '/{{ input.campaignId }}',
+			body: {
+				name: '{{ input.name }}',
+				status: '{{ input.status }}',
+				daily_budget: '{{ input.dailyBudget }}',
+				lifetime_budget: '{{ input.lifetimeBudget }}',
+				spend_cap: '{{ input.spendCap }}',
 			},
 			inputSchema: z.object({
 				campaignId: z.string(),
@@ -172,15 +156,16 @@ export const metaAdsDefinition: IntegrationDefinition = {
 				spendCap: z.number().optional(),
 			}),
 		},
+
 		{
 			handle: 'deleteCampaign',
 			description: 'Delete a campaign.',
 			scopes: ['campaigns.write'],
 			method: 'DELETE',
 			endpoint: '/{{ input.campaignId }}',
-			queryParams: { access_token: '{{ config.apiKey }}' },
 			inputSchema: z.object({ campaignId: z.string() }),
 		},
+
 		{
 			handle: 'listAdSets',
 			description: 'List ad sets for an ad account.',
@@ -188,12 +173,11 @@ export const metaAdsDefinition: IntegrationDefinition = {
 			method: 'GET',
 			endpoint: '/{{ input.actId }}/adsets',
 			queryParams: {
-				fields: '{{ input.fields || "id,name,status,campaign_id,daily_budget,lifetime_budget,billing_event,optimization_goal,start_time,end_time,targeting" }}',
+				fields: '{{ input.fields }}',
 				effective_status: '{{ input.status }}',
 				campaign_id: '{{ input.campaignId }}',
 				limit: '{{ input.limit }}',
 				after: '{{ input.after }}',
-				access_token: '{{ config.apiKey }}',
 			},
 			inputSchema: z.object({
 				actId: z.string(),
@@ -204,38 +188,25 @@ export const metaAdsDefinition: IntegrationDefinition = {
 				after: z.string().optional(),
 			}),
 		},
+
 		{
 			handle: 'createAdSet',
 			description: 'Create a new ad set within a campaign.',
 			scopes: ['campaigns.write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext) => {
-				const actId = input.actId as string;
-				const body: Record<string, unknown> = {
-					name: input.name,
-					campaign_id: input.campaignId,
-					billing_event: input.billingEvent || 'IMPRESSIONS',
-					optimization_goal: input.optimizationGoal,
-					targeting: JSON.stringify(input.targeting),
-					status: input.status || 'PAUSED',
-					access_token: context.config?.apiKey,
-				};
-				if (input.dailyBudget) body.daily_budget = input.dailyBudget;
-				if (input.lifetimeBudget) body.lifetime_budget = input.lifetimeBudget;
-				if (input.startTime) body.start_time = input.startTime;
-				if (input.endTime) body.end_time = input.endTime;
-				if (input.bidAmount) body.bid_amount = input.bidAmount;
-
-				const params = new URLSearchParams();
-				for (const [k, v] of Object.entries(body)) {
-					if (v !== undefined) params.set(k, String(v));
-				}
-
-				const res = await fetch(`https://graph.facebook.com/v20.0/${actId}/adsets`, {
-					method: 'POST',
-					body: params,
-				});
-				if (!res.ok) throw new Error(`Meta API error ${res.status}: ${await res.text()}`);
-				return res.json();
+			method: 'POST',
+			endpoint: '/{{ input.actId }}/adsets',
+			body: {
+				name: '{{ input.name }}',
+				campaign_id: '{{ input.campaignId }}',
+				billing_event: '{{ input.billingEvent }}',
+				optimization_goal: '{{ input.optimizationGoal }}',
+				targeting: '{{ input.targeting }}',
+				status: '{{ input.status }}',
+				daily_budget: '{{ input.dailyBudget }}',
+				lifetime_budget: '{{ input.lifetimeBudget }}',
+				start_time: '{{ input.startTime }}',
+				end_time: '{{ input.endTime }}',
+				bid_amount: '{{ input.bidAmount }}',
 			},
 			inputSchema: z.object({
 				actId: z.string(),
@@ -252,25 +223,18 @@ export const metaAdsDefinition: IntegrationDefinition = {
 				bidAmount: z.number().optional().describe('Bid amount in cents'),
 			}),
 		},
+
 		{
 			handle: 'updateAdSet',
 			description: 'Update an existing ad set.',
 			scopes: ['campaigns.write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext) => {
-				const adsetId = input.adsetId as string;
-				const params = new URLSearchParams();
-				params.set('access_token', (context.config?.apiKey as string) || '');
-				if (input.name) params.set('name', input.name as string);
-				if (input.status) params.set('status', input.status as string);
-				if (input.dailyBudget) params.set('daily_budget', String(input.dailyBudget));
-				if (input.targeting) params.set('targeting', JSON.stringify(input.targeting));
-
-				const res = await fetch(`https://graph.facebook.com/v20.0/${adsetId}`, {
-					method: 'POST',
-					body: params,
-				});
-				if (!res.ok) throw new Error(`Meta API error ${res.status}: ${await res.text()}`);
-				return res.json();
+			method: 'POST',
+			endpoint: '/{{ input.adsetId }}',
+			body: {
+				name: '{{ input.name }}',
+				status: '{{ input.status }}',
+				daily_budget: '{{ input.dailyBudget }}',
+				targeting: '{{ input.targeting }}',
 			},
 			inputSchema: z.object({
 				adsetId: z.string(),
@@ -280,6 +244,7 @@ export const metaAdsDefinition: IntegrationDefinition = {
 				targeting: z.record(z.unknown()).optional(),
 			}),
 		},
+
 		{
 			handle: 'listAds',
 			description: 'List ads for an ad account.',
@@ -287,13 +252,12 @@ export const metaAdsDefinition: IntegrationDefinition = {
 			method: 'GET',
 			endpoint: '/{{ input.actId }}/ads',
 			queryParams: {
-				fields: '{{ input.fields || "id,name,status,adset_id,campaign_id,creative,created_time,updated_time" }}',
+				fields: '{{ input.fields }}',
 				effective_status: '{{ input.status }}',
 				adset_id: '{{ input.adsetId }}',
 				campaign_id: '{{ input.campaignId }}',
 				limit: '{{ input.limit }}',
 				after: '{{ input.after }}',
-				access_token: '{{ config.apiKey }}',
 			},
 			inputSchema: z.object({
 				actId: z.string(),
@@ -305,26 +269,19 @@ export const metaAdsDefinition: IntegrationDefinition = {
 				after: z.string().optional(),
 			}),
 		},
+
 		{
 			handle: 'createAd',
 			description: 'Create a new ad.',
 			scopes: ['campaigns.write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext) => {
-				const actId = input.actId as string;
-				const params = new URLSearchParams();
-				params.set('name', input.name as string);
-				params.set('adset_id', input.adsetId as string);
-				params.set('creative', JSON.stringify(input.creative));
-				params.set('status', (input.status as string) || 'PAUSED');
-				params.set('access_token', (context.config?.apiKey as string) || '');
-				if (input.trackingSpecs) params.set('tracking_specs', JSON.stringify(input.trackingSpecs));
-
-				const res = await fetch(`https://graph.facebook.com/v20.0/${actId}/ads`, {
-					method: 'POST',
-					body: params,
-				});
-				if (!res.ok) throw new Error(`Meta API error ${res.status}: ${await res.text()}`);
-				return res.json();
+			method: 'POST',
+			endpoint: '/{{ input.actId }}/ads',
+			body: {
+				name: '{{ input.name }}',
+				adset_id: '{{ input.adsetId }}',
+				creative: '{{ input.creative }}',
+				status: '{{ input.status }}',
+				tracking_specs: '{{ input.trackingSpecs }}',
 			},
 			inputSchema: z.object({
 				actId: z.string(),
@@ -335,6 +292,7 @@ export const metaAdsDefinition: IntegrationDefinition = {
 				trackingSpecs: z.array(z.record(z.unknown())).optional(),
 			}),
 		},
+
 		{
 			handle: 'getAdInsights',
 			description: 'Get performance insights for a campaign, ad set, or ad.',
@@ -342,14 +300,13 @@ export const metaAdsDefinition: IntegrationDefinition = {
 			method: 'GET',
 			endpoint: '/{{ input.objectId }}/insights',
 			queryParams: {
-				fields: '{{ input.fields || "impressions,clicks,spend,cpm,ctr,reach,actions,conversions,cost_per_action_type" }}',
+				fields: '{{ input.fields }}',
 				level: '{{ input.level }}',
 				date_preset: '{{ input.datePreset }}',
 				time_range: '{{ input.timeRange }}',
 				breakdowns: '{{ input.breakdowns }}',
 				limit: '{{ input.limit }}',
 				after: '{{ input.after }}',
-				access_token: '{{ config.apiKey }}',
 			},
 			inputSchema: z.object({
 				objectId: z.string().describe('Campaign, ad set, or ad ID'),
@@ -362,6 +319,7 @@ export const metaAdsDefinition: IntegrationDefinition = {
 				after: z.string().optional(),
 			}),
 		},
+
 		{
 			handle: 'getAdAccountInsights',
 			description: 'Get account-level performance insights.',
@@ -369,38 +327,30 @@ export const metaAdsDefinition: IntegrationDefinition = {
 			method: 'GET',
 			endpoint: '/{{ input.actId }}/insights',
 			queryParams: {
-				fields: '{{ input.fields || "impressions,clicks,spend,cpm,ctr,reach,actions,conversions" }}',
-				date_preset: '{{ input.datePreset || "last_30d" }}',
-				level: '{{ input.level || "account" }}',
-				access_token: '{{ config.apiKey }}',
+				fields: '{{ input.fields }}',
+				date_preset: '{{ input.datePreset }}',
+				level: '{{ input.level }}',
 			},
 			inputSchema: z.object({
 				actId: z.string(),
-				fields: z.string().optional(),
-				datePreset: z.string().optional(),
-				level: z.string().optional(),
+				fields: z.string().optional().describe('Comma-separated metric fields'),
+				datePreset: z.string().optional().describe('Date preset (e.g. last_30d)'),
+				level: z.string().optional().describe('Aggregation level: account, campaign, adset, ad'),
 			}),
 		},
+
 		{
 			handle: 'createCustomAudience',
 			description: 'Create a custom audience.',
 			scopes: ['audiences'],
-			execute: async (input: Record<string, unknown>, context: ToolContext) => {
-				const actId = input.actId as string;
-				const params = new URLSearchParams();
-				params.set('name', input.name as string);
-				params.set('subtype', input.subtype as string);
-				params.set('access_token', (context.config?.apiKey as string) || '');
-				if (input.description) params.set('description', input.description as string);
-				if (input.customerFileSource) params.set('customer_file_source', input.customerFileSource as string);
-				if (input.retentionDays) params.set('retention_days', String(input.retentionDays));
-
-				const res = await fetch(`https://graph.facebook.com/v20.0/${actId}/customaudiences`, {
-					method: 'POST',
-					body: params,
-				});
-				if (!res.ok) throw new Error(`Meta API error ${res.status}: ${await res.text()}`);
-				return res.json();
+			method: 'POST',
+			endpoint: '/{{ input.actId }}/customaudiences',
+			body: {
+				name: '{{ input.name }}',
+				subtype: '{{ input.subtype }}',
+				description: '{{ input.description }}',
+				customer_file_source: '{{ input.customerFileSource }}',
+				retention_days: '{{ input.retentionDays }}',
 			},
 			inputSchema: z.object({
 				actId: z.string(),
@@ -411,6 +361,7 @@ export const metaAdsDefinition: IntegrationDefinition = {
 				retentionDays: z.number().optional(),
 			}),
 		},
+
 		{
 			handle: 'getAudiences',
 			description: 'List custom audiences for an ad account.',
@@ -418,16 +369,16 @@ export const metaAdsDefinition: IntegrationDefinition = {
 			method: 'GET',
 			endpoint: '/{{ input.actId }}/customaudiences',
 			queryParams: {
-				fields: '{{ input.fields || "id,name,subtype,approximate_count,delivery_status,data_source" }}',
+				fields: '{{ input.fields }}',
 				limit: '{{ input.limit }}',
-				access_token: '{{ config.apiKey }}',
 			},
 			inputSchema: z.object({
 				actId: z.string(),
-				fields: z.string().optional(),
+				fields: z.string().optional().describe('Comma-separated fields to return'),
 				limit: z.number().optional(),
 			}),
 		},
+
 		{
 			handle: 'getAdCreatives',
 			description: 'Get ad creatives for an ad account.',
@@ -435,38 +386,30 @@ export const metaAdsDefinition: IntegrationDefinition = {
 			method: 'GET',
 			endpoint: '/{{ input.actId }}/adcreatives',
 			queryParams: {
-				fields: '{{ input.fields || "id,name,title,body,image_url,object_story_spec,call_to_action_type" }}',
+				fields: '{{ input.fields }}',
 				limit: '{{ input.limit }}',
-				access_token: '{{ config.apiKey }}',
 			},
 			inputSchema: z.object({
 				actId: z.string(),
-				fields: z.string().optional(),
+				fields: z.string().optional().describe('Comma-separated fields to return'),
 				limit: z.number().optional(),
 			}),
 		},
+
 		{
 			handle: 'createAdCreative',
 			description: 'Create an ad creative.',
 			scopes: ['campaigns.write'],
-			execute: async (input: Record<string, unknown>, context: ToolContext) => {
-				const actId = input.actId as string;
-				const params = new URLSearchParams();
-				params.set('name', input.name as string);
-				params.set('access_token', (context.config?.apiKey as string) || '');
-				if (input.objectStorySpec) params.set('object_story_spec', JSON.stringify(input.objectStorySpec));
-				if (input.imageHash) params.set('image_hash', input.imageHash as string);
-				if (input.imageUrl) params.set('image_url', input.imageUrl as string);
-				if (input.title) params.set('title', input.title as string);
-				if (input.body) params.set('body', input.body as string);
-				if (input.callToAction) params.set('call_to_action', JSON.stringify(input.callToAction));
-
-				const res = await fetch(`https://graph.facebook.com/v20.0/${actId}/adcreatives`, {
-					method: 'POST',
-					body: params,
-				});
-				if (!res.ok) throw new Error(`Meta API error ${res.status}: ${await res.text()}`);
-				return res.json();
+			method: 'POST',
+			endpoint: '/{{ input.actId }}/adcreatives',
+			body: {
+				name: '{{ input.name }}',
+				object_story_spec: '{{ input.objectStorySpec }}',
+				image_hash: '{{ input.imageHash }}',
+				image_url: '{{ input.imageUrl }}',
+				title: '{{ input.title }}',
+				body: '{{ input.body }}',
+				call_to_action: '{{ input.callToAction }}',
 			},
 			inputSchema: z.object({
 				actId: z.string(),
@@ -479,6 +422,7 @@ export const metaAdsDefinition: IntegrationDefinition = {
 				callToAction: z.record(z.unknown()).optional(),
 			}),
 		},
+
 		{
 			handle: 'getDeliveryEstimate',
 			description: 'Get a delivery estimate for an ad set.',
@@ -488,7 +432,6 @@ export const metaAdsDefinition: IntegrationDefinition = {
 			queryParams: {
 				optimization_goal: '{{ input.optimizationGoal }}',
 				promote_object: '{{ input.promoteObject }}',
-				access_token: '{{ config.apiKey }}',
 			},
 			inputSchema: z.object({
 				adsetId: z.string(),
