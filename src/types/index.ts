@@ -51,8 +51,14 @@ export interface APISetup {
 	baseUrl: string;
 	/** Default headers merged into every request. Supports Liquid templates. */
 	headers?: Record<string, string>;
-	/** Body serialisation format for outgoing requests. */
-	requestFormat?: 'json' | 'form-data' | 'text';
+	/**
+	 * Body serialisation format for outgoing requests.
+	 * - `json`: `application/json` (default)
+	 * - `url-encoded`: `application/x-www-form-urlencoded` (Stripe, Twilio, etc.)
+	 * - `form-data`: multipart/form-data (file uploads)
+	 * - `text`: `text/plain`
+	 */
+	requestFormat?: 'json' | 'url-encoded' | 'form-data' | 'text';
 	/** Expected format of API responses. */
 	responseFormat?: 'json' | 'text' | 'xml';
 }

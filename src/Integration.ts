@@ -24,6 +24,27 @@ import { renderWithConfig, renderWithInput, renderTemplate } from './utils/liqui
 /** Tracks in-flight refresh promises to avoid race conditions. */
 const refreshPromises = new WeakMap<OAuth2Credential, Promise<string>>();
 
+// ─── URL-encoding helper ───────────────────────────────────────────────────────
+
+/**
+ * Recursively encode a value into `URLSearchParams` using PHP/Rails bracket notation.
+ * Arrays become `key[]=v1&key[]=v2`; objects become `parent[child]=v`.
+ */
+function _encodeUrlParams(params: URLSearchParams, prefix: string, value: unknown): void {
+	if (value === undefined || value === null) return;
+	if (Array.isArray(value)) {
+		for (const item of value) {
+			params.append(`${prefix}[]`, String(item));
+		}
+	} else if (typeof value === 'object') {
+		for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+			_encodeUrlParams(params, prefix ? `${prefix}[${k}]` : k, v);
+		}
+	} else {
+		params.set(prefix, String(value));
+	}
+}
+
 // ─── Integration class ────────────────────────────────────────────────────────
 
 /**
@@ -132,7 +153,14 @@ export class Integration {
 			: undefined;
 
 		// 8. Build URL
-		const urlStr = baseUrl.replace(/\/$/, '') + endpoint;
+		// If the endpoint is an absolute URL (e.g. for integrations with multiple
+		// base domains like Twilio Verify / Lookup), use it directly.
+		let urlStr: string;
+		if (endpoint.startsWith('http://') || endpoint.startsWith('https://')) {
+			urlStr = endpoint;
+		} else {
+			urlStr = baseUrl.replace(/\/$/, '') + endpoint;
+		}
 		const url = new URL(urlStr);
 
 		for (const [k, v] of Object.entries(authQueryParams)) {
@@ -140,7 +168,11 @@ export class Integration {
 		}
 		for (const [k, v] of Object.entries(toolQueryParams as Record<string, unknown>)) {
 			if (v !== undefined && v !== null) {
-				url.searchParams.set(k, String(v));
+				if (Array.isArray(v)) {
+					for (const item of v) url.searchParams.append(k, String(item));
+				} else {
+					url.searchParams.set(k, String(v));
+				}
 			}
 		}
 
@@ -160,10 +192,15 @@ export class Integration {
 			if (requestFormat === 'json') {
 				requestInit.body = JSON.stringify(toolBody);
 				headers['Content-Type'] = headers['Content-Type'] ?? 'application/json';
+			} else if (requestFormat === 'url-encoded') {
+				const params = new URLSearchParams();
+				_encodeUrlParams(params, '', toolBody as Record<string, unknown>);
+				requestInit.body = params.toString();
+				headers['Content-Type'] = 'application/x-www-form-urlencoded';
 			} else if (requestFormat === 'form-data') {
 				const form = new FormData();
 				for (const [k, v] of Object.entries(toolBody as Record<string, unknown>)) {
-					form.append(k, String(v));
+					if (v !== undefined && v !== null) form.append(k, String(v));
 				}
 				requestInit.body = form;
 			} else {

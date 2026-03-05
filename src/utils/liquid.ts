@@ -42,21 +42,26 @@ function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
 
 /**
  * Render a single string value using LiquidJS with the provided context.
- * If the string is *exactly* `{{ input.someField }}` or `{{ config.someField }}`,
+ *
+ * When the string is *exactly* `{{ input.someField }}` or `{{ config.someField }}`,
  * the original JavaScript value is returned without coercing it to a string,
- * preserving the original type (number, boolean, array, etc.).
+ * preserving the original type (number, boolean, array, object, etc.).
+ *
+ * For `{{ input.X }}` patterns, `undefined` is returned when the variable is absent.
+ * This allows callers to detect unresolved optional fields and omit them from bodies
+ * / query params rather than emitting an empty string.
  *
  * @param template - The string to render.
- * @param context - Combined variable context passed to the Liquid engine.
+ * @param context  - Combined variable context passed to the Liquid engine.
  */
 async function renderString(template: string, context: Record<string, unknown>): Promise<unknown> {
 	if (typeof template !== 'string') return template;
 
-	// Direct input substitution – preserves original type
+	// Direct input substitution – preserves original type.
+	// Returns undefined when the variable is absent so callers can strip the key.
 	const inputMatch = template.match(DIRECT_INPUT_TEMPLATE_RE);
 	if (inputMatch && context.input) {
-		const value = getNestedValue(context.input as Record<string, unknown>, inputMatch[1]);
-		if (value !== undefined) return value;
+		return getNestedValue(context.input as Record<string, unknown>, inputMatch[1]);
 	}
 
 	// Direct config substitution – preserves original type
@@ -78,7 +83,10 @@ async function renderString(template: string, context: Record<string, unknown>):
  * Recursively walk a value (object, array, or scalar) and render every
  * string leaf using LiquidJS with the given context.
  *
- * @param value - The value to process.
+ * Object keys whose rendered value is `undefined` are **silently dropped**,
+ * which is the desired behaviour for optional HTTP body / query-param fields.
+ *
+ * @param value   - The value to process.
  * @param context - Variable context for Liquid rendering.
  */
 export async function renderValue(
@@ -89,12 +97,18 @@ export async function renderValue(
 		return renderString(value, context);
 	}
 	if (Array.isArray(value)) {
-		return Promise.all(value.map((item) => renderValue(item, context)));
+		const items = await Promise.all(value.map((item) => renderValue(item, context)));
+		// Filter out undefined items from arrays
+		return items.filter((item) => item !== undefined);
 	}
 	if (value !== null && typeof value === 'object') {
 		const result: Record<string, unknown> = {};
 		for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-			result[k] = await renderValue(v, context);
+			const rendered = await renderValue(v, context);
+			// Drop keys that resolved to undefined (optional fields not provided)
+			if (rendered !== undefined) {
+				result[k] = rendered;
+			}
 		}
 		return result;
 	}
@@ -105,7 +119,7 @@ export async function renderValue(
  * Render an object's values with a `config` context (used for credential
  * header / query-param templates such as `Authorization: Bearer {{ config.apiKey }}`).
  *
- * @param obj - The object to render.
+ * @param obj    - The object to render.
  * @param config - Integration credential config values.
  */
 export async function renderWithConfig(
@@ -120,8 +134,8 @@ export async function renderWithConfig(
  * Render an object's values with an `input` context (used for tool endpoint,
  * body, and query-parameter templates such as `{{ input.userId }}`).
  *
- * @param obj - The object to render.
- * @param input - Tool input values.
+ * @param obj    - The object to render.
+ * @param input  - Tool input values.
  * @param config - Optional integration config values (also available as `config.*`).
  */
 export async function renderWithInput(
@@ -136,8 +150,8 @@ export async function renderWithInput(
  * Render a single string template with both input and config contexts.
  *
  * @param template - The Liquid template string.
- * @param input - Tool input values.
- * @param config - Integration credential config values.
+ * @param input    - Tool input values.
+ * @param config   - Integration credential config values.
  */
 export async function renderTemplate(
 	template: string,
@@ -145,5 +159,5 @@ export async function renderTemplate(
 	config?: Record<string, unknown>,
 ): Promise<string> {
 	const result = await renderString(template, { input, config: config ?? {} });
-	return String(result);
+	return String(result ?? '');
 }
