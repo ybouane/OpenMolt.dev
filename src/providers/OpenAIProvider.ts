@@ -1,8 +1,10 @@
 /**
  * @module providers/OpenAIProvider
  * LLM provider implementation for the OpenAI API (GPT-4o, o1, o3, etc.).
+ * Uses the official `openai` SDK.
  */
 
+import OpenAI from 'openai';
 import { BaseProvider } from './BaseProvider.js';
 import type { ModelConfig, LLMResponse } from '../types/index.js';
 
@@ -19,17 +21,18 @@ function isReasoningModel(model: string): boolean {
  * reasoning models (o1, o3 family).
  */
 export class OpenAIProvider extends BaseProvider {
-	private readonly apiKey: string;
-	private readonly baseUrl: string;
+	private readonly client: OpenAI;
 
 	/**
 	 * @param apiKey  - OpenAI API key.
 	 * @param baseUrl - Override for the API base URL (useful for proxies / Azure).
 	 */
-	constructor(apiKey: string, baseUrl = 'https://api.openai.com/v1') {
+	constructor(apiKey: string, baseUrl?: string) {
 		super();
-		this.apiKey = apiKey;
-		this.baseUrl = baseUrl;
+		this.client = new OpenAI({
+			apiKey,
+			...(baseUrl ? { baseURL: baseUrl } : {}),
+		});
 	}
 
 	/** @inheritdoc */
@@ -41,58 +44,40 @@ export class OpenAIProvider extends BaseProvider {
 	): Promise<LLMResponse> {
 		const isReasoning = isReasoningModel(model);
 
-		const messages: Array<{ role: string; content: string }> = [];
+		const messages: OpenAI.ChatCompletionMessageParam[] = isReasoning
+			? [{ role: 'user', content: `${systemPrompt}\n\n---\n\n${userMessage}` }]
+			: [
+				{ role: 'system', content: systemPrompt },
+				{ role: 'user', content: userMessage },
+			];
 
-		if (isReasoning) {
-			// Reasoning models use a single user message; inject system prompt inline.
-			messages.push({ role: 'user', content: `${systemPrompt}\n\n---\n\n${userMessage}` });
-		} else {
-			messages.push({ role: 'system', content: systemPrompt });
-			messages.push({ role: 'user', content: userMessage });
-		}
-
-		const body: Record<string, unknown> = {
+		const params: OpenAI.ChatCompletionCreateParamsNonStreaming = {
 			model,
 			messages,
 			response_format: { type: 'json_object' },
 		};
 
 		if (!isReasoning) {
-			if (config?.temperature !== undefined) body.temperature = config.temperature;
-			if (config?.maxTokens) body.max_tokens = config.maxTokens;
+			if (config?.temperature !== undefined) params.temperature = config.temperature;
+			if (config?.maxTokens) params.max_tokens = config.maxTokens;
 		} else {
-			if (config?.maxTokens) body.max_completion_tokens = config.maxTokens;
+			if (config?.maxTokens) {
+				(params as unknown as Record<string, unknown>).max_completion_tokens = config.maxTokens;
+				delete params.max_tokens;
+			}
 		}
 
-		const response = await fetch(`${this.baseUrl}/chat/completions`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${this.apiKey}`,
-			},
-			body: JSON.stringify(body),
-		});
-
-		if (!response.ok) {
-			const errText = await response.text();
-			throw new Error(`OpenAI API error ${response.status}: ${errText}`);
-		}
-
-		const data = (await response.json()) as {
-			choices: Array<{ message: { content: string } }>;
-			usage?: { prompt_tokens: number; completion_tokens: number; total_tokens: number };
-		};
-
-		const content = data.choices[0]?.message?.content ?? '';
+		const response = await this.client.chat.completions.create(params);
+		const content = response.choices[0]?.message?.content ?? '';
 
 		return {
 			content,
 			usage: {
-				promptTokens: data.usage?.prompt_tokens ?? 0,
-				completionTokens: data.usage?.completion_tokens ?? 0,
-				totalTokens: data.usage?.total_tokens ?? 0,
+				promptTokens: response.usage?.prompt_tokens ?? 0,
+				completionTokens: response.usage?.completion_tokens ?? 0,
+				totalTokens: response.usage?.total_tokens ?? 0,
 			},
-			raw: data,
+			raw: response,
 		};
 	}
 }
