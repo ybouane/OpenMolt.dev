@@ -13,7 +13,7 @@
  *
  * Run:
  *   OPENAI_API_KEY=sk-... FAL_API_KEY=... \
- *   npx ts-node examples/05-blog-post-creator.ts
+ *   npx tsx examples/05-blog-post-creator.ts
  */
 
 import OpenMolt from '../src/index.js';

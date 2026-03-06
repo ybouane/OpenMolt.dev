@@ -6,7 +6,7 @@
  * so `agent.run()` returns a typed object rather than a plain string.
  *
  * Run:
- *   OPENAI_API_KEY=sk-... npx ts-node examples/03-structured-output.ts
+ *   OPENAI_API_KEY=sk-... npx tsx examples/03-structured-output.ts
  */
 
 import { z } from 'zod';
@@ -39,7 +39,7 @@ You are a web-scraping assistant. When given a URL:
 		{
 			integration: 'httpRequest',
 			credential: { type: 'custom', config: {} },
-			scopes: ['all'],
+			scopes: 'all',
 		},
 	],
 	outputSchema: LogoSchema,

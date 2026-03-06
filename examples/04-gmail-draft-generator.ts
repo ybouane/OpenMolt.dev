@@ -14,7 +14,7 @@
  * Run:
  *   GOOGLE_CLIENT_ID=... GOOGLE_CLIENT_SECRET=... GOOGLE_REFRESH_TOKEN=... \
  *   OPENAI_API_KEY=sk-... \
- *   npx ts-node examples/04-gmail-draft-generator.ts
+ *   npx tsx examples/04-gmail-draft-generator.ts
  */
 
 import OpenMolt from '../src/index.js';
@@ -62,7 +62,7 @@ If an email doesn't need a reply (newsletter, notification, etc.) skip it.
 					refreshToken: process.env.GOOGLE_REFRESH_TOKEN ?? '',
 				},
 			},
-			scopes: ['all'],
+			scopes: 'all',
 		},
 	],
 });

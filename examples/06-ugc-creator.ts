@@ -15,7 +15,7 @@
  *
  * Run:
  *   OPENAI_API_KEY=sk-... FAL_API_KEY=... TELEGRAM_BOT_TOKEN=... \
- *   npx ts-node examples/06-ugc-creator.ts
+ *   npx tsx examples/06-ugc-creator.ts
  */
 
 import OpenMolt from '../src/index.js';

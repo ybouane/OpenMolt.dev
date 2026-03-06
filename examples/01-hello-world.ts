@@ -4,7 +4,7 @@
  * The simplest possible agent — ask it to tell you a joke.
  *
  * Run:
- *   OPENAI_API_KEY=sk-... npx ts-node examples/01-hello-world.ts
+ *   OPENAI_API_KEY=sk-... npx tsx examples/01-hello-world.ts
  */
 
 import OpenMolt from '../src/index.js';

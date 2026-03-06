@@ -29,6 +29,7 @@ build/
 # Testing
 coverage/
 .nyc_output/
+internal/
 
 # Misc
 .cache/

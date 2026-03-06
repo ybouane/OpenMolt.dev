@@ -5,7 +5,7 @@
  * This keeps long prompts out of your code and makes them easy to version separately.
  *
  * Run:
- *   OPENAI_API_KEY=sk-... npx ts-node examples/02-instructions-from-file/index.ts
+ *   OPENAI_API_KEY=sk-... npx tsx examples/02-instructions-from-file/index.ts
  */
 
 import { fileURLToPath } from 'url';
