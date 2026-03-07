@@ -1,0 +1,23 @@
+{
+  "id": "api/variables/fileSystemDefinition",
+  "title": "fileSystemDefinition",
+  "description": "openmolt",
+  "source": "@site/docs/api/variables/fileSystemDefinition.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/fileSystemDefinition",
+  "permalink": "/api/variables/fileSystemDefinition",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "falDefinition",
+    "permalink": "/api/variables/falDefinition"
+  },
+  "next": {
+    "title": "geminiMediaDefinition",
+    "permalink": "/api/variables/geminiMediaDefinition"
+  }
+}

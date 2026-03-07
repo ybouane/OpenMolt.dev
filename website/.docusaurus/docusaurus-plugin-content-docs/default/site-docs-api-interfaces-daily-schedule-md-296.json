@@ -1,0 +1,23 @@
+{
+  "id": "api/interfaces/DailySchedule",
+  "title": "DailySchedule",
+  "description": "openmolt",
+  "source": "@site/docs/api/interfaces/DailySchedule.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/DailySchedule",
+  "permalink": "/api/interfaces/DailySchedule",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "CustomCredentialSetup",
+    "permalink": "/api/interfaces/CustomCredentialSetup"
+  },
+  "next": {
+    "title": "FinishCommand",
+    "permalink": "/api/interfaces/FinishCommand"
+  }
+}

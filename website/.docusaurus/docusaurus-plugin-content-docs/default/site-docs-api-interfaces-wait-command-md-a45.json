@@ -1,0 +1,23 @@
+{
+  "id": "api/interfaces/WaitCommand",
+  "title": "WaitCommand",
+  "description": "openmolt",
+  "source": "@site/docs/api/interfaces/WaitCommand.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/WaitCommand",
+  "permalink": "/api/interfaces/WaitCommand",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "UpdatePlanCommand",
+    "permalink": "/api/interfaces/UpdatePlanCommand"
+  },
+  "next": {
+    "title": "AgentCommand",
+    "permalink": "/api/type-aliases/AgentCommand"
+  }
+}

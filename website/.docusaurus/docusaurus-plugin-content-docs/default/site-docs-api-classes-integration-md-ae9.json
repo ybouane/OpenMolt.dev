@@ -1,0 +1,23 @@
+{
+  "id": "api/classes/Integration",
+  "title": "Integration",
+  "description": "openmolt",
+  "source": "@site/docs/api/classes/Integration.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/Integration",
+  "permalink": "/api/classes/Integration",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "GoogleProvider",
+    "permalink": "/api/classes/GoogleProvider"
+  },
+  "next": {
+    "title": "OpenAIProvider",
+    "permalink": "/api/classes/OpenAIProvider"
+  }
+}

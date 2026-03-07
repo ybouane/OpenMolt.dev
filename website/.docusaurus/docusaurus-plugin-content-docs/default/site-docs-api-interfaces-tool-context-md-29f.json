@@ -1,0 +1,23 @@
+{
+  "id": "api/interfaces/ToolContext",
+  "title": "ToolContext",
+  "description": "openmolt",
+  "source": "@site/docs/api/interfaces/ToolContext.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/ToolContext",
+  "permalink": "/api/interfaces/ToolContext",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "RequestHumanInputCommand",
+    "permalink": "/api/interfaces/RequestHumanInputCommand"
+  },
+  "next": {
+    "title": "ToolDefinition",
+    "permalink": "/api/interfaces/ToolDefinition"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "api/interfaces/UpdatePlanCommand",
+  "title": "UpdatePlanCommand",
+  "description": "openmolt",
+  "source": "@site/docs/api/interfaces/UpdatePlanCommand.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/UpdatePlanCommand",
+  "permalink": "/api/interfaces/UpdatePlanCommand",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "UpdateMemoryCommand",
+    "permalink": "/api/interfaces/UpdateMemoryCommand"
+  },
+  "next": {
+    "title": "WaitCommand",
+    "permalink": "/api/interfaces/WaitCommand"
+  }
+}

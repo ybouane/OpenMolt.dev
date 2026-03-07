@@ -1,0 +1,23 @@
+{
+  "id": "api/variables/geminiMediaDefinition",
+  "title": "geminiMediaDefinition",
+  "description": "openmolt",
+  "source": "@site/docs/api/variables/geminiMediaDefinition.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/geminiMediaDefinition",
+  "permalink": "/api/variables/geminiMediaDefinition",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "fileSystemDefinition",
+    "permalink": "/api/variables/fileSystemDefinition"
+  },
+  "next": {
+    "title": "githubDefinition",
+    "permalink": "/api/variables/githubDefinition"
+  }
+}

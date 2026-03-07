@@ -1,0 +1,23 @@
+{
+  "id": "api/variables/discordDefinition",
+  "title": "discordDefinition",
+  "description": "openmolt",
+  "source": "@site/docs/api/variables/discordDefinition.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/discordDefinition",
+  "permalink": "/api/variables/discordDefinition",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "browserUseDefinition",
+    "permalink": "/api/variables/browserUseDefinition"
+  },
+  "next": {
+    "title": "dropboxDefinition",
+    "permalink": "/api/variables/dropboxDefinition"
+  }
+}

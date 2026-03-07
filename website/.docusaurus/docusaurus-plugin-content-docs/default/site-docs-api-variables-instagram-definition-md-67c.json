@@ -1,0 +1,23 @@
+{
+  "id": "api/variables/instagramDefinition",
+  "title": "instagramDefinition",
+  "description": "openmolt",
+  "source": "@site/docs/api/variables/instagramDefinition.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/instagramDefinition",
+  "permalink": "/api/variables/instagramDefinition",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "httpRequestDefinition",
+    "permalink": "/api/variables/httpRequestDefinition"
+  },
+  "next": {
+    "title": "metaAdsDefinition",
+    "permalink": "/api/variables/metaAdsDefinition"
+  }
+}

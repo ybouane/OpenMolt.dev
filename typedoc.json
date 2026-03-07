@@ -1,18 +1,13 @@
 {
 	"entryPoints": ["src/index.ts"],
 	"entryPointStrategy": "resolve",
-	"out": "docs",
-	"name": "OpenMolt",
-	"readme": "none",
-"tsconfig": "tsconfig.json",
-	"includeVersion": true,
+	"tsconfig": "tsconfig.json",
+	"plugin": ["typedoc-plugin-markdown"],
+	"out": "website/docs/api",
 	"excludePrivate": true,
 	"excludeInternal": true,
 	"excludeExternals": true,
 	"searchInComments": true,
-	"categorizeByGroup": true,
-	"navigation": {
-		"includeCategories": true,
-		"includeGroups": true
-	}
+	"hideGenerator": true,
+	"readme": "none"
 }

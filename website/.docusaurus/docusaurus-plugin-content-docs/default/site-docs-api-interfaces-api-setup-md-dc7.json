@@ -1,0 +1,23 @@
+{
+  "id": "api/interfaces/APISetup",
+  "title": "APISetup",
+  "description": "openmolt",
+  "source": "@site/docs/api/interfaces/APISetup.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/APISetup",
+  "permalink": "/api/interfaces/APISetup",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "createFileSystemIntegration",
+    "permalink": "/api/functions/createFileSystemIntegration"
+  },
+  "next": {
+    "title": "AgentConfig",
+    "permalink": "/api/interfaces/AgentConfig"
+  }
+}

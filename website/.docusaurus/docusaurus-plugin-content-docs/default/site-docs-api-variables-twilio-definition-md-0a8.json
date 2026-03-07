@@ -1,0 +1,23 @@
+{
+  "id": "api/variables/twilioDefinition",
+  "title": "twilioDefinition",
+  "description": "openmolt",
+  "source": "@site/docs/api/variables/twilioDefinition.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/twilioDefinition",
+  "permalink": "/api/variables/twilioDefinition",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "tiktokDefinition",
+    "permalink": "/api/variables/tiktokDefinition"
+  },
+  "next": {
+    "title": "twitterDefinition",
+    "permalink": "/api/variables/twitterDefinition"
+  }
+}

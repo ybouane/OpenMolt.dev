@@ -1,0 +1,23 @@
+{
+  "id": "api/classes/GoogleProvider",
+  "title": "GoogleProvider",
+  "description": "openmolt",
+  "source": "@site/docs/api/classes/GoogleProvider.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/GoogleProvider",
+  "permalink": "/api/classes/GoogleProvider",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "BaseProvider",
+    "permalink": "/api/classes/BaseProvider"
+  },
+  "next": {
+    "title": "Integration",
+    "permalink": "/api/classes/Integration"
+  }
+}

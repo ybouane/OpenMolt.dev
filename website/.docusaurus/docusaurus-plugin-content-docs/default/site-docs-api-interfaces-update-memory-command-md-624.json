@@ -1,0 +1,23 @@
+{
+  "id": "api/interfaces/UpdateMemoryCommand",
+  "title": "UpdateMemoryCommand",
+  "description": "openmolt",
+  "source": "@site/docs/api/interfaces/UpdateMemoryCommand.md",
+  "sourceDirName": "api/interfaces",
+  "slug": "/api/interfaces/UpdateMemoryCommand",
+  "permalink": "/api/interfaces/UpdateMemoryCommand",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "ToolDefinition",
+    "permalink": "/api/interfaces/ToolDefinition"
+  },
+  "next": {
+    "title": "UpdatePlanCommand",
+    "permalink": "/api/interfaces/UpdatePlanCommand"
+  }
+}

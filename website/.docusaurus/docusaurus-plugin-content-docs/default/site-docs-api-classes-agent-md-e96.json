@@ -1,0 +1,23 @@
+{
+  "id": "api/classes/Agent",
+  "title": "Agent",
+  "description": "openmolt",
+  "source": "@site/docs/api/classes/Agent.md",
+  "sourceDirName": "api/classes",
+  "slug": "/api/classes/Agent",
+  "permalink": "/api/classes/Agent",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "README",
+    "permalink": "/api/"
+  },
+  "next": {
+    "title": "AnthropicProvider",
+    "permalink": "/api/classes/AnthropicProvider"
+  }
+}
