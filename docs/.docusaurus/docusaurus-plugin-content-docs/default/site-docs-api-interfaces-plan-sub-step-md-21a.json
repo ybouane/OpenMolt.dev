@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/PlanSubStep.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/PlanSubStep",
-  "permalink": "/api/interfaces/PlanSubStep",
+  "permalink": "/docs/api/interfaces/PlanSubStep",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "PlanStep",
-    "permalink": "/api/interfaces/PlanStep"
+    "permalink": "/docs/api/interfaces/PlanStep"
   },
   "next": {
     "title": "RequestHumanInputCommand",
-    "permalink": "/api/interfaces/RequestHumanInputCommand"
+    "permalink": "/docs/api/interfaces/RequestHumanInputCommand"
   }
 }

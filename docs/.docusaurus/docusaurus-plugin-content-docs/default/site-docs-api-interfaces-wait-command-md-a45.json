@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/WaitCommand.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/WaitCommand",
-  "permalink": "/api/interfaces/WaitCommand",
+  "permalink": "/docs/api/interfaces/WaitCommand",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "UpdatePlanCommand",
-    "permalink": "/api/interfaces/UpdatePlanCommand"
+    "permalink": "/docs/api/interfaces/UpdatePlanCommand"
   },
   "next": {
     "title": "AgentCommand",
-    "permalink": "/api/type-aliases/AgentCommand"
+    "permalink": "/docs/api/type-aliases/AgentCommand"
   }
 }

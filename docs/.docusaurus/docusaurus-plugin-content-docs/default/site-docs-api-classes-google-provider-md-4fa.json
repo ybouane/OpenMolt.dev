@@ -5,7 +5,7 @@
   "source": "@site/docs/api/classes/GoogleProvider.md",
   "sourceDirName": "api/classes",
   "slug": "/api/classes/GoogleProvider",
-  "permalink": "/api/classes/GoogleProvider",
+  "permalink": "/docs/api/classes/GoogleProvider",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "BaseProvider",
-    "permalink": "/api/classes/BaseProvider"
+    "permalink": "/docs/api/classes/BaseProvider"
   },
   "next": {
     "title": "Integration",
-    "permalink": "/api/classes/Integration"
+    "permalink": "/docs/api/classes/Integration"
   }
 }

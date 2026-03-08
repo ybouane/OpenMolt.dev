@@ -8,7 +8,7 @@ const config: Config = {
 	favicon: 'img/favicon.ico',
 
 	url: 'https://openmolt.dev',
-	baseUrl: '/',
+	baseUrl: '/docs/',
 
 	onBrokenLinks: 'warn',
 	onBrokenMarkdownLinks: 'warn',
@@ -79,7 +79,7 @@ const config: Config = {
 					label: 'Docs',
 				},
 				{
-					href: 'https://github.com/openmolt/openmolt',
+					href: 'https://github.com/ybouane/openmolt.dev',
 					label: 'GitHub',
 					position: 'right',
 				},

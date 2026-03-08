@@ -5,7 +5,7 @@
   "source": "@site/docs/api/classes/AnthropicProvider.md",
   "sourceDirName": "api/classes",
   "slug": "/api/classes/AnthropicProvider",
-  "permalink": "/api/classes/AnthropicProvider",
+  "permalink": "/docs/api/classes/AnthropicProvider",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "Agent",
-    "permalink": "/api/classes/Agent"
+    "permalink": "/docs/api/classes/Agent"
   },
   "next": {
     "title": "BaseProvider",
-    "permalink": "/api/classes/BaseProvider"
+    "permalink": "/docs/api/classes/BaseProvider"
   }
 }

@@ -5,7 +5,7 @@
   "source": "@site/docs/api/variables/metaAdsDefinition.md",
   "sourceDirName": "api/variables",
   "slug": "/api/variables/metaAdsDefinition",
-  "permalink": "/api/variables/metaAdsDefinition",
+  "permalink": "/docs/api/variables/metaAdsDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "instagramDefinition",
-    "permalink": "/api/variables/instagramDefinition"
+    "permalink": "/docs/api/variables/instagramDefinition"
   },
   "next": {
     "title": "microsoftOutlookDefinition",
-    "permalink": "/api/variables/microsoftOutlookDefinition"
+    "permalink": "/docs/api/variables/microsoftOutlookDefinition"
   }
 }

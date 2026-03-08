@@ -5,7 +5,7 @@
   "source": "@site/docs/api/variables/googleCalendarDefinition.md",
   "sourceDirName": "api/variables",
   "slug": "/api/variables/googleCalendarDefinition",
-  "permalink": "/api/variables/googleCalendarDefinition",
+  "permalink": "/docs/api/variables/googleCalendarDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "googleAdsDefinition",
-    "permalink": "/api/variables/googleAdsDefinition"
+    "permalink": "/docs/api/variables/googleAdsDefinition"
   },
   "next": {
     "title": "googleDriveDefinition",
-    "permalink": "/api/variables/googleDriveDefinition"
+    "permalink": "/docs/api/variables/googleDriveDefinition"
   }
 }

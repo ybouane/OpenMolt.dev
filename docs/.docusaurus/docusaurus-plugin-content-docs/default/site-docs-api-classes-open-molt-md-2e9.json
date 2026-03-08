@@ -5,7 +5,7 @@
   "source": "@site/docs/api/classes/OpenMolt.md",
   "sourceDirName": "api/classes",
   "slug": "/api/classes/OpenMolt",
-  "permalink": "/api/classes/OpenMolt",
+  "permalink": "/docs/api/classes/OpenMolt",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "OpenAIProvider",
-    "permalink": "/api/classes/OpenAIProvider"
+    "permalink": "/docs/api/classes/OpenAIProvider"
   },
   "next": {
     "title": "createFileSystemIntegration",
-    "permalink": "/api/functions/createFileSystemIntegration"
+    "permalink": "/docs/api/functions/createFileSystemIntegration"
   }
 }

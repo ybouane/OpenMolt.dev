@@ -5,7 +5,7 @@
   "source": "@site/docs/concepts/integrations.md",
   "sourceDirName": "concepts",
   "slug": "/concepts/integrations",
-  "permalink": "/concepts/integrations",
+  "permalink": "/docs/concepts/integrations",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -18,10 +18,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "Agents",
-    "permalink": "/concepts/agents"
+    "permalink": "/docs/concepts/agents"
   },
   "next": {
     "title": "LLM Providers",
-    "permalink": "/concepts/providers"
+    "permalink": "/docs/concepts/providers"
   }
 }

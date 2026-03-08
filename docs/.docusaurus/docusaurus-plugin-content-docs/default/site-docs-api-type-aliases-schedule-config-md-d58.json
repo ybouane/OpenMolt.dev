@@ -5,7 +5,7 @@
   "source": "@site/docs/api/type-aliases/ScheduleConfig.md",
   "sourceDirName": "api/type-aliases",
   "slug": "/api/type-aliases/ScheduleConfig",
-  "permalink": "/api/type-aliases/ScheduleConfig",
+  "permalink": "/docs/api/type-aliases/ScheduleConfig",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "CredentialSetup",
-    "permalink": "/api/type-aliases/CredentialSetup"
+    "permalink": "/docs/api/type-aliases/CredentialSetup"
   },
   "next": {
     "title": "airtableDefinition",
-    "permalink": "/api/variables/airtableDefinition"
+    "permalink": "/docs/api/variables/airtableDefinition"
   }
 }

@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/LLMProviderConfig.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/LLMProviderConfig",
-  "permalink": "/api/interfaces/LLMProviderConfig",
+  "permalink": "/docs/api/interfaces/LLMProviderConfig",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "IntervalSchedule",
-    "permalink": "/api/interfaces/IntervalSchedule"
+    "permalink": "/docs/api/interfaces/IntervalSchedule"
   },
   "next": {
     "title": "LLMResponse",
-    "permalink": "/api/interfaces/LLMResponse"
+    "permalink": "/docs/api/interfaces/LLMResponse"
   }
 }

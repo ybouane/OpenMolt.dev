@@ -5,7 +5,7 @@
   "source": "@site/docs/api/classes/Agent.md",
   "sourceDirName": "api/classes",
   "slug": "/api/classes/Agent",
-  "permalink": "/api/classes/Agent",
+  "permalink": "/docs/api/classes/Agent",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "README",
-    "permalink": "/api/"
+    "permalink": "/docs/api/"
   },
   "next": {
     "title": "AnthropicProvider",
-    "permalink": "/api/classes/AnthropicProvider"
+    "permalink": "/docs/api/classes/AnthropicProvider"
   }
 }

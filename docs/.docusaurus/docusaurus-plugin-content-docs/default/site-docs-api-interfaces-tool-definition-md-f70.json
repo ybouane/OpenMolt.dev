@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/ToolDefinition.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/ToolDefinition",
-  "permalink": "/api/interfaces/ToolDefinition",
+  "permalink": "/docs/api/interfaces/ToolDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "ToolContext",
-    "permalink": "/api/interfaces/ToolContext"
+    "permalink": "/docs/api/interfaces/ToolContext"
   },
   "next": {
     "title": "UpdateMemoryCommand",
-    "permalink": "/api/interfaces/UpdateMemoryCommand"
+    "permalink": "/docs/api/interfaces/UpdateMemoryCommand"
   }
 }

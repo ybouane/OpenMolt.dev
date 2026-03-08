@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/LLMResponse.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/LLMResponse",
-  "permalink": "/api/interfaces/LLMResponse",
+  "permalink": "/docs/api/interfaces/LLMResponse",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "LLMProviderConfig",
-    "permalink": "/api/interfaces/LLMProviderConfig"
+    "permalink": "/docs/api/interfaces/LLMProviderConfig"
   },
   "next": {
     "title": "MemoryConfig",
-    "permalink": "/api/interfaces/MemoryConfig"
+    "permalink": "/docs/api/interfaces/MemoryConfig"
   }
 }

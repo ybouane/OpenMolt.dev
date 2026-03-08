@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/RequestHumanInputCommand.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/RequestHumanInputCommand",
-  "permalink": "/api/interfaces/RequestHumanInputCommand",
+  "permalink": "/docs/api/interfaces/RequestHumanInputCommand",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "PlanSubStep",
-    "permalink": "/api/interfaces/PlanSubStep"
+    "permalink": "/docs/api/interfaces/PlanSubStep"
   },
   "next": {
     "title": "ToolContext",
-    "permalink": "/api/interfaces/ToolContext"
+    "permalink": "/docs/api/interfaces/ToolContext"
   }
 }

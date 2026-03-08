@@ -19,9 +19,9 @@
 		"dev": "tsc --watch",
 		"example": "tsx",
 		"prepublishOnly": "npm run build",
-		"docs": "typedoc && NODE_OPTIONS='--require ./website/preload.cjs' docusaurus build website",
-		"docs:dev": "typedoc && NODE_OPTIONS='--require ./website/preload.cjs' docusaurus start website",
-		"docs:clear": "docusaurus clear website"
+		"docs": "typedoc && NODE_OPTIONS='--require ./docs/preload.cjs' docusaurus build docs",
+		"docs:dev": "typedoc && NODE_OPTIONS='--require ./docs/preload.cjs' docusaurus start docs",
+		"docs:clear": "docusaurus clear docs"
 	},
 	"keywords": [
 		"ai",

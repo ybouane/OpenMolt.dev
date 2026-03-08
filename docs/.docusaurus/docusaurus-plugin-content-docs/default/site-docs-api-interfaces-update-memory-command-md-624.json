@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/UpdateMemoryCommand.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/UpdateMemoryCommand",
-  "permalink": "/api/interfaces/UpdateMemoryCommand",
+  "permalink": "/docs/api/interfaces/UpdateMemoryCommand",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "ToolDefinition",
-    "permalink": "/api/interfaces/ToolDefinition"
+    "permalink": "/docs/api/interfaces/ToolDefinition"
   },
   "next": {
     "title": "UpdatePlanCommand",
-    "permalink": "/api/interfaces/UpdatePlanCommand"
+    "permalink": "/docs/api/interfaces/UpdatePlanCommand"
   }
 }

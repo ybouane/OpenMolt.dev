@@ -5,7 +5,7 @@
   "source": "@site/docs/api/variables/googleSheetsDefinition.md",
   "sourceDirName": "api/variables",
   "slug": "/api/variables/googleSheetsDefinition",
-  "permalink": "/api/variables/googleSheetsDefinition",
+  "permalink": "/docs/api/variables/googleSheetsDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "googleDriveDefinition",
-    "permalink": "/api/variables/googleDriveDefinition"
+    "permalink": "/docs/api/variables/googleDriveDefinition"
   },
   "next": {
     "title": "httpRequestDefinition",
-    "permalink": "/api/variables/httpRequestDefinition"
+    "permalink": "/docs/api/variables/httpRequestDefinition"
   }
 }

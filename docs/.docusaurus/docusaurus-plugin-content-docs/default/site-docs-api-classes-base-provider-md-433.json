@@ -5,7 +5,7 @@
   "source": "@site/docs/api/classes/BaseProvider.md",
   "sourceDirName": "api/classes",
   "slug": "/api/classes/BaseProvider",
-  "permalink": "/api/classes/BaseProvider",
+  "permalink": "/docs/api/classes/BaseProvider",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "AnthropicProvider",
-    "permalink": "/api/classes/AnthropicProvider"
+    "permalink": "/docs/api/classes/AnthropicProvider"
   },
   "next": {
     "title": "GoogleProvider",
-    "permalink": "/api/classes/GoogleProvider"
+    "permalink": "/docs/api/classes/GoogleProvider"
   }
 }

@@ -5,7 +5,7 @@
   "source": "@site/docs/api/variables/gmailDefinition.md",
   "sourceDirName": "api/variables",
   "slug": "/api/variables/gmailDefinition",
-  "permalink": "/api/variables/gmailDefinition",
+  "permalink": "/docs/api/variables/gmailDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "githubDefinition",
-    "permalink": "/api/variables/githubDefinition"
+    "permalink": "/docs/api/variables/githubDefinition"
   },
   "next": {
     "title": "googleAdsDefinition",
-    "permalink": "/api/variables/googleAdsDefinition"
+    "permalink": "/docs/api/variables/googleAdsDefinition"
   }
 }

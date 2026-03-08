@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/IntervalSchedule.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/IntervalSchedule",
-  "permalink": "/api/interfaces/IntervalSchedule",
+  "permalink": "/docs/api/interfaces/IntervalSchedule",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "IntegrationDefinition",
-    "permalink": "/api/interfaces/IntegrationDefinition"
+    "permalink": "/docs/api/interfaces/IntegrationDefinition"
   },
   "next": {
     "title": "LLMProviderConfig",
-    "permalink": "/api/interfaces/LLMProviderConfig"
+    "permalink": "/docs/api/interfaces/LLMProviderConfig"
   }
 }

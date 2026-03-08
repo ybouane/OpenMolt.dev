@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/MemoryStore.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/MemoryStore",
-  "permalink": "/api/interfaces/MemoryStore",
+  "permalink": "/docs/api/interfaces/MemoryStore",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "MemoryConfig",
-    "permalink": "/api/interfaces/MemoryConfig"
+    "permalink": "/docs/api/interfaces/MemoryConfig"
   },
   "next": {
     "title": "ModelConfig",
-    "permalink": "/api/interfaces/ModelConfig"
+    "permalink": "/docs/api/interfaces/ModelConfig"
   }
 }

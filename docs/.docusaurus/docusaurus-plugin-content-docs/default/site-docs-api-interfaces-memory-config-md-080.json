@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/MemoryConfig.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/MemoryConfig",
-  "permalink": "/api/interfaces/MemoryConfig",
+  "permalink": "/docs/api/interfaces/MemoryConfig",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "LLMResponse",
-    "permalink": "/api/interfaces/LLMResponse"
+    "permalink": "/docs/api/interfaces/LLMResponse"
   },
   "next": {
     "title": "MemoryStore",
-    "permalink": "/api/interfaces/MemoryStore"
+    "permalink": "/docs/api/interfaces/MemoryStore"
   }
 }

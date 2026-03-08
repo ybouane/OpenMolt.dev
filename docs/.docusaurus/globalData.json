@@ -1,433 +1,433 @@
 {
   "docusaurus-plugin-content-docs": {
     "default": {
-      "path": "/",
+      "path": "/docs/",
       "versions": [
         {
           "name": "current",
           "label": "Next",
           "isLast": true,
-          "path": "/",
+          "path": "/docs/",
           "mainDocId": "intro",
           "docs": [
             {
               "id": "api/classes/Agent",
-              "path": "/api/classes/Agent",
+              "path": "/docs/api/classes/Agent",
               "sidebar": "docs"
             },
             {
               "id": "api/classes/AnthropicProvider",
-              "path": "/api/classes/AnthropicProvider",
+              "path": "/docs/api/classes/AnthropicProvider",
               "sidebar": "docs"
             },
             {
               "id": "api/classes/BaseProvider",
-              "path": "/api/classes/BaseProvider",
+              "path": "/docs/api/classes/BaseProvider",
               "sidebar": "docs"
             },
             {
               "id": "api/classes/GoogleProvider",
-              "path": "/api/classes/GoogleProvider",
+              "path": "/docs/api/classes/GoogleProvider",
               "sidebar": "docs"
             },
             {
               "id": "api/classes/Integration",
-              "path": "/api/classes/Integration",
+              "path": "/docs/api/classes/Integration",
               "sidebar": "docs"
             },
             {
               "id": "api/classes/OpenAIProvider",
-              "path": "/api/classes/OpenAIProvider",
+              "path": "/docs/api/classes/OpenAIProvider",
               "sidebar": "docs"
             },
             {
               "id": "api/classes/OpenMolt",
-              "path": "/api/classes/OpenMolt",
+              "path": "/docs/api/classes/OpenMolt",
               "sidebar": "docs"
             },
             {
               "id": "api/functions/createFileSystemIntegration",
-              "path": "/api/functions/createFileSystemIntegration",
+              "path": "/docs/api/functions/createFileSystemIntegration",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/AgentConfig",
-              "path": "/api/interfaces/AgentConfig",
+              "path": "/docs/api/interfaces/AgentConfig",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/AgentIntegrationConfig",
-              "path": "/api/interfaces/AgentIntegrationConfig",
+              "path": "/docs/api/interfaces/AgentIntegrationConfig",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/AgentLLMResponse",
-              "path": "/api/interfaces/AgentLLMResponse",
+              "path": "/docs/api/interfaces/AgentLLMResponse",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/AgentState",
-              "path": "/api/interfaces/AgentState",
+              "path": "/docs/api/interfaces/AgentState",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/APISetup",
-              "path": "/api/interfaces/APISetup",
+              "path": "/docs/api/interfaces/APISetup",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/BasicCredential",
-              "path": "/api/interfaces/BasicCredential",
+              "path": "/docs/api/interfaces/BasicCredential",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/BasicCredentialSetup",
-              "path": "/api/interfaces/BasicCredentialSetup",
+              "path": "/docs/api/interfaces/BasicCredentialSetup",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/BearerCredential",
-              "path": "/api/interfaces/BearerCredential",
+              "path": "/docs/api/interfaces/BearerCredential",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/BearerCredentialSetup",
-              "path": "/api/interfaces/BearerCredentialSetup",
+              "path": "/docs/api/interfaces/BearerCredentialSetup",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/CallToolCommand",
-              "path": "/api/interfaces/CallToolCommand",
+              "path": "/docs/api/interfaces/CallToolCommand",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/CommandHistoryEntry",
-              "path": "/api/interfaces/CommandHistoryEntry",
+              "path": "/docs/api/interfaces/CommandHistoryEntry",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/CustomCredential",
-              "path": "/api/interfaces/CustomCredential",
+              "path": "/docs/api/interfaces/CustomCredential",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/CustomCredentialSetup",
-              "path": "/api/interfaces/CustomCredentialSetup",
+              "path": "/docs/api/interfaces/CustomCredentialSetup",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/DailySchedule",
-              "path": "/api/interfaces/DailySchedule",
+              "path": "/docs/api/interfaces/DailySchedule",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/FinishCommand",
-              "path": "/api/interfaces/FinishCommand",
+              "path": "/docs/api/interfaces/FinishCommand",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/IntegrationDefinition",
-              "path": "/api/interfaces/IntegrationDefinition",
+              "path": "/docs/api/interfaces/IntegrationDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/IntervalSchedule",
-              "path": "/api/interfaces/IntervalSchedule",
+              "path": "/docs/api/interfaces/IntervalSchedule",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/LLMProviderConfig",
-              "path": "/api/interfaces/LLMProviderConfig",
+              "path": "/docs/api/interfaces/LLMProviderConfig",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/LLMResponse",
-              "path": "/api/interfaces/LLMResponse",
+              "path": "/docs/api/interfaces/LLMResponse",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/MemoryConfig",
-              "path": "/api/interfaces/MemoryConfig",
+              "path": "/docs/api/interfaces/MemoryConfig",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/MemoryStore",
-              "path": "/api/interfaces/MemoryStore",
+              "path": "/docs/api/interfaces/MemoryStore",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/ModelConfig",
-              "path": "/api/interfaces/ModelConfig",
+              "path": "/docs/api/interfaces/ModelConfig",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/OAuth2Credential",
-              "path": "/api/interfaces/OAuth2Credential",
+              "path": "/docs/api/interfaces/OAuth2Credential",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/OAuth2CredentialSetup",
-              "path": "/api/interfaces/OAuth2CredentialSetup",
+              "path": "/docs/api/interfaces/OAuth2CredentialSetup",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/OpenMoltConfig",
-              "path": "/api/interfaces/OpenMoltConfig",
+              "path": "/docs/api/interfaces/OpenMoltConfig",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/PlanStep",
-              "path": "/api/interfaces/PlanStep",
+              "path": "/docs/api/interfaces/PlanStep",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/PlanSubStep",
-              "path": "/api/interfaces/PlanSubStep",
+              "path": "/docs/api/interfaces/PlanSubStep",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/RequestHumanInputCommand",
-              "path": "/api/interfaces/RequestHumanInputCommand",
+              "path": "/docs/api/interfaces/RequestHumanInputCommand",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/ToolContext",
-              "path": "/api/interfaces/ToolContext",
+              "path": "/docs/api/interfaces/ToolContext",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/ToolDefinition",
-              "path": "/api/interfaces/ToolDefinition",
+              "path": "/docs/api/interfaces/ToolDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/UpdateMemoryCommand",
-              "path": "/api/interfaces/UpdateMemoryCommand",
+              "path": "/docs/api/interfaces/UpdateMemoryCommand",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/UpdatePlanCommand",
-              "path": "/api/interfaces/UpdatePlanCommand",
+              "path": "/docs/api/interfaces/UpdatePlanCommand",
               "sidebar": "docs"
             },
             {
               "id": "api/interfaces/WaitCommand",
-              "path": "/api/interfaces/WaitCommand",
+              "path": "/docs/api/interfaces/WaitCommand",
               "sidebar": "docs"
             },
             {
               "id": "api/README",
-              "path": "/api/",
+              "path": "/docs/api/",
               "sidebar": "docs"
             },
             {
               "id": "api/type-aliases/AgentCommand",
-              "path": "/api/type-aliases/AgentCommand",
+              "path": "/docs/api/type-aliases/AgentCommand",
               "sidebar": "docs"
             },
             {
               "id": "api/type-aliases/AgentCredential",
-              "path": "/api/type-aliases/AgentCredential",
+              "path": "/docs/api/type-aliases/AgentCredential",
               "sidebar": "docs"
             },
             {
               "id": "api/type-aliases/AgentEventMap",
-              "path": "/api/type-aliases/AgentEventMap",
+              "path": "/docs/api/type-aliases/AgentEventMap",
               "sidebar": "docs"
             },
             {
               "id": "api/type-aliases/CredentialSetup",
-              "path": "/api/type-aliases/CredentialSetup",
+              "path": "/docs/api/type-aliases/CredentialSetup",
               "sidebar": "docs"
             },
             {
               "id": "api/type-aliases/ScheduleConfig",
-              "path": "/api/type-aliases/ScheduleConfig",
+              "path": "/docs/api/type-aliases/ScheduleConfig",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/airtableDefinition",
-              "path": "/api/variables/airtableDefinition",
+              "path": "/docs/api/variables/airtableDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/browserUseDefinition",
-              "path": "/api/variables/browserUseDefinition",
+              "path": "/docs/api/variables/browserUseDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/discordDefinition",
-              "path": "/api/variables/discordDefinition",
+              "path": "/docs/api/variables/discordDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/dropboxDefinition",
-              "path": "/api/variables/dropboxDefinition",
+              "path": "/docs/api/variables/dropboxDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/etsyDefinition",
-              "path": "/api/variables/etsyDefinition",
+              "path": "/docs/api/variables/etsyDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/falDefinition",
-              "path": "/api/variables/falDefinition",
+              "path": "/docs/api/variables/falDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/fileSystemDefinition",
-              "path": "/api/variables/fileSystemDefinition",
+              "path": "/docs/api/variables/fileSystemDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/geminiMediaDefinition",
-              "path": "/api/variables/geminiMediaDefinition",
+              "path": "/docs/api/variables/geminiMediaDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/githubDefinition",
-              "path": "/api/variables/githubDefinition",
+              "path": "/docs/api/variables/githubDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/gmailDefinition",
-              "path": "/api/variables/gmailDefinition",
+              "path": "/docs/api/variables/gmailDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/googleAdsDefinition",
-              "path": "/api/variables/googleAdsDefinition",
+              "path": "/docs/api/variables/googleAdsDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/googleCalendarDefinition",
-              "path": "/api/variables/googleCalendarDefinition",
+              "path": "/docs/api/variables/googleCalendarDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/googleDriveDefinition",
-              "path": "/api/variables/googleDriveDefinition",
+              "path": "/docs/api/variables/googleDriveDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/googleSheetsDefinition",
-              "path": "/api/variables/googleSheetsDefinition",
+              "path": "/docs/api/variables/googleSheetsDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/httpRequestDefinition",
-              "path": "/api/variables/httpRequestDefinition",
+              "path": "/docs/api/variables/httpRequestDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/instagramDefinition",
-              "path": "/api/variables/instagramDefinition",
+              "path": "/docs/api/variables/instagramDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/metaAdsDefinition",
-              "path": "/api/variables/metaAdsDefinition",
+              "path": "/docs/api/variables/metaAdsDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/microsoftOutlookDefinition",
-              "path": "/api/variables/microsoftOutlookDefinition",
+              "path": "/docs/api/variables/microsoftOutlookDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/notionDefinition",
-              "path": "/api/variables/notionDefinition",
+              "path": "/docs/api/variables/notionDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/openaiImagesDefinition",
-              "path": "/api/variables/openaiImagesDefinition",
+              "path": "/docs/api/variables/openaiImagesDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/s3Definition",
-              "path": "/api/variables/s3Definition",
+              "path": "/docs/api/variables/s3Definition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/shopifyDefinition",
-              "path": "/api/variables/shopifyDefinition",
+              "path": "/docs/api/variables/shopifyDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/slackDefinition",
-              "path": "/api/variables/slackDefinition",
+              "path": "/docs/api/variables/slackDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/stripeDefinition",
-              "path": "/api/variables/stripeDefinition",
+              "path": "/docs/api/variables/stripeDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/telegramDefinition",
-              "path": "/api/variables/telegramDefinition",
+              "path": "/docs/api/variables/telegramDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/tiktokDefinition",
-              "path": "/api/variables/tiktokDefinition",
+              "path": "/docs/api/variables/tiktokDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/twilioDefinition",
-              "path": "/api/variables/twilioDefinition",
+              "path": "/docs/api/variables/twilioDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/twitterDefinition",
-              "path": "/api/variables/twitterDefinition",
+              "path": "/docs/api/variables/twitterDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/whatsappDefinition",
-              "path": "/api/variables/whatsappDefinition",
+              "path": "/docs/api/variables/whatsappDefinition",
               "sidebar": "docs"
             },
             {
               "id": "api/variables/youtubeDefinition",
-              "path": "/api/variables/youtubeDefinition",
+              "path": "/docs/api/variables/youtubeDefinition",
               "sidebar": "docs"
             },
             {
               "id": "concepts/agents",
-              "path": "/concepts/agents",
+              "path": "/docs/concepts/agents",
               "sidebar": "docs"
             },
             {
               "id": "concepts/integrations",
-              "path": "/concepts/integrations",
+              "path": "/docs/concepts/integrations",
               "sidebar": "docs"
             },
             {
               "id": "concepts/memory-scheduling",
-              "path": "/concepts/memory-scheduling",
+              "path": "/docs/concepts/memory-scheduling",
               "sidebar": "docs"
             },
             {
               "id": "concepts/providers",
-              "path": "/concepts/providers",
+              "path": "/docs/concepts/providers",
               "sidebar": "docs"
             },
             {
               "id": "examples/overview",
-              "path": "/examples/overview",
+              "path": "/docs/examples/overview",
               "sidebar": "docs"
             },
             {
               "id": "getting-started",
-              "path": "/getting-started",
+              "path": "/docs/getting-started",
               "sidebar": "docs"
             },
             {
               "id": "intro",
-              "path": "/",
+              "path": "/docs/",
               "sidebar": "docs"
             }
           ],
@@ -435,7 +435,7 @@
           "sidebars": {
             "docs": {
               "link": {
-                "path": "/",
+                "path": "/docs/",
                 "label": "intro"
               }
             }

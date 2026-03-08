@@ -5,7 +5,7 @@
   "source": "@site/docs/concepts/providers.md",
   "sourceDirName": "concepts",
   "slug": "/concepts/providers",
-  "permalink": "/concepts/providers",
+  "permalink": "/docs/concepts/providers",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -18,10 +18,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "Integrations",
-    "permalink": "/concepts/integrations"
+    "permalink": "/docs/concepts/integrations"
   },
   "next": {
     "title": "Memory & Scheduling",
-    "permalink": "/concepts/memory-scheduling"
+    "permalink": "/docs/concepts/memory-scheduling"
   }
 }

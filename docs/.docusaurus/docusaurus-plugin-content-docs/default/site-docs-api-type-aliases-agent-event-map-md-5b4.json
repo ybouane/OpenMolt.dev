@@ -5,7 +5,7 @@
   "source": "@site/docs/api/type-aliases/AgentEventMap.md",
   "sourceDirName": "api/type-aliases",
   "slug": "/api/type-aliases/AgentEventMap",
-  "permalink": "/api/type-aliases/AgentEventMap",
+  "permalink": "/docs/api/type-aliases/AgentEventMap",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "AgentCredential",
-    "permalink": "/api/type-aliases/AgentCredential"
+    "permalink": "/docs/api/type-aliases/AgentCredential"
   },
   "next": {
     "title": "CredentialSetup",
-    "permalink": "/api/type-aliases/CredentialSetup"
+    "permalink": "/docs/api/type-aliases/CredentialSetup"
   }
 }

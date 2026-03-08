@@ -5,7 +5,7 @@
   "source": "@site/docs/api/variables/slackDefinition.md",
   "sourceDirName": "api/variables",
   "slug": "/api/variables/slackDefinition",
-  "permalink": "/api/variables/slackDefinition",
+  "permalink": "/docs/api/variables/slackDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "shopifyDefinition",
-    "permalink": "/api/variables/shopifyDefinition"
+    "permalink": "/docs/api/variables/shopifyDefinition"
   },
   "next": {
     "title": "stripeDefinition",
-    "permalink": "/api/variables/stripeDefinition"
+    "permalink": "/docs/api/variables/stripeDefinition"
   }
 }

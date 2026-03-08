@@ -5,7 +5,7 @@
   "source": "@site/docs/api/classes/OpenAIProvider.md",
   "sourceDirName": "api/classes",
   "slug": "/api/classes/OpenAIProvider",
-  "permalink": "/api/classes/OpenAIProvider",
+  "permalink": "/docs/api/classes/OpenAIProvider",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "Integration",
-    "permalink": "/api/classes/Integration"
+    "permalink": "/docs/api/classes/Integration"
   },
   "next": {
     "title": "OpenMolt",
-    "permalink": "/api/classes/OpenMolt"
+    "permalink": "/docs/api/classes/OpenMolt"
   }
 }

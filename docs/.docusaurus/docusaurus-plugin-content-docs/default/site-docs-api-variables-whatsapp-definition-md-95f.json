@@ -5,7 +5,7 @@
   "source": "@site/docs/api/variables/whatsappDefinition.md",
   "sourceDirName": "api/variables",
   "slug": "/api/variables/whatsappDefinition",
-  "permalink": "/api/variables/whatsappDefinition",
+  "permalink": "/docs/api/variables/whatsappDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "twitterDefinition",
-    "permalink": "/api/variables/twitterDefinition"
+    "permalink": "/docs/api/variables/twitterDefinition"
   },
   "next": {
     "title": "youtubeDefinition",
-    "permalink": "/api/variables/youtubeDefinition"
+    "permalink": "/docs/api/variables/youtubeDefinition"
   }
 }

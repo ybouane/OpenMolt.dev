@@ -5,7 +5,7 @@
   "source": "@site/docs/api/type-aliases/AgentCommand.md",
   "sourceDirName": "api/type-aliases",
   "slug": "/api/type-aliases/AgentCommand",
-  "permalink": "/api/type-aliases/AgentCommand",
+  "permalink": "/docs/api/type-aliases/AgentCommand",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "WaitCommand",
-    "permalink": "/api/interfaces/WaitCommand"
+    "permalink": "/docs/api/interfaces/WaitCommand"
   },
   "next": {
     "title": "AgentCredential",
-    "permalink": "/api/type-aliases/AgentCredential"
+    "permalink": "/docs/api/type-aliases/AgentCredential"
   }
 }

@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/FinishCommand.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/FinishCommand",
-  "permalink": "/api/interfaces/FinishCommand",
+  "permalink": "/docs/api/interfaces/FinishCommand",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "DailySchedule",
-    "permalink": "/api/interfaces/DailySchedule"
+    "permalink": "/docs/api/interfaces/DailySchedule"
   },
   "next": {
     "title": "IntegrationDefinition",
-    "permalink": "/api/interfaces/IntegrationDefinition"
+    "permalink": "/docs/api/interfaces/IntegrationDefinition"
   }
 }

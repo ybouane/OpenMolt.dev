@@ -3,518 +3,518 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
-    path: '/',
-    component: ComponentCreator('/', '32d'),
+    path: '/docs/',
+    component: ComponentCreator('/docs/', 'c2f'),
     routes: [
       {
-        path: '/',
-        component: ComponentCreator('/', 'dc6'),
+        path: '/docs/',
+        component: ComponentCreator('/docs/', 'cd0'),
         routes: [
           {
-            path: '/',
-            component: ComponentCreator('/', '436'),
+            path: '/docs/',
+            component: ComponentCreator('/docs/', '14a'),
             routes: [
               {
-                path: '/api/',
-                component: ComponentCreator('/api/', '91f'),
+                path: '/docs/api/',
+                component: ComponentCreator('/docs/api/', 'c10'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/classes/Agent',
-                component: ComponentCreator('/api/classes/Agent', 'd8c'),
+                path: '/docs/api/classes/Agent',
+                component: ComponentCreator('/docs/api/classes/Agent', '1d6'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/classes/AnthropicProvider',
-                component: ComponentCreator('/api/classes/AnthropicProvider', 'f40'),
+                path: '/docs/api/classes/AnthropicProvider',
+                component: ComponentCreator('/docs/api/classes/AnthropicProvider', '17c'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/classes/BaseProvider',
-                component: ComponentCreator('/api/classes/BaseProvider', 'e4b'),
+                path: '/docs/api/classes/BaseProvider',
+                component: ComponentCreator('/docs/api/classes/BaseProvider', 'd7c'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/classes/GoogleProvider',
-                component: ComponentCreator('/api/classes/GoogleProvider', 'c1e'),
+                path: '/docs/api/classes/GoogleProvider',
+                component: ComponentCreator('/docs/api/classes/GoogleProvider', '363'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/classes/Integration',
-                component: ComponentCreator('/api/classes/Integration', '7d6'),
+                path: '/docs/api/classes/Integration',
+                component: ComponentCreator('/docs/api/classes/Integration', '9c2'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/classes/OpenAIProvider',
-                component: ComponentCreator('/api/classes/OpenAIProvider', 'd6e'),
+                path: '/docs/api/classes/OpenAIProvider',
+                component: ComponentCreator('/docs/api/classes/OpenAIProvider', '228'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/classes/OpenMolt',
-                component: ComponentCreator('/api/classes/OpenMolt', '452'),
+                path: '/docs/api/classes/OpenMolt',
+                component: ComponentCreator('/docs/api/classes/OpenMolt', '39d'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/functions/createFileSystemIntegration',
-                component: ComponentCreator('/api/functions/createFileSystemIntegration', '003'),
+                path: '/docs/api/functions/createFileSystemIntegration',
+                component: ComponentCreator('/docs/api/functions/createFileSystemIntegration', 'fb7'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/AgentConfig',
-                component: ComponentCreator('/api/interfaces/AgentConfig', 'faa'),
+                path: '/docs/api/interfaces/AgentConfig',
+                component: ComponentCreator('/docs/api/interfaces/AgentConfig', '063'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/AgentIntegrationConfig',
-                component: ComponentCreator('/api/interfaces/AgentIntegrationConfig', '3b8'),
+                path: '/docs/api/interfaces/AgentIntegrationConfig',
+                component: ComponentCreator('/docs/api/interfaces/AgentIntegrationConfig', 'b23'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/AgentLLMResponse',
-                component: ComponentCreator('/api/interfaces/AgentLLMResponse', '6a4'),
+                path: '/docs/api/interfaces/AgentLLMResponse',
+                component: ComponentCreator('/docs/api/interfaces/AgentLLMResponse', 'a2a'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/AgentState',
-                component: ComponentCreator('/api/interfaces/AgentState', '2d3'),
+                path: '/docs/api/interfaces/AgentState',
+                component: ComponentCreator('/docs/api/interfaces/AgentState', '2fc'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/APISetup',
-                component: ComponentCreator('/api/interfaces/APISetup', '2e2'),
+                path: '/docs/api/interfaces/APISetup',
+                component: ComponentCreator('/docs/api/interfaces/APISetup', '1d0'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/BasicCredential',
-                component: ComponentCreator('/api/interfaces/BasicCredential', '0fd'),
+                path: '/docs/api/interfaces/BasicCredential',
+                component: ComponentCreator('/docs/api/interfaces/BasicCredential', '0ea'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/BasicCredentialSetup',
-                component: ComponentCreator('/api/interfaces/BasicCredentialSetup', '067'),
+                path: '/docs/api/interfaces/BasicCredentialSetup',
+                component: ComponentCreator('/docs/api/interfaces/BasicCredentialSetup', 'a77'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/BearerCredential',
-                component: ComponentCreator('/api/interfaces/BearerCredential', '673'),
+                path: '/docs/api/interfaces/BearerCredential',
+                component: ComponentCreator('/docs/api/interfaces/BearerCredential', '66b'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/BearerCredentialSetup',
-                component: ComponentCreator('/api/interfaces/BearerCredentialSetup', 'b42'),
+                path: '/docs/api/interfaces/BearerCredentialSetup',
+                component: ComponentCreator('/docs/api/interfaces/BearerCredentialSetup', 'a4c'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/CallToolCommand',
-                component: ComponentCreator('/api/interfaces/CallToolCommand', 'd25'),
+                path: '/docs/api/interfaces/CallToolCommand',
+                component: ComponentCreator('/docs/api/interfaces/CallToolCommand', 'f01'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/CommandHistoryEntry',
-                component: ComponentCreator('/api/interfaces/CommandHistoryEntry', '471'),
+                path: '/docs/api/interfaces/CommandHistoryEntry',
+                component: ComponentCreator('/docs/api/interfaces/CommandHistoryEntry', 'd8b'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/CustomCredential',
-                component: ComponentCreator('/api/interfaces/CustomCredential', 'c20'),
+                path: '/docs/api/interfaces/CustomCredential',
+                component: ComponentCreator('/docs/api/interfaces/CustomCredential', '4f2'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/CustomCredentialSetup',
-                component: ComponentCreator('/api/interfaces/CustomCredentialSetup', '0b5'),
+                path: '/docs/api/interfaces/CustomCredentialSetup',
+                component: ComponentCreator('/docs/api/interfaces/CustomCredentialSetup', '26d'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/DailySchedule',
-                component: ComponentCreator('/api/interfaces/DailySchedule', '4c8'),
+                path: '/docs/api/interfaces/DailySchedule',
+                component: ComponentCreator('/docs/api/interfaces/DailySchedule', 'c10'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/FinishCommand',
-                component: ComponentCreator('/api/interfaces/FinishCommand', '921'),
+                path: '/docs/api/interfaces/FinishCommand',
+                component: ComponentCreator('/docs/api/interfaces/FinishCommand', 'caf'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/IntegrationDefinition',
-                component: ComponentCreator('/api/interfaces/IntegrationDefinition', 'aed'),
+                path: '/docs/api/interfaces/IntegrationDefinition',
+                component: ComponentCreator('/docs/api/interfaces/IntegrationDefinition', 'b37'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/IntervalSchedule',
-                component: ComponentCreator('/api/interfaces/IntervalSchedule', '1f2'),
+                path: '/docs/api/interfaces/IntervalSchedule',
+                component: ComponentCreator('/docs/api/interfaces/IntervalSchedule', '485'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/LLMProviderConfig',
-                component: ComponentCreator('/api/interfaces/LLMProviderConfig', '91f'),
+                path: '/docs/api/interfaces/LLMProviderConfig',
+                component: ComponentCreator('/docs/api/interfaces/LLMProviderConfig', 'c39'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/LLMResponse',
-                component: ComponentCreator('/api/interfaces/LLMResponse', '145'),
+                path: '/docs/api/interfaces/LLMResponse',
+                component: ComponentCreator('/docs/api/interfaces/LLMResponse', '0c0'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/MemoryConfig',
-                component: ComponentCreator('/api/interfaces/MemoryConfig', 'efd'),
+                path: '/docs/api/interfaces/MemoryConfig',
+                component: ComponentCreator('/docs/api/interfaces/MemoryConfig', '236'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/MemoryStore',
-                component: ComponentCreator('/api/interfaces/MemoryStore', 'bbf'),
+                path: '/docs/api/interfaces/MemoryStore',
+                component: ComponentCreator('/docs/api/interfaces/MemoryStore', 'd5c'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/ModelConfig',
-                component: ComponentCreator('/api/interfaces/ModelConfig', '2b8'),
+                path: '/docs/api/interfaces/ModelConfig',
+                component: ComponentCreator('/docs/api/interfaces/ModelConfig', 'd5d'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/OAuth2Credential',
-                component: ComponentCreator('/api/interfaces/OAuth2Credential', '404'),
+                path: '/docs/api/interfaces/OAuth2Credential',
+                component: ComponentCreator('/docs/api/interfaces/OAuth2Credential', '6b0'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/OAuth2CredentialSetup',
-                component: ComponentCreator('/api/interfaces/OAuth2CredentialSetup', '775'),
+                path: '/docs/api/interfaces/OAuth2CredentialSetup',
+                component: ComponentCreator('/docs/api/interfaces/OAuth2CredentialSetup', '714'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/OpenMoltConfig',
-                component: ComponentCreator('/api/interfaces/OpenMoltConfig', '28d'),
+                path: '/docs/api/interfaces/OpenMoltConfig',
+                component: ComponentCreator('/docs/api/interfaces/OpenMoltConfig', 'e0d'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/PlanStep',
-                component: ComponentCreator('/api/interfaces/PlanStep', '4b9'),
+                path: '/docs/api/interfaces/PlanStep',
+                component: ComponentCreator('/docs/api/interfaces/PlanStep', '393'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/PlanSubStep',
-                component: ComponentCreator('/api/interfaces/PlanSubStep', 'bec'),
+                path: '/docs/api/interfaces/PlanSubStep',
+                component: ComponentCreator('/docs/api/interfaces/PlanSubStep', '334'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/RequestHumanInputCommand',
-                component: ComponentCreator('/api/interfaces/RequestHumanInputCommand', '109'),
+                path: '/docs/api/interfaces/RequestHumanInputCommand',
+                component: ComponentCreator('/docs/api/interfaces/RequestHumanInputCommand', '497'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/ToolContext',
-                component: ComponentCreator('/api/interfaces/ToolContext', 'dd4'),
+                path: '/docs/api/interfaces/ToolContext',
+                component: ComponentCreator('/docs/api/interfaces/ToolContext', '157'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/ToolDefinition',
-                component: ComponentCreator('/api/interfaces/ToolDefinition', '35a'),
+                path: '/docs/api/interfaces/ToolDefinition',
+                component: ComponentCreator('/docs/api/interfaces/ToolDefinition', '764'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/UpdateMemoryCommand',
-                component: ComponentCreator('/api/interfaces/UpdateMemoryCommand', '6ae'),
+                path: '/docs/api/interfaces/UpdateMemoryCommand',
+                component: ComponentCreator('/docs/api/interfaces/UpdateMemoryCommand', 'f75'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/UpdatePlanCommand',
-                component: ComponentCreator('/api/interfaces/UpdatePlanCommand', 'b09'),
+                path: '/docs/api/interfaces/UpdatePlanCommand',
+                component: ComponentCreator('/docs/api/interfaces/UpdatePlanCommand', 'b4f'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/interfaces/WaitCommand',
-                component: ComponentCreator('/api/interfaces/WaitCommand', '420'),
+                path: '/docs/api/interfaces/WaitCommand',
+                component: ComponentCreator('/docs/api/interfaces/WaitCommand', 'dc6'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/type-aliases/AgentCommand',
-                component: ComponentCreator('/api/type-aliases/AgentCommand', '0d8'),
+                path: '/docs/api/type-aliases/AgentCommand',
+                component: ComponentCreator('/docs/api/type-aliases/AgentCommand', 'edf'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/type-aliases/AgentCredential',
-                component: ComponentCreator('/api/type-aliases/AgentCredential', 'dff'),
+                path: '/docs/api/type-aliases/AgentCredential',
+                component: ComponentCreator('/docs/api/type-aliases/AgentCredential', 'a53'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/type-aliases/AgentEventMap',
-                component: ComponentCreator('/api/type-aliases/AgentEventMap', 'e88'),
+                path: '/docs/api/type-aliases/AgentEventMap',
+                component: ComponentCreator('/docs/api/type-aliases/AgentEventMap', '23c'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/type-aliases/CredentialSetup',
-                component: ComponentCreator('/api/type-aliases/CredentialSetup', 'c7e'),
+                path: '/docs/api/type-aliases/CredentialSetup',
+                component: ComponentCreator('/docs/api/type-aliases/CredentialSetup', '080'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/type-aliases/ScheduleConfig',
-                component: ComponentCreator('/api/type-aliases/ScheduleConfig', '90c'),
+                path: '/docs/api/type-aliases/ScheduleConfig',
+                component: ComponentCreator('/docs/api/type-aliases/ScheduleConfig', '3eb'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/airtableDefinition',
-                component: ComponentCreator('/api/variables/airtableDefinition', 'bb5'),
+                path: '/docs/api/variables/airtableDefinition',
+                component: ComponentCreator('/docs/api/variables/airtableDefinition', '0ab'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/browserUseDefinition',
-                component: ComponentCreator('/api/variables/browserUseDefinition', 'e93'),
+                path: '/docs/api/variables/browserUseDefinition',
+                component: ComponentCreator('/docs/api/variables/browserUseDefinition', '4a8'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/discordDefinition',
-                component: ComponentCreator('/api/variables/discordDefinition', '10f'),
+                path: '/docs/api/variables/discordDefinition',
+                component: ComponentCreator('/docs/api/variables/discordDefinition', '973'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/dropboxDefinition',
-                component: ComponentCreator('/api/variables/dropboxDefinition', 'ff6'),
+                path: '/docs/api/variables/dropboxDefinition',
+                component: ComponentCreator('/docs/api/variables/dropboxDefinition', '99f'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/etsyDefinition',
-                component: ComponentCreator('/api/variables/etsyDefinition', '01a'),
+                path: '/docs/api/variables/etsyDefinition',
+                component: ComponentCreator('/docs/api/variables/etsyDefinition', '678'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/falDefinition',
-                component: ComponentCreator('/api/variables/falDefinition', '04b'),
+                path: '/docs/api/variables/falDefinition',
+                component: ComponentCreator('/docs/api/variables/falDefinition', 'c5d'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/fileSystemDefinition',
-                component: ComponentCreator('/api/variables/fileSystemDefinition', '69f'),
+                path: '/docs/api/variables/fileSystemDefinition',
+                component: ComponentCreator('/docs/api/variables/fileSystemDefinition', '023'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/geminiMediaDefinition',
-                component: ComponentCreator('/api/variables/geminiMediaDefinition', '5a2'),
+                path: '/docs/api/variables/geminiMediaDefinition',
+                component: ComponentCreator('/docs/api/variables/geminiMediaDefinition', '5c8'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/githubDefinition',
-                component: ComponentCreator('/api/variables/githubDefinition', '4ff'),
+                path: '/docs/api/variables/githubDefinition',
+                component: ComponentCreator('/docs/api/variables/githubDefinition', '347'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/gmailDefinition',
-                component: ComponentCreator('/api/variables/gmailDefinition', '021'),
+                path: '/docs/api/variables/gmailDefinition',
+                component: ComponentCreator('/docs/api/variables/gmailDefinition', '3ce'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/googleAdsDefinition',
-                component: ComponentCreator('/api/variables/googleAdsDefinition', '679'),
+                path: '/docs/api/variables/googleAdsDefinition',
+                component: ComponentCreator('/docs/api/variables/googleAdsDefinition', 'd43'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/googleCalendarDefinition',
-                component: ComponentCreator('/api/variables/googleCalendarDefinition', '04d'),
+                path: '/docs/api/variables/googleCalendarDefinition',
+                component: ComponentCreator('/docs/api/variables/googleCalendarDefinition', '777'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/googleDriveDefinition',
-                component: ComponentCreator('/api/variables/googleDriveDefinition', 'a76'),
+                path: '/docs/api/variables/googleDriveDefinition',
+                component: ComponentCreator('/docs/api/variables/googleDriveDefinition', 'c4f'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/googleSheetsDefinition',
-                component: ComponentCreator('/api/variables/googleSheetsDefinition', '40a'),
+                path: '/docs/api/variables/googleSheetsDefinition',
+                component: ComponentCreator('/docs/api/variables/googleSheetsDefinition', 'b41'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/httpRequestDefinition',
-                component: ComponentCreator('/api/variables/httpRequestDefinition', 'a64'),
+                path: '/docs/api/variables/httpRequestDefinition',
+                component: ComponentCreator('/docs/api/variables/httpRequestDefinition', 'b30'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/instagramDefinition',
-                component: ComponentCreator('/api/variables/instagramDefinition', 'ac8'),
+                path: '/docs/api/variables/instagramDefinition',
+                component: ComponentCreator('/docs/api/variables/instagramDefinition', '373'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/metaAdsDefinition',
-                component: ComponentCreator('/api/variables/metaAdsDefinition', '618'),
+                path: '/docs/api/variables/metaAdsDefinition',
+                component: ComponentCreator('/docs/api/variables/metaAdsDefinition', '6c1'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/microsoftOutlookDefinition',
-                component: ComponentCreator('/api/variables/microsoftOutlookDefinition', '247'),
+                path: '/docs/api/variables/microsoftOutlookDefinition',
+                component: ComponentCreator('/docs/api/variables/microsoftOutlookDefinition', '9ba'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/notionDefinition',
-                component: ComponentCreator('/api/variables/notionDefinition', '877'),
+                path: '/docs/api/variables/notionDefinition',
+                component: ComponentCreator('/docs/api/variables/notionDefinition', 'a60'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/openaiImagesDefinition',
-                component: ComponentCreator('/api/variables/openaiImagesDefinition', '5c4'),
+                path: '/docs/api/variables/openaiImagesDefinition',
+                component: ComponentCreator('/docs/api/variables/openaiImagesDefinition', 'ee1'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/s3Definition',
-                component: ComponentCreator('/api/variables/s3Definition', 'cf5'),
+                path: '/docs/api/variables/s3Definition',
+                component: ComponentCreator('/docs/api/variables/s3Definition', '91b'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/shopifyDefinition',
-                component: ComponentCreator('/api/variables/shopifyDefinition', 'e82'),
+                path: '/docs/api/variables/shopifyDefinition',
+                component: ComponentCreator('/docs/api/variables/shopifyDefinition', 'aef'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/slackDefinition',
-                component: ComponentCreator('/api/variables/slackDefinition', '521'),
+                path: '/docs/api/variables/slackDefinition',
+                component: ComponentCreator('/docs/api/variables/slackDefinition', '3da'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/stripeDefinition',
-                component: ComponentCreator('/api/variables/stripeDefinition', '212'),
+                path: '/docs/api/variables/stripeDefinition',
+                component: ComponentCreator('/docs/api/variables/stripeDefinition', 'fb1'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/telegramDefinition',
-                component: ComponentCreator('/api/variables/telegramDefinition', 'd04'),
+                path: '/docs/api/variables/telegramDefinition',
+                component: ComponentCreator('/docs/api/variables/telegramDefinition', '24a'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/tiktokDefinition',
-                component: ComponentCreator('/api/variables/tiktokDefinition', 'c1d'),
+                path: '/docs/api/variables/tiktokDefinition',
+                component: ComponentCreator('/docs/api/variables/tiktokDefinition', '4a4'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/twilioDefinition',
-                component: ComponentCreator('/api/variables/twilioDefinition', 'bcb'),
+                path: '/docs/api/variables/twilioDefinition',
+                component: ComponentCreator('/docs/api/variables/twilioDefinition', '6a8'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/twitterDefinition',
-                component: ComponentCreator('/api/variables/twitterDefinition', '1ab'),
+                path: '/docs/api/variables/twitterDefinition',
+                component: ComponentCreator('/docs/api/variables/twitterDefinition', '449'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/whatsappDefinition',
-                component: ComponentCreator('/api/variables/whatsappDefinition', 'f9a'),
+                path: '/docs/api/variables/whatsappDefinition',
+                component: ComponentCreator('/docs/api/variables/whatsappDefinition', '527'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/api/variables/youtubeDefinition',
-                component: ComponentCreator('/api/variables/youtubeDefinition', 'ac7'),
+                path: '/docs/api/variables/youtubeDefinition',
+                component: ComponentCreator('/docs/api/variables/youtubeDefinition', 'e54'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/concepts/agents',
-                component: ComponentCreator('/concepts/agents', '061'),
+                path: '/docs/concepts/agents',
+                component: ComponentCreator('/docs/concepts/agents', 'fe5'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/concepts/integrations',
-                component: ComponentCreator('/concepts/integrations', '95d'),
+                path: '/docs/concepts/integrations',
+                component: ComponentCreator('/docs/concepts/integrations', '76b'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/concepts/memory-scheduling',
-                component: ComponentCreator('/concepts/memory-scheduling', '3ff'),
+                path: '/docs/concepts/memory-scheduling',
+                component: ComponentCreator('/docs/concepts/memory-scheduling', '311'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/concepts/providers',
-                component: ComponentCreator('/concepts/providers', 'bce'),
+                path: '/docs/concepts/providers',
+                component: ComponentCreator('/docs/concepts/providers', '7f0'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/examples/overview',
-                component: ComponentCreator('/examples/overview', '0f7'),
+                path: '/docs/examples/overview',
+                component: ComponentCreator('/docs/examples/overview', 'c2e'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/getting-started',
-                component: ComponentCreator('/getting-started', 'ac2'),
+                path: '/docs/getting-started',
+                component: ComponentCreator('/docs/getting-started', '565'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/',
-                component: ComponentCreator('/', '7da'),
+                path: '/docs/',
+                component: ComponentCreator('/docs/', 'be8'),
                 exact: true,
                 sidebar: "docs"
               }

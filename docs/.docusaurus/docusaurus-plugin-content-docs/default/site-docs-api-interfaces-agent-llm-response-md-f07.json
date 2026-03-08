@@ -5,7 +5,7 @@
   "source": "@site/docs/api/interfaces/AgentLLMResponse.md",
   "sourceDirName": "api/interfaces",
   "slug": "/api/interfaces/AgentLLMResponse",
-  "permalink": "/api/interfaces/AgentLLMResponse",
+  "permalink": "/docs/api/interfaces/AgentLLMResponse",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "AgentIntegrationConfig",
-    "permalink": "/api/interfaces/AgentIntegrationConfig"
+    "permalink": "/docs/api/interfaces/AgentIntegrationConfig"
   },
   "next": {
     "title": "AgentState",
-    "permalink": "/api/interfaces/AgentState"
+    "permalink": "/docs/api/interfaces/AgentState"
   }
 }

@@ -5,7 +5,7 @@
   "source": "@site/docs/api/variables/dropboxDefinition.md",
   "sourceDirName": "api/variables",
   "slug": "/api/variables/dropboxDefinition",
-  "permalink": "/api/variables/dropboxDefinition",
+  "permalink": "/docs/api/variables/dropboxDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "discordDefinition",
-    "permalink": "/api/variables/discordDefinition"
+    "permalink": "/docs/api/variables/discordDefinition"
   },
   "next": {
     "title": "etsyDefinition",
-    "permalink": "/api/variables/etsyDefinition"
+    "permalink": "/docs/api/variables/etsyDefinition"
   }
 }

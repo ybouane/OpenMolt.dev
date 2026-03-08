@@ -5,7 +5,7 @@
   "source": "@site/docs/api/variables/youtubeDefinition.md",
   "sourceDirName": "api/variables",
   "slug": "/api/variables/youtubeDefinition",
-  "permalink": "/api/variables/youtubeDefinition",
+  "permalink": "/docs/api/variables/youtubeDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,6 +14,6 @@
   "sidebar": "docs",
   "previous": {
     "title": "whatsappDefinition",
-    "permalink": "/api/variables/whatsappDefinition"
+    "permalink": "/docs/api/variables/whatsappDefinition"
   }
 }

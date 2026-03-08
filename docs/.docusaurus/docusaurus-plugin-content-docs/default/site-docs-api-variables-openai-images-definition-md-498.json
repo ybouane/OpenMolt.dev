@@ -5,7 +5,7 @@
   "source": "@site/docs/api/variables/openaiImagesDefinition.md",
   "sourceDirName": "api/variables",
   "slug": "/api/variables/openaiImagesDefinition",
-  "permalink": "/api/variables/openaiImagesDefinition",
+  "permalink": "/docs/api/variables/openaiImagesDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "notionDefinition",
-    "permalink": "/api/variables/notionDefinition"
+    "permalink": "/docs/api/variables/notionDefinition"
   },
   "next": {
     "title": "s3Definition",
-    "permalink": "/api/variables/s3Definition"
+    "permalink": "/docs/api/variables/s3Definition"
   }
 }

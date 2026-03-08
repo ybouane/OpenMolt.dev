@@ -5,7 +5,7 @@
   "source": "@site/docs/api/variables/telegramDefinition.md",
   "sourceDirName": "api/variables",
   "slug": "/api/variables/telegramDefinition",
-  "permalink": "/api/variables/telegramDefinition",
+  "permalink": "/docs/api/variables/telegramDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "stripeDefinition",
-    "permalink": "/api/variables/stripeDefinition"
+    "permalink": "/docs/api/variables/stripeDefinition"
   },
   "next": {
     "title": "tiktokDefinition",
-    "permalink": "/api/variables/tiktokDefinition"
+    "permalink": "/docs/api/variables/tiktokDefinition"
   }
 }

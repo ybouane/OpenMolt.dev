@@ -5,7 +5,7 @@
   "source": "@site/docs/api/variables/twitterDefinition.md",
   "sourceDirName": "api/variables",
   "slug": "/api/variables/twitterDefinition",
-  "permalink": "/api/variables/twitterDefinition",
+  "permalink": "/docs/api/variables/twitterDefinition",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,10 +14,10 @@
   "sidebar": "docs",
   "previous": {
     "title": "twilioDefinition",
-    "permalink": "/api/variables/twilioDefinition"
+    "permalink": "/docs/api/variables/twilioDefinition"
   },
   "next": {
     "title": "whatsappDefinition",
-    "permalink": "/api/variables/whatsappDefinition"
+    "permalink": "/docs/api/variables/whatsappDefinition"
   }
 }

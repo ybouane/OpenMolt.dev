@@ -8,7 +8,7 @@ export default {
   "tagline": "Programmatic AI Agent System",
   "favicon": "img/favicon.ico",
   "url": "https://openmolt.dev",
-  "baseUrl": "/",
+  "baseUrl": "/docs/",
   "onBrokenLinks": "warn",
   "onBrokenMarkdownLinks": "warn",
   "i18n": {
@@ -58,7 +58,7 @@ export default {
           "label": "Docs"
         },
         {
-          "href": "https://github.com/openmolt/openmolt",
+          "href": "https://github.com/ybouane/openmolt.dev",
           "label": "GitHub",
           "position": "right"
         },

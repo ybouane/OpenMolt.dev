@@ -1,350 +1,350 @@
 {
-  "/-32d": {
+  "/docs/-c2f": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/-dc6": {
+  "/docs/-cd0": {
     "__comp": "a7bd4aaa",
-    "__props": "22dd74f7"
+    "__props": "11b43341"
   },
-  "/-436": {
+  "/docs/-14a": {
     "__comp": "a94703ab"
   },
-  "/api/-91f": {
+  "/docs/api/-c10": {
     "__comp": "17896441",
     "content": "982ac012"
   },
-  "/api/classes/Agent-d8c": {
+  "/docs/api/classes/Agent-1d6": {
     "__comp": "17896441",
     "content": "e9617de1"
   },
-  "/api/classes/AnthropicProvider-f40": {
+  "/docs/api/classes/AnthropicProvider-17c": {
     "__comp": "17896441",
     "content": "abedcb1f"
   },
-  "/api/classes/BaseProvider-e4b": {
+  "/docs/api/classes/BaseProvider-d7c": {
     "__comp": "17896441",
     "content": "433d2402"
   },
-  "/api/classes/GoogleProvider-c1e": {
+  "/docs/api/classes/GoogleProvider-363": {
     "__comp": "17896441",
     "content": "4fac7fdd"
   },
-  "/api/classes/Integration-7d6": {
+  "/docs/api/classes/Integration-9c2": {
     "__comp": "17896441",
     "content": "ae90f7ea"
   },
-  "/api/classes/OpenAIProvider-d6e": {
+  "/docs/api/classes/OpenAIProvider-228": {
     "__comp": "17896441",
     "content": "a6fb11b9"
   },
-  "/api/classes/OpenMolt-452": {
+  "/docs/api/classes/OpenMolt-39d": {
     "__comp": "17896441",
     "content": "2e957f78"
   },
-  "/api/functions/createFileSystemIntegration-003": {
+  "/docs/api/functions/createFileSystemIntegration-fb7": {
     "__comp": "17896441",
     "content": "7f9211b7"
   },
-  "/api/interfaces/AgentConfig-faa": {
+  "/docs/api/interfaces/AgentConfig-063": {
     "__comp": "17896441",
     "content": "b8bf334b"
   },
-  "/api/interfaces/AgentIntegrationConfig-3b8": {
+  "/docs/api/interfaces/AgentIntegrationConfig-b23": {
     "__comp": "17896441",
     "content": "a7d8d348"
   },
-  "/api/interfaces/AgentLLMResponse-6a4": {
+  "/docs/api/interfaces/AgentLLMResponse-a2a": {
     "__comp": "17896441",
     "content": "f07283d3"
   },
-  "/api/interfaces/AgentState-2d3": {
+  "/docs/api/interfaces/AgentState-2fc": {
     "__comp": "17896441",
     "content": "9f9fcd02"
   },
-  "/api/interfaces/APISetup-2e2": {
+  "/docs/api/interfaces/APISetup-1d0": {
     "__comp": "17896441",
     "content": "dc7f09d9"
   },
-  "/api/interfaces/BasicCredential-0fd": {
+  "/docs/api/interfaces/BasicCredential-0ea": {
     "__comp": "17896441",
     "content": "583467ad"
   },
-  "/api/interfaces/BasicCredentialSetup-067": {
+  "/docs/api/interfaces/BasicCredentialSetup-a77": {
     "__comp": "17896441",
     "content": "76cfa0cb"
   },
-  "/api/interfaces/BearerCredential-673": {
+  "/docs/api/interfaces/BearerCredential-66b": {
     "__comp": "17896441",
     "content": "6f8556d1"
   },
-  "/api/interfaces/BearerCredentialSetup-b42": {
+  "/docs/api/interfaces/BearerCredentialSetup-a4c": {
     "__comp": "17896441",
     "content": "a26ec2d4"
   },
-  "/api/interfaces/CallToolCommand-d25": {
+  "/docs/api/interfaces/CallToolCommand-f01": {
     "__comp": "17896441",
     "content": "187def7b"
   },
-  "/api/interfaces/CommandHistoryEntry-471": {
+  "/docs/api/interfaces/CommandHistoryEntry-d8b": {
     "__comp": "17896441",
     "content": "7c99f142"
   },
-  "/api/interfaces/CustomCredential-c20": {
+  "/docs/api/interfaces/CustomCredential-4f2": {
     "__comp": "17896441",
     "content": "1402fc3e"
   },
-  "/api/interfaces/CustomCredentialSetup-0b5": {
+  "/docs/api/interfaces/CustomCredentialSetup-26d": {
     "__comp": "17896441",
     "content": "56b5f417"
   },
-  "/api/interfaces/DailySchedule-4c8": {
+  "/docs/api/interfaces/DailySchedule-c10": {
     "__comp": "17896441",
     "content": "29686548"
   },
-  "/api/interfaces/FinishCommand-921": {
+  "/docs/api/interfaces/FinishCommand-caf": {
     "__comp": "17896441",
     "content": "6a7d68cf"
   },
-  "/api/interfaces/IntegrationDefinition-aed": {
+  "/docs/api/interfaces/IntegrationDefinition-b37": {
     "__comp": "17896441",
     "content": "be2293b9"
   },
-  "/api/interfaces/IntervalSchedule-1f2": {
+  "/docs/api/interfaces/IntervalSchedule-485": {
     "__comp": "17896441",
     "content": "06617fb1"
   },
-  "/api/interfaces/LLMProviderConfig-91f": {
+  "/docs/api/interfaces/LLMProviderConfig-c39": {
     "__comp": "17896441",
     "content": "6cad35e2"
   },
-  "/api/interfaces/LLMResponse-145": {
+  "/docs/api/interfaces/LLMResponse-0c0": {
     "__comp": "17896441",
     "content": "5182908f"
   },
-  "/api/interfaces/MemoryConfig-efd": {
+  "/docs/api/interfaces/MemoryConfig-236": {
     "__comp": "17896441",
     "content": "08048c85"
   },
-  "/api/interfaces/MemoryStore-bbf": {
+  "/docs/api/interfaces/MemoryStore-d5c": {
     "__comp": "17896441",
     "content": "932012dd"
   },
-  "/api/interfaces/ModelConfig-2b8": {
+  "/docs/api/interfaces/ModelConfig-d5d": {
     "__comp": "17896441",
     "content": "1d73944c"
   },
-  "/api/interfaces/OAuth2Credential-404": {
+  "/docs/api/interfaces/OAuth2Credential-6b0": {
     "__comp": "17896441",
     "content": "8a30cb1a"
   },
-  "/api/interfaces/OAuth2CredentialSetup-775": {
+  "/docs/api/interfaces/OAuth2CredentialSetup-714": {
     "__comp": "17896441",
     "content": "1fbb27f3"
   },
-  "/api/interfaces/OpenMoltConfig-28d": {
+  "/docs/api/interfaces/OpenMoltConfig-e0d": {
     "__comp": "17896441",
     "content": "16aca856"
   },
-  "/api/interfaces/PlanStep-4b9": {
+  "/docs/api/interfaces/PlanStep-393": {
     "__comp": "17896441",
     "content": "496a449b"
   },
-  "/api/interfaces/PlanSubStep-bec": {
+  "/docs/api/interfaces/PlanSubStep-334": {
     "__comp": "17896441",
     "content": "21a8677d"
   },
-  "/api/interfaces/RequestHumanInputCommand-109": {
+  "/docs/api/interfaces/RequestHumanInputCommand-497": {
     "__comp": "17896441",
     "content": "0efe514e"
   },
-  "/api/interfaces/ToolContext-dd4": {
+  "/docs/api/interfaces/ToolContext-157": {
     "__comp": "17896441",
     "content": "29fd641f"
   },
-  "/api/interfaces/ToolDefinition-35a": {
+  "/docs/api/interfaces/ToolDefinition-764": {
     "__comp": "17896441",
     "content": "f70772f3"
   },
-  "/api/interfaces/UpdateMemoryCommand-6ae": {
+  "/docs/api/interfaces/UpdateMemoryCommand-f75": {
     "__comp": "17896441",
     "content": "624c1f99"
   },
-  "/api/interfaces/UpdatePlanCommand-b09": {
+  "/docs/api/interfaces/UpdatePlanCommand-b4f": {
     "__comp": "17896441",
     "content": "9d0098de"
   },
-  "/api/interfaces/WaitCommand-420": {
+  "/docs/api/interfaces/WaitCommand-dc6": {
     "__comp": "17896441",
     "content": "a453df1d"
   },
-  "/api/type-aliases/AgentCommand-0d8": {
+  "/docs/api/type-aliases/AgentCommand-edf": {
     "__comp": "17896441",
     "content": "08a79eca"
   },
-  "/api/type-aliases/AgentCredential-dff": {
+  "/docs/api/type-aliases/AgentCredential-a53": {
     "__comp": "17896441",
     "content": "88dd17b1"
   },
-  "/api/type-aliases/AgentEventMap-e88": {
+  "/docs/api/type-aliases/AgentEventMap-23c": {
     "__comp": "17896441",
     "content": "5b496a51"
   },
-  "/api/type-aliases/CredentialSetup-c7e": {
+  "/docs/api/type-aliases/CredentialSetup-080": {
     "__comp": "17896441",
     "content": "6809ff1b"
   },
-  "/api/type-aliases/ScheduleConfig-90c": {
+  "/docs/api/type-aliases/ScheduleConfig-3eb": {
     "__comp": "17896441",
     "content": "d587c15f"
   },
-  "/api/variables/airtableDefinition-bb5": {
+  "/docs/api/variables/airtableDefinition-0ab": {
     "__comp": "17896441",
     "content": "bbb81f3a"
   },
-  "/api/variables/browserUseDefinition-e93": {
+  "/docs/api/variables/browserUseDefinition-4a8": {
     "__comp": "17896441",
     "content": "e378c4b5"
   },
-  "/api/variables/discordDefinition-10f": {
+  "/docs/api/variables/discordDefinition-973": {
     "__comp": "17896441",
     "content": "e5931f2a"
   },
-  "/api/variables/dropboxDefinition-ff6": {
+  "/docs/api/variables/dropboxDefinition-99f": {
     "__comp": "17896441",
     "content": "ae89cbeb"
   },
-  "/api/variables/etsyDefinition-01a": {
+  "/docs/api/variables/etsyDefinition-678": {
     "__comp": "17896441",
     "content": "b2c4a4c0"
   },
-  "/api/variables/falDefinition-04b": {
+  "/docs/api/variables/falDefinition-c5d": {
     "__comp": "17896441",
     "content": "a9c8eb67"
   },
-  "/api/variables/fileSystemDefinition-69f": {
+  "/docs/api/variables/fileSystemDefinition-023": {
     "__comp": "17896441",
     "content": "cbfc8d85"
   },
-  "/api/variables/geminiMediaDefinition-5a2": {
+  "/docs/api/variables/geminiMediaDefinition-5c8": {
     "__comp": "17896441",
     "content": "40c1f10c"
   },
-  "/api/variables/githubDefinition-4ff": {
+  "/docs/api/variables/githubDefinition-347": {
     "__comp": "17896441",
     "content": "4bedb7e4"
   },
-  "/api/variables/gmailDefinition-021": {
+  "/docs/api/variables/gmailDefinition-3ce": {
     "__comp": "17896441",
     "content": "7145e976"
   },
-  "/api/variables/googleAdsDefinition-679": {
+  "/docs/api/variables/googleAdsDefinition-d43": {
     "__comp": "17896441",
     "content": "8a65eb62"
   },
-  "/api/variables/googleCalendarDefinition-04d": {
+  "/docs/api/variables/googleCalendarDefinition-777": {
     "__comp": "17896441",
     "content": "0a1a8982"
   },
-  "/api/variables/googleDriveDefinition-a76": {
+  "/docs/api/variables/googleDriveDefinition-c4f": {
     "__comp": "17896441",
     "content": "3c02f551"
   },
-  "/api/variables/googleSheetsDefinition-40a": {
+  "/docs/api/variables/googleSheetsDefinition-b41": {
     "__comp": "17896441",
     "content": "6102ea84"
   },
-  "/api/variables/httpRequestDefinition-a64": {
+  "/docs/api/variables/httpRequestDefinition-b30": {
     "__comp": "17896441",
     "content": "987015ce"
   },
-  "/api/variables/instagramDefinition-ac8": {
+  "/docs/api/variables/instagramDefinition-373": {
     "__comp": "17896441",
     "content": "67c990e3"
   },
-  "/api/variables/metaAdsDefinition-618": {
+  "/docs/api/variables/metaAdsDefinition-6c1": {
     "__comp": "17896441",
     "content": "5686bc6c"
   },
-  "/api/variables/microsoftOutlookDefinition-247": {
+  "/docs/api/variables/microsoftOutlookDefinition-9ba": {
     "__comp": "17896441",
     "content": "9c62e7b2"
   },
-  "/api/variables/notionDefinition-877": {
+  "/docs/api/variables/notionDefinition-a60": {
     "__comp": "17896441",
     "content": "0e15896d"
   },
-  "/api/variables/openaiImagesDefinition-5c4": {
+  "/docs/api/variables/openaiImagesDefinition-ee1": {
     "__comp": "17896441",
     "content": "4982d3d6"
   },
-  "/api/variables/s3Definition-cf5": {
+  "/docs/api/variables/s3Definition-91b": {
     "__comp": "17896441",
     "content": "8bb693d4"
   },
-  "/api/variables/shopifyDefinition-e82": {
+  "/docs/api/variables/shopifyDefinition-aef": {
     "__comp": "17896441",
     "content": "99c6ca99"
   },
-  "/api/variables/slackDefinition-521": {
+  "/docs/api/variables/slackDefinition-3da": {
     "__comp": "17896441",
     "content": "3976ece8"
   },
-  "/api/variables/stripeDefinition-212": {
+  "/docs/api/variables/stripeDefinition-fb1": {
     "__comp": "17896441",
     "content": "e31de346"
   },
-  "/api/variables/telegramDefinition-d04": {
+  "/docs/api/variables/telegramDefinition-24a": {
     "__comp": "17896441",
     "content": "5780402f"
   },
-  "/api/variables/tiktokDefinition-c1d": {
+  "/docs/api/variables/tiktokDefinition-4a4": {
     "__comp": "17896441",
     "content": "727b1ae2"
   },
-  "/api/variables/twilioDefinition-bcb": {
+  "/docs/api/variables/twilioDefinition-6a8": {
     "__comp": "17896441",
     "content": "0a84bdd8"
   },
-  "/api/variables/twitterDefinition-1ab": {
+  "/docs/api/variables/twitterDefinition-449": {
     "__comp": "17896441",
     "content": "906e54a4"
   },
-  "/api/variables/whatsappDefinition-f9a": {
+  "/docs/api/variables/whatsappDefinition-527": {
     "__comp": "17896441",
     "content": "95f4aa17"
   },
-  "/api/variables/youtubeDefinition-ac7": {
+  "/docs/api/variables/youtubeDefinition-e54": {
     "__comp": "17896441",
     "content": "e16228d9"
   },
-  "/concepts/agents-061": {
+  "/docs/concepts/agents-fe5": {
     "__comp": "17896441",
     "content": "20c3b396"
   },
-  "/concepts/integrations-95d": {
+  "/docs/concepts/integrations-76b": {
     "__comp": "17896441",
     "content": "0ae1ee0d"
   },
-  "/concepts/memory-scheduling-3ff": {
+  "/docs/concepts/memory-scheduling-311": {
     "__comp": "17896441",
     "content": "74fe0250"
   },
-  "/concepts/providers-bce": {
+  "/docs/concepts/providers-7f0": {
     "__comp": "17896441",
     "content": "21b7532c"
   },
-  "/examples/overview-0f7": {
+  "/docs/examples/overview-c2e": {
     "__comp": "17896441",
     "content": "74bf304f"
   },
-  "/getting-started-ac2": {
+  "/docs/getting-started-565": {
     "__comp": "17896441",
     "content": "d589d3a7"
   },
-  "/-7da": {
+  "/docs/-be8": {
     "__comp": "17896441",
     "content": "0e384e19"
   }
