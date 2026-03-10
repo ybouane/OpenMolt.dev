@@ -255,6 +255,45 @@ code {
 }
 
 /* =========================================================
+   Shiki syntax highlighting wrapper
+   ========================================================= */
+.shiki-wrapper {
+  /* Stretch to fill the containing pre/code-block */
+  display: contents;
+}
+
+.shiki-wrapper pre.shiki {
+  /* Inherit container sizing — background is handled by parent */
+  background: rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  overflow-x: auto;
+  position: relative;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.shiki-wrapper pre.shiki code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  border-radius: 0;
+}
+
+/* Inside code-block (playground), strip the outer frame */
+code-block .shiki-wrapper pre.shiki {
+  background: none !important;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+/* =========================================================
    Scrollbar
    ========================================================= */
 ::-webkit-scrollbar {

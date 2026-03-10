@@ -2,6 +2,7 @@ import React from 'react';
 import type { MetaFunction } from 'react-router';
 import { PLAYGROUND_INTEGRATIONS, MODELS } from '~/data/integrations';
 import type { IntegrationMeta } from '~/data/integrations';
+import { CodeBlock } from '~/components/CodeBlock';
 
 export const meta: MetaFunction = () => [
   { title: 'Playground — OpenMolt' },
@@ -647,7 +648,7 @@ export default function Playground() {
                 <span>TypeScript — ready to copy into your project</span>
               </div>
               <code-block>
-                <pre>{generatedCode}</pre>
+                <CodeBlock code={generatedCode} />
               </code-block>
             </code-view>
           )}

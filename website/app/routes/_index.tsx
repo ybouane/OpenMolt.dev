@@ -1,6 +1,7 @@
 import React from 'react';
 import type { MetaFunction } from 'react-router';
 import { ALL_INTEGRATIONS } from '~/data/integrations';
+import { CodeBlock } from '~/components/CodeBlock';
 
 export const meta: MetaFunction = () => [
   { title: 'OpenMolt — Programmatic AI Agent System' },
@@ -249,9 +250,7 @@ export default function Index() {
 
           <div className="code-wrapper">
             <div className="code-label">Hello World</div>
-            <pre>
-              <code>{HELLO_WORLD}</code>
-            </pre>
+            <CodeBlock code={HELLO_WORLD} />
             <button
               className={`copy-btn${codeCopied ? ' copied' : ''}`}
               onClick={copyCode}
