@@ -271,8 +271,8 @@ agent.schedule({
 |---|---|
 | **Productivity** | Notion, Airtable, Google Calendar, Google Drive, Google Sheets, Microsoft Outlook |
 | **Communication** | Gmail, Slack, Discord, Telegram, WhatsApp, Twilio |
-| **Social / Content** | Twitter/X, Instagram, TikTok, YouTube |
-| **AI / Media** | fal.ai, Google Imagen + Veo (Gemini), OpenAI Images (DALL-E / gpt-image-1) |
+| **Social / Content** | X (Twitter), Instagram, TikTok, YouTube |
+| **AI / Media** | fal.ai, Google Imagen + Veo (Gemini Media Models), OpenAI Media Models (DALL-E / gpt-image-1) |
 | **Commerce** | Stripe, Shopify, Etsy |
 | **Dev & Cloud** | GitHub, AWS S3, Dropbox |
 | **Ads** | Google Ads, Meta Ads |

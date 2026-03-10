@@ -1,6 +1,6 @@
 /**
- * @module integrations/twitter
- * Twitter/X API v2 integration definition.
+ * @module integrations/x
+ * X (Twitter) API v2 integration definition.
  *
  * Authentication notes:
  *  - config.apiKey   — Bearer token (App-only auth) for read-only endpoints.
@@ -11,8 +11,8 @@
 import { z } from 'zod';
 import type { IntegrationDefinition } from '../types/index.js';
 
-export const twitterDefinition: IntegrationDefinition = {
-	name: 'Twitter / X',
+export const xDefinition: IntegrationDefinition = {
+	name: 'X',
 	apiSetup: {
 		baseUrl: 'https://api.twitter.com/2',
 		headers: {

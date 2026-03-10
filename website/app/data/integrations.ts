@@ -88,8 +88,8 @@ export const ALL_INTEGRATIONS: IntegrationMeta[] = [
     playgroundAllowed: true,
   },
   {
-    handle: 'geminiMedia',
-    name: 'Gemini Media',
+    handle: 'geminiMediaModels',
+    name: 'Gemini Media Models',
     category: 'AI',
     description: 'Generate and analyze media content using Google Gemini models.',
     credentialType: 'bearer',
@@ -98,8 +98,8 @@ export const ALL_INTEGRATIONS: IntegrationMeta[] = [
     playgroundAllowed: true,
   },
   {
-    handle: 'openaiImages',
-    name: 'OpenAI Images',
+    handle: 'openAiMediaModels',
+    name: 'OpenAI Media Models',
     category: 'AI',
     description: 'Generate and edit images using DALL-E models.',
     credentialType: 'bearer',
@@ -148,8 +148,8 @@ export const ALL_INTEGRATIONS: IntegrationMeta[] = [
     playgroundAllowed: false,
   },
   {
-    handle: 'twitter',
-    name: 'Twitter / X',
+    handle: 'x',
+    name: 'X',
     category: 'Social',
     description: 'Post tweets, read timelines, and send direct messages.',
     credentialType: 'bearer',

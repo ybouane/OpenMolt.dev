@@ -3,8 +3,8 @@ import type { IntegrationDefinition, ToolContext } from '../types/index.js';
 
 const GEMINI_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta';
 
-export const geminiMediaDefinition: IntegrationDefinition = {
-	name: 'Gemini Media',
+export const geminiMediaModelsDefinition: IntegrationDefinition = {
+	name: 'Gemini Media Models',
 	credentialSetup: [
 		{
 			type: 'custom',

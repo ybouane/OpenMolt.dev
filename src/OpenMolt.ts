@@ -28,13 +28,13 @@ import { gmailDefinition } from './integrations/gmail.js';
 import { googleDriveDefinition } from './integrations/googleDrive.js';
 import { googleSheetsDefinition } from './integrations/googleSheets.js';
 import { microsoftOutlookDefinition } from './integrations/microsoftOutlook.js';
-import { geminiMediaDefinition } from './integrations/geminiMedia.js';
-import { openaiImagesDefinition } from './integrations/openaiImages.js';
+import { geminiMediaModelsDefinition } from './integrations/geminiMediaModels.js';
+import { openAiMediaModelsDefinition } from './integrations/openAiMediaModels.js';
 import { discordDefinition } from './integrations/discord.js';
 import { slackDefinition } from './integrations/slack.js';
 import { telegramDefinition } from './integrations/telegram.js';
 import { whatsappDefinition } from './integrations/whatsapp.js';
-import { twitterDefinition } from './integrations/twitter.js';
+import { xDefinition } from './integrations/x.js';
 import { instagramDefinition } from './integrations/instagram.js';
 import { twilioDefinition } from './integrations/twilio.js';
 import { airtableDefinition } from './integrations/airtable.js';
@@ -60,13 +60,13 @@ const BUILTIN_INTEGRATIONS: Record<string, IntegrationDefinition> = {
 	googleDrive: googleDriveDefinition,
 	googleSheets: googleSheetsDefinition,
 	microsoftOutlook: microsoftOutlookDefinition,
-	geminiMedia: geminiMediaDefinition,
-	openaiImages: openaiImagesDefinition,
+	geminiMediaModels: geminiMediaModelsDefinition,
+	openAiMediaModels: openAiMediaModelsDefinition,
 	discord: discordDefinition,
 	slack: slackDefinition,
 	telegram: telegramDefinition,
 	whatsapp: whatsappDefinition,
-	twitter: twitterDefinition,
+	x: xDefinition,
 	instagram: instagramDefinition,
 	twilio: twilioDefinition,
 	airtable: airtableDefinition,

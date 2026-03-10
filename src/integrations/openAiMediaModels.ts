@@ -1,13 +1,13 @@
 /**
- * @module integrations/openaiImages
- * OpenAI Images API integration definition (DALL-E 2, DALL-E 3, GPT-Image-1).
+ * @module integrations/openAiMediaModels
+ * OpenAI Media Models API integration definition (DALL-E 2, DALL-E 3, GPT-Image-1).
  */
 
 import { z } from 'zod';
 import type { IntegrationDefinition, ToolContext } from '../types/index.js';
 
-export const openaiImagesDefinition: IntegrationDefinition = {
-	name: 'OpenAI Images',
+export const openAiMediaModelsDefinition: IntegrationDefinition = {
+	name: 'OpenAI Media Models',
 	apiSetup: {
 		baseUrl: 'https://api.openai.com/v1',
 		headers: {
