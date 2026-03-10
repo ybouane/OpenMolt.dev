@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
 	title: 'OpenMolt',
 	tagline: 'Programmatic AI Agent System',
-	favicon: 'img/favicon.ico',
+	favicon: 'img/logo.png',
 
 	url: 'https://openmolt.dev',
 	baseUrl: '/docs/',
@@ -68,8 +68,7 @@ const config: Config = {
 			title: 'OpenMolt',
 			logo: {
 				alt: 'OpenMolt Logo',
-				src: 'img/logo.svg',
-				srcDark: 'img/logo-dark.svg',
+				src: 'img/logo.png',
 			},
 			items: [
 				{
@@ -105,7 +104,7 @@ const config: Config = {
 				{
 					title: 'Community',
 					items: [
-						{ label: 'GitHub', href: 'https://github.com/openmolt/openmolt' },
+						{ label: 'GitHub', href: 'https://github.com/ybouane/openmolt' },
 						{ label: 'npm', href: 'https://www.npmjs.com/package/openmolt' },
 					],
 				},

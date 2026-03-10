@@ -19,7 +19,7 @@ OpenMolt ships with 30 integrations pre-registered:
 | `dropbox` | Dropbox API |
 | `etsy` | Etsy API |
 | `fal` | fal.ai (image & video generation) |
-| `geminiMedia` | Google Gemini media generation |
+| `geminiMediaModels` | Google Gemini media generation |
 | `github` | GitHub REST API |
 | `gmail` | Gmail API (OAuth2) |
 | `googleAds` | Google Ads API |
@@ -31,7 +31,7 @@ OpenMolt ships with 30 integrations pre-registered:
 | `metaAds` | Meta Ads API |
 | `microsoftOutlook` | Microsoft Outlook / Graph API |
 | `notion` | Notion API |
-| `openaiImages` | OpenAI Images API (DALL·E) |
+| `openAiMediaModels` | OpenAI Media Models API (DALL·E) |
 | `s3` | Amazon S3 |
 | `shopify` | Shopify Admin API |
 | `slack` | Slack Web API |
@@ -39,7 +39,7 @@ OpenMolt ships with 30 integrations pre-registered:
 | `telegram` | Telegram Bot API |
 | `tiktok` | TikTok API |
 | `twilio` | Twilio REST API |
-| `twitter` | Twitter/X API v2 |
+| `x` | X (Twitter) API v2 |
 | `whatsapp` | WhatsApp Business API |
 | `youtube` | YouTube Data API |
 | `fileSystem` | Local filesystem (factory — see below) |

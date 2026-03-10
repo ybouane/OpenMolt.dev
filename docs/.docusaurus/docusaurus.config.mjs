@@ -6,7 +6,7 @@
 export default {
   "title": "OpenMolt",
   "tagline": "Programmatic AI Agent System",
-  "favicon": "img/favicon.ico",
+  "favicon": "img/logo.png",
   "url": "https://openmolt.dev",
   "baseUrl": "/docs/",
   "onBrokenLinks": "warn",
@@ -47,8 +47,7 @@ export default {
       "title": "OpenMolt",
       "logo": {
         "alt": "OpenMolt Logo",
-        "src": "img/logo.svg",
-        "srcDark": "img/logo-dark.svg"
+        "src": "img/logo.png"
       },
       "items": [
         {
@@ -99,7 +98,7 @@ export default {
           "items": [
             {
               "label": "GitHub",
-              "href": "https://github.com/openmolt/openmolt"
+              "href": "https://github.com/ybouane/openmolt"
             },
             {
               "label": "npm",

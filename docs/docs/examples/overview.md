@@ -31,7 +31,7 @@ const result = await agent.run('Tell me a joke!');
 console.log(result);
 ```
 
-**File:** [`examples/01-hello-world.ts`](https://github.com/openmolt/openmolt/blob/main/examples/01-hello-world.ts)
+**File:** [`examples/01-hello-world.ts`](https://github.com/ybouane/openmolt.dev/blob/main/examples/01-hello-world.ts)
 
 ---
 
@@ -47,7 +47,7 @@ const agent = om.createAgent({
 });
 ```
 
-**File:** [`examples/02-instructions-from-file/`](https://github.com/openmolt/openmolt/blob/main/examples/02-instructions-from-file/)
+**File:** [`examples/02-instructions-from-file/`](https://github.com/ybouane/openmolt.dev/blob/main/examples/02-instructions-from-file/)
 
 ---
 
@@ -71,7 +71,7 @@ const result = await agent.run('Extract the logo from https://a.genti.ca/');
 console.log(result.logoUrl);
 ```
 
-**File:** [`examples/03-structured-output.ts`](https://github.com/openmolt/openmolt/blob/main/examples/03-structured-output.ts)
+**File:** [`examples/03-structured-output.ts`](https://github.com/ybouane/openmolt.dev/blob/main/examples/03-structured-output.ts)
 
 ---
 
@@ -85,7 +85,7 @@ Uses the `gmail` integration with OAuth2 credentials.
 const id = agent.schedule({ type: 'interval', value: 20 * 60 });
 ```
 
-**File:** [`examples/04-gmail-draft-generator.ts`](https://github.com/openmolt/openmolt/blob/main/examples/04-gmail-draft-generator.ts)
+**File:** [`examples/04-gmail-draft-generator.ts`](https://github.com/ybouane/openmolt.dev/blob/main/examples/04-gmail-draft-generator.ts)
 
 ---
 
@@ -98,7 +98,7 @@ OPENAI_API_KEY=sk-... FAL_API_KEY=... \
   npx tsx examples/05-blog-post-creator.ts "The Future of AI Agents"
 ```
 
-**File:** [`examples/05-blog-post-creator.ts`](https://github.com/openmolt/openmolt/blob/main/examples/05-blog-post-creator.ts)
+**File:** [`examples/05-blog-post-creator.ts`](https://github.com/ybouane/openmolt.dev/blob/main/examples/05-blog-post-creator.ts)
 
 ---
 
@@ -110,4 +110,4 @@ Generates a short UGC-style video via fal.ai every day at 09:00 and posts it to 
 const id = agent.schedule({ type: 'daily', hour: 9, minute: 0 });
 ```
 
-**File:** [`examples/06-ugc-creator.ts`](https://github.com/openmolt/openmolt/blob/main/examples/06-ugc-creator.ts)
+**File:** [`examples/06-ugc-creator.ts`](https://github.com/ybouane/openmolt.dev/blob/main/examples/06-ugc-creator.ts)

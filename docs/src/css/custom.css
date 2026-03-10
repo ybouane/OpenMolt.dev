@@ -1,93 +1,170 @@
 /**
  * OpenMolt – Docusaurus theme overrides
+ * Color scheme aligned with the main website (blue #3da0e6 palette)
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ─── Light mode ─────────────────────────────────────────────────────────────── */
 :root {
-	--ifm-color-primary: #7c3aed;
-	--ifm-color-primary-dark: #6d28d9;
-	--ifm-color-primary-darker: #5b21b6;
-	--ifm-color-primary-darkest: #4c1d95;
-	--ifm-color-primary-light: #8b5cf6;
-	--ifm-color-primary-lighter: #a78bfa;
-	--ifm-color-primary-lightest: #c4b5fd;
+	--ifm-color-primary: #1a7abf;
+	--ifm-color-primary-dark: #1569a6;
+	--ifm-color-primary-darker: #125c93;
+	--ifm-color-primary-darkest: #0d4370;
+	--ifm-color-primary-light: #2b8fd4;
+	--ifm-color-primary-lighter: #3da0e6;
+	--ifm-color-primary-lightest: #64b5ed;
 
-	--ifm-code-font-size: 90%;
 	--ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
-	--ifm-heading-font-weight: 600;
+	--ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', monospace;
+	--ifm-code-font-size: 88%;
+	--ifm-heading-font-weight: 700;
+	--ifm-border-radius: 10px;
 
-	--docusaurus-highlighted-code-line-bg: rgba(124, 58, 237, 0.1);
+	--docusaurus-highlighted-code-line-bg: rgba(61, 160, 230, 0.12);
 }
 
+/* ─── Dark mode ──────────────────────────────────────────────────────────────── */
 [data-theme='dark'] {
-	--ifm-color-primary: #a78bfa;
-	--ifm-color-primary-dark: #8b5cf6;
-	--ifm-color-primary-darker: #7c3aed;
-	--ifm-color-primary-darkest: #6d28d9;
-	--ifm-color-primary-light: #c4b5fd;
-	--ifm-color-primary-lighter: #ddd6fe;
-	--ifm-color-primary-lightest: #ede9fe;
+	--ifm-color-primary: #3da0e6;
+	--ifm-color-primary-dark: #2b8fd4;
+	--ifm-color-primary-darker: #1a7abf;
+	--ifm-color-primary-darkest: #0f4e7d;
+	--ifm-color-primary-light: #64b5ed;
+	--ifm-color-primary-lighter: #84c7f3;
+	--ifm-color-primary-lightest: #b3ddf9;
 
-	--ifm-background-color: #0f0f1a;
-	--ifm-background-surface-color: #1a1a2e;
+	--ifm-background-color: #050810;
+	--ifm-background-surface-color: #0a1525;
+	--ifm-color-content: #e2eaf6;
+	--ifm-color-content-secondary: #7a8ba3;
+	--ifm-navbar-background-color: rgba(5, 8, 16, 0.95);
+	--ifm-footer-background-color: #060d1f;
+	--ifm-code-background: #060d1f;
+	--ifm-toc-border-color: rgba(61, 160, 230, 0.15);
+	--ifm-menu-color: #c8d8ec;
+	--ifm-menu-color-active: #3da0e6;
+	--ifm-menu-color-background-active: rgba(61, 160, 230, 0.12);
+	--ifm-menu-color-background-hover: rgba(61, 160, 230, 0.07);
 
-	--docusaurus-highlighted-code-line-bg: rgba(167, 139, 250, 0.15);
+	--docusaurus-highlighted-code-line-bg: rgba(61, 160, 230, 0.15);
 }
 
-/* Hero area */
+/* ─── Navbar ─────────────────────────────────────────────────────────────────── */
+.navbar {
+	border-bottom: 1px solid rgba(61, 160, 230, 0.15);
+	backdrop-filter: blur(12px);
+}
+
+[data-theme='dark'] .navbar {
+	background: rgba(5, 8, 16, 0.92);
+	box-shadow: 0 1px 0 rgba(61, 160, 230, 0.1);
+}
+
+.navbar__logo img {
+	height: 28px;
+	width: 28px;
+	border-radius: 6px;
+}
+
+.navbar__title {
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+
+/* ─── Hero ───────────────────────────────────────────────────────────────────── */
 .hero {
-	background: linear-gradient(135deg, #4c1d95 0%, #1e1b4b 50%, #0f0f1a 100%);
+	background: linear-gradient(135deg, #050810 0%, #0a1a35 50%, #0f2e55 100%);
 }
 
 [data-theme='light'] .hero {
-	background: linear-gradient(135deg, #7c3aed 0%, #4338ca 50%, #1e1b4b 100%);
+	background: linear-gradient(135deg, #1565c0 0%, #1976d2 50%, #2196f3 100%);
 }
 
 .hero__title {
 	font-size: 3rem;
-	font-weight: 700;
+	font-weight: 800;
+	letter-spacing: -0.02em;
 }
 
 .hero__subtitle {
-	font-size: 1.25rem;
-	opacity: 0.85;
+	font-size: 1.2rem;
+	opacity: 0.8;
 }
 
-/* Navbar */
-.navbar {
-	border-bottom: 1px solid rgba(124, 58, 237, 0.2);
-	backdrop-filter: blur(8px);
-}
-
-[data-theme='dark'] .navbar {
-	background: rgba(15, 15, 26, 0.95);
-}
-
-/* Code blocks */
+/* ─── Code blocks ─────────────────────────────────────────────────────────────── */
 .prism-code {
-	border-radius: 8px;
+	border-radius: 10px;
 }
 
-/* Feature cards on landing */
+[data-theme='dark'] .prism-code {
+	background: #060d1f !important;
+	border: 1px solid rgba(61, 160, 230, 0.12);
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────────────────────── */
+[data-theme='dark'] .theme-doc-sidebar-container {
+	border-right-color: rgba(61, 160, 230, 0.12);
+}
+
+[data-theme='dark'] .menu__link--active {
+	color: #3da0e6;
+	background: rgba(61, 160, 230, 0.1);
+	border-radius: 6px;
+}
+
+[data-theme='dark'] .menu__link:hover {
+	color: #64b5ed;
+	background: rgba(61, 160, 230, 0.07);
+	border-radius: 6px;
+}
+
+/* ─── Table of contents ──────────────────────────────────────────────────────── */
+[data-theme='dark'] .table-of-contents__link--active {
+	color: #3da0e6;
+}
+
+/* ─── Cards / features ───────────────────────────────────────────────────────── */
 .feature-card {
-	border: 1px solid rgba(124, 58, 237, 0.2);
+	border: 1px solid rgba(61, 160, 230, 0.18);
 	border-radius: 12px;
 	padding: 1.5rem;
-	transition: border-color 0.2s, box-shadow 0.2s;
+	transition: border-color 0.18s, box-shadow 0.18s;
 }
 
 .feature-card:hover {
-	border-color: var(--ifm-color-primary);
-	box-shadow: 0 0 0 1px var(--ifm-color-primary), 0 4px 24px rgba(124, 58, 237, 0.15);
+	border-color: #3da0e6;
+	box-shadow: 0 0 0 1px rgba(61, 160, 230, 0.3), 0 4px 24px rgba(61, 160, 230, 0.12);
 }
 
-/* API reference table styles */
+/* ─── Admonitions ─────────────────────────────────────────────────────────────── */
+.admonition {
+	border-radius: 10px;
+}
+
+/* ─── API reference table ─────────────────────────────────────────────────────── */
 .typedoc-parameter-table td:first-child {
 	font-family: var(--ifm-font-family-monospace);
 	font-size: 0.85em;
 	color: var(--ifm-color-primary);
 }
 
-/* Admonition tweaks */
-.admonition {
-	border-radius: 8px;
+/* ─── Footer ─────────────────────────────────────────────────────────────────── */
+[data-theme='dark'] .footer {
+	background: #060d1f;
+	border-top: 1px solid rgba(61, 160, 230, 0.1);
+}
+
+/* ─── Scrollbar (dark mode) ──────────────────────────────────────────────────── */
+[data-theme='dark'] {
+	scrollbar-color: rgba(61, 160, 230, 0.3) transparent;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+	background: rgba(61, 160, 230, 0.25);
+	border-radius: 4px;
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-track {
+	background: transparent;
 }
