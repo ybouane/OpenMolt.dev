@@ -319,10 +319,10 @@ export const ALL_INTEGRATIONS: IntegrationMeta[] = [
 export const PLAYGROUND_INTEGRATIONS = ALL_INTEGRATIONS.filter((i) => i.playgroundAllowed);
 
 export const MODELS = [
-  { value: 'openai:gpt-4o', label: 'GPT-4o', provider: 'openai' },
-  { value: 'openai:gpt-4o-mini', label: 'GPT-4o Mini', provider: 'openai' },
+  { value: 'openai:gpt-5.4', label: 'GPT-5.4', provider: 'openai' },
+  { value: 'openai:gpt-5-mini', label: 'GPT-5 Mini', provider: 'openai' },
   { value: 'anthropic:claude-opus-4-6', label: 'Claude Opus 4.6', provider: 'anthropic' },
   { value: 'anthropic:claude-sonnet-4-6', label: 'Claude Sonnet 4.6', provider: 'anthropic' },
-  { value: 'google:gemini-2.0-flash', label: 'Gemini 2.0 Flash', provider: 'google' },
-  { value: 'google:gemini-2.5-pro', label: 'Gemini 2.5 Pro', provider: 'google' },
+  { value: 'google:gemini-3.0-flash', label: 'Gemini 3.0 Flash', provider: 'google' },
+  { value: 'google:gemini-3.1-pro', label: 'Gemini 3.1 Pro', provider: 'google' },
 ];
