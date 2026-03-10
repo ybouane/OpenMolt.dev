@@ -16,6 +16,7 @@ npm install openmolt
 
 | | |
 |---|---|
+| **Secure by design** | Agents access only the scopes you grant. The LLM sees tool names — never raw credentials |
 | **Multi-provider** | OpenAI, Anthropic Claude, and Google Gemini with a unified `provider:model` string |
 | **30+ built-in integrations** | Gmail, Slack, GitHub, Notion, Stripe, Discord, S3, and more — ready out of the box |
 | **Declarative HTTP tools** | Define integrations as data (endpoint, auth, Liquid templates) — no boilerplate |
@@ -24,6 +25,34 @@ npm install openmolt
 | **Events** | Observable reasoning loop — hook into every tool call, plan update, and LLM output |
 | **Memory** | Long-term and short-term memory stores with `onUpdate` persistence callbacks |
 | **CLI** | `npx openmolt agent.json` to run agents from a config file |
+---
+
+## Secure by Design
+
+OpenMolt was built with security as a first-class constraint, not an afterthought.
+
+**Scope-gated tools.** Every integration is granted an explicit list of scopes when you attach it to an agent. If a tool requires the `write` scope and you only granted `read`, the agent cannot call it — regardless of what the LLM decides.
+
+```typescript
+integrations: [
+  {
+    integration: 'gmail',
+    credential: { type: 'oauth2', config: { ... } },
+    scopes: ['read'],   // agent can read emails, but cannot send or delete
+  },
+],
+```
+
+**Credentials never reach the LLM.** The model only sees tool names and their input/output schemas. Your API keys, tokens, and OAuth secrets are resolved server-side at execution time — the LLM prompt contains none of them.
+
+**Directory-restricted filesystem.** The `FileSystem` integration is a factory that you instantiate with an explicit allowlist of directories. The agent cannot read or write outside those paths.
+
+```typescript
+om.registerIntegration('fileSystem', OpenMolt.FileSystemIntegration('./output'));
+// agent cannot access /etc, ~/, or any path outside ./output
+```
+
+**No implicit network access.** Agents can only call APIs that are registered as integrations. There is no general-purpose outbound HTTP unless you explicitly add the `httpRequest` integration.
 
 ---
 

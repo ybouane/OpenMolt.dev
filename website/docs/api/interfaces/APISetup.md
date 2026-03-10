@@ -6,7 +6,7 @@
 
 # Interface: APISetup
 
-Defined in: [types/index.ts:49](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L49)
+Defined in: [types/index.ts:49](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L49)
 
 Generic API setup used to configure HTTP tool calls for an integration.
 
@@ -16,7 +16,7 @@ Generic API setup used to configure HTTP tool calls for an integration.
 
 > **baseUrl**: `string`
 
-Defined in: [types/index.ts:51](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L51)
+Defined in: [types/index.ts:51](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L51)
 
 Base URL prepended to all endpoint paths. Supports Liquid templates with `config.*` variables.
 
@@ -26,7 +26,7 @@ Base URL prepended to all endpoint paths. Supports Liquid templates with `config
 
 > `optional` **headers**: `Record`\<`string`, `string`\>
 
-Defined in: [types/index.ts:53](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L53)
+Defined in: [types/index.ts:53](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L53)
 
 Default headers merged into every request. Supports Liquid templates.
 
@@ -36,7 +36,7 @@ Default headers merged into every request. Supports Liquid templates.
 
 > `optional` **requestFormat**: `"json"` \| `"url-encoded"` \| `"form-data"` \| `"text"`
 
-Defined in: [types/index.ts:61](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L61)
+Defined in: [types/index.ts:61](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L61)
 
 Body serialisation format for outgoing requests.
 - `json`: `application/json` (default)
@@ -50,6 +50,6 @@ Body serialisation format for outgoing requests.
 
 > `optional` **responseFormat**: `"json"` \| `"text"` \| `"xml"`
 
-Defined in: [types/index.ts:63](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L63)
+Defined in: [types/index.ts:63](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L63)
 
 Expected format of API responses.

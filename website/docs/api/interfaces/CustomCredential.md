@@ -6,7 +6,7 @@
 
 # Interface: CustomCredential
 
-Defined in: [types/index.ts:179](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L179)
+Defined in: [types/index.ts:179](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L179)
 
 Custom credential assigned to an agent.
 
@@ -16,7 +16,7 @@ Custom credential assigned to an agent.
 
 > **config**: `Record`\<`string`, `unknown`\>
 
-Defined in: [types/index.ts:181](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L181)
+Defined in: [types/index.ts:181](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L181)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [types/index.ts:181](https://github.com/ybouane/OpenMolt.dev/blob/aa
 
 > **type**: `"custom"`
 
-Defined in: [types/index.ts:180](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L180)
+Defined in: [types/index.ts:180](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L180)

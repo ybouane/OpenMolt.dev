@@ -6,7 +6,7 @@
 
 # Interface: BearerCredentialSetup
 
-Defined in: [types/index.ts:67](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L67)
+Defined in: [types/index.ts:67](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L67)
 
 Bearer-token credential setup.
 
@@ -16,7 +16,7 @@ Bearer-token credential setup.
 
 > **headers**: `Record`\<`string`, `string`\>
 
-Defined in: [types/index.ts:70](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L70)
+Defined in: [types/index.ts:70](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L70)
 
 Headers to inject (supports `{{ config.* }}` templates).
 
@@ -26,4 +26,4 @@ Headers to inject (supports `{{ config.* }}` templates).
 
 > **type**: `"bearer"`
 
-Defined in: [types/index.ts:68](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L68)
+Defined in: [types/index.ts:68](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L68)

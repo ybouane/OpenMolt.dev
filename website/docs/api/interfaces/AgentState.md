@@ -6,7 +6,7 @@
 
 # Interface: AgentState
 
-Defined in: [types/index.ts:361](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L361)
+Defined in: [types/index.ts:361](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L361)
 
 Runtime state maintained across loop iterations.
 
@@ -16,7 +16,7 @@ Runtime state maintained across loop iterations.
 
 > **commandHistory**: [`CommandHistoryEntry`](CommandHistoryEntry.md)[]
 
-Defined in: [types/index.ts:368](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L368)
+Defined in: [types/index.ts:368](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L368)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [types/index.ts:368](https://github.com/ybouane/OpenMolt.dev/blob/aa
 
 > **currentStep**: `number`
 
-Defined in: [types/index.ts:369](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L369)
+Defined in: [types/index.ts:369](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L369)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [types/index.ts:369](https://github.com/ybouane/OpenMolt.dev/blob/aa
 
 > **input**: `unknown`
 
-Defined in: [types/index.ts:362](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L362)
+Defined in: [types/index.ts:362](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L362)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [types/index.ts:362](https://github.com/ybouane/OpenMolt.dev/blob/aa
 
 > **memory**: `object`
 
-Defined in: [types/index.ts:364](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L364)
+Defined in: [types/index.ts:364](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L364)
 
 #### longTerm
 
@@ -56,4 +56,4 @@ Defined in: [types/index.ts:364](https://github.com/ybouane/OpenMolt.dev/blob/aa
 
 > **plan**: [`PlanStep`](PlanStep.md)[]
 
-Defined in: [types/index.ts:363](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L363)
+Defined in: [types/index.ts:363](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L363)

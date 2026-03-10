@@ -6,7 +6,7 @@
 
 # Interface: PlanSubStep
 
-Defined in: [types/index.ts:335](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L335)
+Defined in: [types/index.ts:335](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L335)
 
 A single sub-step within a plan step.
 
@@ -16,7 +16,7 @@ A single sub-step within a plan step.
 
 > **name**: `string`
 
-Defined in: [types/index.ts:336](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L336)
+Defined in: [types/index.ts:336](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L336)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [types/index.ts:336](https://github.com/ybouane/OpenMolt.dev/blob/aa
 
 > `optional` **notes**: `string`
 
-Defined in: [types/index.ts:338](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L338)
+Defined in: [types/index.ts:338](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L338)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [types/index.ts:338](https://github.com/ybouane/OpenMolt.dev/blob/aa
 
 > **status**: `"failed"` \| `"pending"` \| `"inProgress"` \| `"completed"`
 
-Defined in: [types/index.ts:337](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L337)
+Defined in: [types/index.ts:337](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L337)

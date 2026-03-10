@@ -281,8 +281,8 @@
               "sidebar": "docs"
             },
             {
-              "id": "api/variables/geminiMediaDefinition",
-              "path": "/docs/api/variables/geminiMediaDefinition",
+              "id": "api/variables/geminiMediaModelsDefinition",
+              "path": "/docs/api/variables/geminiMediaModelsDefinition",
               "sidebar": "docs"
             },
             {
@@ -341,8 +341,8 @@
               "sidebar": "docs"
             },
             {
-              "id": "api/variables/openaiImagesDefinition",
-              "path": "/docs/api/variables/openaiImagesDefinition",
+              "id": "api/variables/openAiMediaModelsDefinition",
+              "path": "/docs/api/variables/openAiMediaModelsDefinition",
               "sidebar": "docs"
             },
             {
@@ -381,13 +381,13 @@
               "sidebar": "docs"
             },
             {
-              "id": "api/variables/twitterDefinition",
-              "path": "/docs/api/variables/twitterDefinition",
+              "id": "api/variables/whatsappDefinition",
+              "path": "/docs/api/variables/whatsappDefinition",
               "sidebar": "docs"
             },
             {
-              "id": "api/variables/whatsappDefinition",
-              "path": "/docs/api/variables/whatsappDefinition",
+              "id": "api/variables/xDefinition",
+              "path": "/docs/api/variables/xDefinition",
               "sidebar": "docs"
             },
             {

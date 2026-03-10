@@ -6,7 +6,7 @@
 
 # Interface: LLMResponse
 
-Defined in: [types/index.ts:375](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L375)
+Defined in: [types/index.ts:375](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L375)
 
 Normalised response returned by any LLMProvider.
 
@@ -16,7 +16,7 @@ Normalised response returned by any LLMProvider.
 
 > **content**: `string`
 
-Defined in: [types/index.ts:377](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L377)
+Defined in: [types/index.ts:377](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L377)
 
 The text content of the response.
 
@@ -26,7 +26,7 @@ The text content of the response.
 
 > `optional` **raw**: `unknown`
 
-Defined in: [types/index.ts:387](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L387)
+Defined in: [types/index.ts:387](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L387)
 
 Raw provider response object.
 
@@ -36,7 +36,7 @@ Raw provider response object.
 
 > `optional` **thinking**: `string`
 
-Defined in: [types/index.ts:379](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L379)
+Defined in: [types/index.ts:379](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L379)
 
 Optional chain-of-thought / reasoning produced by the model.
 
@@ -46,7 +46,7 @@ Optional chain-of-thought / reasoning produced by the model.
 
 > `optional` **usage**: `object`
 
-Defined in: [types/index.ts:381](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L381)
+Defined in: [types/index.ts:381](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L381)
 
 Token usage statistics.
 

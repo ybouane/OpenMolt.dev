@@ -3,22 +3,39 @@ import type { MetaFunction } from 'react-router';
 import { ALL_INTEGRATIONS } from '~/data/integrations';
 import { CodeBlock } from '~/components/CodeBlock';
 
+const SITE_TITLE = 'OpenMolt — The Programmatic Way to Build AI Agents';
+const SITE_DESCRIPTION =
+  'OpenMolt lets you build programmatic AI agents in Node.js that think, plan, and act using tools, integrations, and memory — directly from your codebase.';
+const BANNER_URL = 'https://openmolt.dev/images/banner.png';
+
 export const meta: MetaFunction = () => [
-  { title: 'OpenMolt — Programmatic AI Agent System' },
-  {
-    name: 'description',
-    content:
-      'Build autonomous AI agents that plan, reason, and act. Multi-provider LLM support, 30+ integrations, typed output. Open source for Node.js/TypeScript.',
-  },
-  { name: 'og:title', content: 'OpenMolt — Programmatic AI Agent System' },
-  {
-    name: 'og:description',
-    content:
-      'Create autonomous AI agents that call real APIs, read files, generate content, and more. Powered by OpenAI, Anthropic, or Gemini.',
-  },
+  { title: SITE_TITLE },
+  { name: 'description', content: SITE_DESCRIPTION },
+
+  // Open Graph
+  { property: 'og:type', content: 'website' },
+  { property: 'og:url', content: 'https://openmolt.dev/' },
+  { property: 'og:title', content: SITE_TITLE },
+  { property: 'og:description', content: SITE_DESCRIPTION },
+  { property: 'og:image', content: BANNER_URL },
+  { property: 'og:image:width', content: '1200' },
+  { property: 'og:image:height', content: '630' },
+  { property: 'og:site_name', content: 'OpenMolt' },
+
+  // Twitter / X Card
+  { name: 'twitter:card', content: 'summary_large_image' },
+  { name: 'twitter:site', content: '@ybouane' },
+  { name: 'twitter:title', content: SITE_TITLE },
+  { name: 'twitter:description', content: SITE_DESCRIPTION },
+  { name: 'twitter:image', content: BANNER_URL },
 ];
 
 const FEATURES = [
+  {
+    icon: '🔐',
+    title: 'Secure by Design',
+    desc: 'Agents access only the scopes you grant. API credentials never leave your server. The LLM only sees tool names, never raw credentials.',
+  },
   {
     icon: '🤖',
     title: 'Multi-Provider LLM',
@@ -48,11 +65,6 @@ const FEATURES = [
     icon: '🧠',
     title: 'Memory',
     desc: 'Long-term and short-term memory stores with onUpdate callbacks. Agents can learn and remember across runs.',
-  },
-  {
-    icon: '🔐',
-    title: 'Secure by Design',
-    desc: 'Agents access only the scopes you grant. API credentials never leave your server. The LLM only sees tool names, never raw credentials.',
   },
   {
     icon: '🛠️',
@@ -201,11 +213,10 @@ export default function Index() {
             <img src="/images/logo.png" alt="OpenMolt" />
           </hero-logo>
           <hero-title>OpenMolt</hero-title>
-          <hero-subtitle>Build AI Agents That Actually Do Things</hero-subtitle>
+          <hero-subtitle>The Programmatic Way to Build AI Agents</hero-subtitle>
           <hero-description>
-            Create autonomous AI agents that plan, reason, and act — calling real APIs, reading files,
-            generating content, and more. Powered by OpenAI, Anthropic, or Gemini, OpenMolt handles the
-            complexity so you can focus on building.
+            OpenMolt lets you build programmatic AI agents in Node.js that think, plan, and act using
+            tools, integrations, and memory — directly from your codebase.
           </hero-description>
           <hero-actions>
             <a href="#quickstart" className="btn btn-primary">
@@ -390,14 +401,7 @@ export default function Index() {
           </div>
           <div className="footer-bottom">
             <span>
-              © {new Date().getFullYear()} OpenMolt.{' '}
-              <a
-                href="https://github.com/ybouane/openmolt.dev/blob/main/LICENSE"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                MIT License
-              </a>
+              © {new Date().getFullYear()} OpenMolt. Made in 🇨🇦 by <a href="https://x.com/ybouane" target="_blank">@ybouane</a>. <a href="https://github.com/ybouane/openmolt.dev/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
             </span>
             <span>Built for Node.js &amp; TypeScript</span>
           </div>

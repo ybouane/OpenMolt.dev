@@ -1,0 +1,23 @@
+{
+  "id": "api/variables/xDefinition",
+  "title": "xDefinition",
+  "description": "openmolt",
+  "source": "@site/docs/api/variables/xDefinition.md",
+  "sourceDirName": "api/variables",
+  "slug": "/api/variables/xDefinition",
+  "permalink": "/docs/api/variables/xDefinition",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "whatsappDefinition",
+    "permalink": "/docs/api/variables/whatsappDefinition"
+  },
+  "next": {
+    "title": "youtubeDefinition",
+    "permalink": "/docs/api/variables/youtubeDefinition"
+  }
+}

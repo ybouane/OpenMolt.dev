@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "react-router dev --port 62053",
     "build": "react-router build",
-    "start": "react-router-serve ./build/server/index.js"
+    "start": "react-router-serve ./build/server/index.js",
+	"start:playground": "node ./playground-server/dist/index.js"
   },
   "dependencies": {
     "@react-router/fs-routes": "^7.13.1",

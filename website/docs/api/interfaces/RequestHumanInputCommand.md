@@ -6,7 +6,7 @@
 
 # Interface: RequestHumanInputCommand
 
-Defined in: [types/index.ts:306](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L306)
+Defined in: [types/index.ts:306](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L306)
 
 Command: request input from the human operator (requires `onHumanInputRequest`).
 
@@ -16,7 +16,7 @@ Command: request input from the human operator (requires `onHumanInputRequest`).
 
 > **prompt**: `string`
 
-Defined in: [types/index.ts:308](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L308)
+Defined in: [types/index.ts:308](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L308)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [types/index.ts:308](https://github.com/ybouane/OpenMolt.dev/blob/aa
 
 > **type**: `"requestHumanInput"`
 
-Defined in: [types/index.ts:307](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L307)
+Defined in: [types/index.ts:307](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L307)

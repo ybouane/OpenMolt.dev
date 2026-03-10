@@ -17,7 +17,7 @@
     "permalink": "/docs/api/variables/microsoftOutlookDefinition"
   },
   "next": {
-    "title": "openaiImagesDefinition",
-    "permalink": "/docs/api/variables/openaiImagesDefinition"
+    "title": "openAiMediaModelsDefinition",
+    "permalink": "/docs/api/variables/openAiMediaModelsDefinition"
   }
 }

@@ -13,11 +13,11 @@
   "frontMatter": {},
   "sidebar": "docs",
   "previous": {
-    "title": "twitterDefinition",
-    "permalink": "/docs/api/variables/twitterDefinition"
+    "title": "twilioDefinition",
+    "permalink": "/docs/api/variables/twilioDefinition"
   },
   "next": {
-    "title": "youtubeDefinition",
-    "permalink": "/docs/api/variables/youtubeDefinition"
+    "title": "xDefinition",
+    "permalink": "/docs/api/variables/xDefinition"
   }
 }

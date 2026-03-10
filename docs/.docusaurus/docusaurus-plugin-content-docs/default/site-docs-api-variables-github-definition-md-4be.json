@@ -13,8 +13,8 @@
   "frontMatter": {},
   "sidebar": "docs",
   "previous": {
-    "title": "geminiMediaDefinition",
-    "permalink": "/docs/api/variables/geminiMediaDefinition"
+    "title": "geminiMediaModelsDefinition",
+    "permalink": "/docs/api/variables/geminiMediaModelsDefinition"
   },
   "next": {
     "title": "gmailDefinition",

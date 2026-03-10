@@ -6,7 +6,7 @@
 
 # Interface: PlanStep
 
-Defined in: [types/index.ts:342](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L342)
+Defined in: [types/index.ts:342](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L342)
 
 A single step in the agent's execution plan.
 
@@ -16,7 +16,7 @@ A single step in the agent's execution plan.
 
 > **name**: `string`
 
-Defined in: [types/index.ts:343](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L343)
+Defined in: [types/index.ts:343](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L343)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [types/index.ts:343](https://github.com/ybouane/OpenMolt.dev/blob/aa
 
 > `optional` **notes**: `string`
 
-Defined in: [types/index.ts:345](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L345)
+Defined in: [types/index.ts:345](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L345)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [types/index.ts:345](https://github.com/ybouane/OpenMolt.dev/blob/aa
 
 > **status**: `"failed"` \| `"pending"` \| `"inProgress"` \| `"completed"`
 
-Defined in: [types/index.ts:344](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L344)
+Defined in: [types/index.ts:344](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L344)
 
 ***
 
@@ -40,6 +40,6 @@ Defined in: [types/index.ts:344](https://github.com/ybouane/OpenMolt.dev/blob/aa
 
 > `optional` **subSteps**: [`PlanSubStep`](PlanSubStep.md)[]
 
-Defined in: [types/index.ts:347](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L347)
+Defined in: [types/index.ts:347](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L347)
 
 Sub-steps (one level deep only).

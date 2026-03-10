@@ -6,7 +6,7 @@
 
 # Interface: AgentConfig
 
-Defined in: [types/index.ts:244](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L244)
+Defined in: [types/index.ts:244](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L244)
 
 Full configuration object for creating an agent via `om.createAgent()`.
 
@@ -16,7 +16,7 @@ Full configuration object for creating an agent via `om.createAgent()`.
 
 > `optional` **config**: `Partial`\<[`OpenMoltConfig`](OpenMoltConfig.md)\>
 
-Defined in: [types/index.ts:252](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L252)
+Defined in: [types/index.ts:252](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L252)
 
 Override top-level OpenMolt configuration for this agent.
 
@@ -26,7 +26,7 @@ Override top-level OpenMolt configuration for this agent.
 
 > `optional` **instructions**: `string`
 
-Defined in: [types/index.ts:254](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L254)
+Defined in: [types/index.ts:254](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L254)
 
 System instructions that guide the agent's behaviour (inline).
 
@@ -36,7 +36,7 @@ System instructions that guide the agent's behaviour (inline).
 
 > `optional` **instructionsPath**: `string`
 
-Defined in: [types/index.ts:256](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L256)
+Defined in: [types/index.ts:256](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L256)
 
 Path to a Markdown file containing the agent's instructions.
 
@@ -46,7 +46,7 @@ Path to a Markdown file containing the agent's instructions.
 
 > `optional` **integrations**: [`AgentIntegrationConfig`](AgentIntegrationConfig.md)[]
 
-Defined in: [types/index.ts:258](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L258)
+Defined in: [types/index.ts:258](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L258)
 
 Integrations the agent is allowed to use.
 
@@ -56,7 +56,7 @@ Integrations the agent is allowed to use.
 
 > `optional` **memory**: [`MemoryConfig`](MemoryConfig.md)
 
-Defined in: [types/index.ts:260](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L260)
+Defined in: [types/index.ts:260](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L260)
 
 Memory configuration.
 
@@ -66,7 +66,7 @@ Memory configuration.
 
 > **model**: `string`
 
-Defined in: [types/index.ts:248](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L248)
+Defined in: [types/index.ts:248](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L248)
 
 Model identifier in the format `provider:model-name` (e.g. `openai:gpt-4o`).
 
@@ -76,7 +76,7 @@ Model identifier in the format `provider:model-name` (e.g. `openai:gpt-4o`).
 
 > `optional` **modelConfig**: [`ModelConfig`](ModelConfig.md)
 
-Defined in: [types/index.ts:250](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L250)
+Defined in: [types/index.ts:250](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L250)
 
 Per-call model configuration (temperature, thinking, etc.).
 
@@ -86,7 +86,7 @@ Per-call model configuration (temperature, thinking, etc.).
 
 > **name**: `string`
 
-Defined in: [types/index.ts:246](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L246)
+Defined in: [types/index.ts:246](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L246)
 
 Display name of the agent.
 
@@ -96,7 +96,7 @@ Display name of the agent.
 
 > `optional` **onHumanInputRequest**: `false` \| (`prompt`) => `Promise`\<`string`\>
 
-Defined in: [types/index.ts:265](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L265)
+Defined in: [types/index.ts:265](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L265)
 
 Called when the agent issues a `requestHumanInput` command.
 Return the user's reply as a string. Set to `false` to disable human input.
@@ -107,6 +107,6 @@ Return the user's reply as a string. Set to `false` to disable human input.
 
 > `optional` **outputSchema**: `ZodTypeAny`
 
-Defined in: [types/index.ts:267](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L267)
+Defined in: [types/index.ts:267](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L267)
 
 Zod schema the agent's `finish` output must conform to.

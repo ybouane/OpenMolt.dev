@@ -1,5 +1,5 @@
 import React from 'react';
-import type { LinksFunction } from 'react-router';
+import type { LinksFunction, MetaFunction } from 'react-router';
 import {
   Links,
   Meta,
@@ -8,6 +8,28 @@ import {
   ScrollRestoration,
 } from 'react-router';
 import appCss from './app.css?url';
+
+const DEFAULT_TITLE = 'OpenMolt — The Programmatic Way to Build AI Agents';
+const DEFAULT_DESCRIPTION =
+  'OpenMolt lets you build programmatic AI agents in Node.js that think, plan, and act using tools, integrations, and memory — directly from your codebase.';
+const BANNER_URL = 'https://openmolt.dev/images/banner.png';
+
+export const meta: MetaFunction = () => [
+  { title: DEFAULT_TITLE },
+  { name: 'description', content: DEFAULT_DESCRIPTION },
+  { property: 'og:type', content: 'website' },
+  { property: 'og:title', content: DEFAULT_TITLE },
+  { property: 'og:description', content: DEFAULT_DESCRIPTION },
+  { property: 'og:image', content: BANNER_URL },
+  { property: 'og:image:width', content: '1200' },
+  { property: 'og:image:height', content: '630' },
+  { property: 'og:site_name', content: 'OpenMolt' },
+  { name: 'twitter:card', content: 'summary_large_image' },
+  { name: 'twitter:site', content: '@ybouane' },
+  { name: 'twitter:title', content: DEFAULT_TITLE },
+  { name: 'twitter:description', content: DEFAULT_DESCRIPTION },
+  { name: 'twitter:image', content: BANNER_URL },
+];
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: appCss },

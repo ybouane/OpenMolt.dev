@@ -6,7 +6,7 @@
 
 # Interface: OpenMoltConfig
 
-Defined in: [types/index.ts:17](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L17)
+Defined in: [types/index.ts:17](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L17)
 
 Top-level OpenMolt configuration.
 
@@ -16,7 +16,7 @@ Top-level OpenMolt configuration.
 
 > `optional` **integrations**: `Record`\<`string`, `Record`\<`string`, `unknown`\>\>
 
-Defined in: [types/index.ts:25](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L25)
+Defined in: [types/index.ts:25](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L25)
 
 Built-in integration configurations keyed by integration handle.
 
@@ -26,7 +26,7 @@ Built-in integration configurations keyed by integration handle.
 
 > `optional` **llmProviders**: `object`
 
-Defined in: [types/index.ts:19](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L19)
+Defined in: [types/index.ts:19](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L19)
 
 LLM provider configurations keyed by provider name.
 
@@ -48,7 +48,7 @@ LLM provider configurations keyed by provider name.
 
 > `optional` **maxSteps**: `number`
 
-Defined in: [types/index.ts:27](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L27)
+Defined in: [types/index.ts:27](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L27)
 
 Maximum number of agent loop iterations before stopping. Defaults to 20.
 
@@ -58,6 +58,6 @@ Maximum number of agent loop iterations before stopping. Defaults to 20.
 
 > `optional` **verbose**: `boolean`
 
-Defined in: [types/index.ts:29](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L29)
+Defined in: [types/index.ts:29](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L29)
 
 Enable verbose logging.

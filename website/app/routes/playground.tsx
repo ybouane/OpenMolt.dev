@@ -4,9 +4,31 @@ import { PLAYGROUND_INTEGRATIONS, MODELS } from '~/data/integrations';
 import type { IntegrationMeta } from '~/data/integrations';
 import { CodeBlock } from '~/components/CodeBlock';
 
+const PLAYGROUND_TITLE = 'Playground — OpenMolt';
+const PLAYGROUND_DESCRIPTION =
+  'Configure and run OpenMolt AI agents live in your browser. Pick a model, add integrations, and test your agent without writing any code.';
+const BANNER_URL = 'https://openmolt.dev/images/banner.png';
+
 export const meta: MetaFunction = () => [
-  { title: 'Playground — OpenMolt' },
-  { name: 'description', content: 'Run AI agents in your browser with OpenMolt Playground.' },
+  { title: PLAYGROUND_TITLE },
+  { name: 'description', content: PLAYGROUND_DESCRIPTION },
+
+  // Open Graph
+  { property: 'og:type', content: 'website' },
+  { property: 'og:url', content: 'https://openmolt.dev/playground' },
+  { property: 'og:title', content: PLAYGROUND_TITLE },
+  { property: 'og:description', content: PLAYGROUND_DESCRIPTION },
+  { property: 'og:image', content: BANNER_URL },
+  { property: 'og:image:width', content: '1200' },
+  { property: 'og:image:height', content: '630' },
+  { property: 'og:site_name', content: 'OpenMolt' },
+
+  // Twitter / X Card
+  { name: 'twitter:card', content: 'summary_large_image' },
+  { name: 'twitter:site', content: '@ybouane' },
+  { name: 'twitter:title', content: PLAYGROUND_TITLE },
+  { name: 'twitter:description', content: PLAYGROUND_DESCRIPTION },
+  { name: 'twitter:image', content: BANNER_URL },
 ];
 
 // ──────────────────────────────────────────────────────────
@@ -152,11 +174,11 @@ console.log(result);
 // ──────────────────────────────────────────────────────────
 export default function Playground() {
   // Form state
-  const [agentName, setAgentName] = React.useState('My Agent');
-  const [instructions, setInstructions] = React.useState('You are a helpful AI assistant.');
+  const [agentName, setAgentName] = React.useState('Comedian');
+  const [instructions, setInstructions] = React.useState('You are a witty stand-up comedian.');
   const [model, setModel] = React.useState('openai:gpt-4o-mini');
   const [apiKey, setApiKey] = React.useState('');
-  const [request, setRequest] = React.useState('');
+  const [request, setRequest] = React.useState('Tell me a joke!');
   const [integrationSearch, setIntegrationSearch] = React.useState('');
   const [selectedIntegrations, setSelectedIntegrations] = React.useState<SelectedIntegration[]>([]);
 

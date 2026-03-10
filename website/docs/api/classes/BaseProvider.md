@@ -6,7 +6,7 @@
 
 # Abstract Class: BaseProvider
 
-Defined in: [providers/BaseProvider.ts:15](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/providers/BaseProvider.ts#L15)
+Defined in: [providers/BaseProvider.ts:15](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/providers/BaseProvider.ts#L15)
 
 Abstract base for all language-model providers.
 Implementations are responsible for translating the normalised
@@ -35,7 +35,7 @@ API format and returning a normalised [LLMResponse](../interfaces/LLMResponse.md
 
 > `abstract` **generate**(`systemPrompt`, `userMessage`, `model`, `config?`): `Promise`\<[`LLMResponse`](../interfaces/LLMResponse.md)\>
 
-Defined in: [providers/BaseProvider.ts:24](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/providers/BaseProvider.ts#L24)
+Defined in: [providers/BaseProvider.ts:24](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/providers/BaseProvider.ts#L24)
 
 Send a prompt to the underlying LLM and return a normalised response.
 

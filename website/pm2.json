@@ -1,0 +1,16 @@
+{
+	"apps": [
+		{
+			"name": "OpenMolt Website",
+			"script": "npm run start",
+			"env": {
+				"PORT": "62051",
+				"HOST": "127.0.0.1"
+			}
+		},
+		{
+			"name": "OpenMolt Playground",
+			"script": "npm run start:playground"
+		}
+	]
+}

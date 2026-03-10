@@ -4,15 +4,15 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 export default [
   {
     path: '/docs/',
-    component: ComponentCreator('/docs/', 'c2f'),
+    component: ComponentCreator('/docs/', 'c04'),
     routes: [
       {
         path: '/docs/',
-        component: ComponentCreator('/docs/', 'cd0'),
+        component: ComponentCreator('/docs/', '524'),
         routes: [
           {
             path: '/docs/',
-            component: ComponentCreator('/docs/', '14a'),
+            component: ComponentCreator('/docs/', '212'),
             routes: [
               {
                 path: '/docs/api/',
@@ -339,8 +339,8 @@ export default [
                 sidebar: "docs"
               },
               {
-                path: '/docs/api/variables/geminiMediaDefinition',
-                component: ComponentCreator('/docs/api/variables/geminiMediaDefinition', '5c8'),
+                path: '/docs/api/variables/geminiMediaModelsDefinition',
+                component: ComponentCreator('/docs/api/variables/geminiMediaModelsDefinition', '18d'),
                 exact: true,
                 sidebar: "docs"
               },
@@ -411,8 +411,8 @@ export default [
                 sidebar: "docs"
               },
               {
-                path: '/docs/api/variables/openaiImagesDefinition',
-                component: ComponentCreator('/docs/api/variables/openaiImagesDefinition', 'ee1'),
+                path: '/docs/api/variables/openAiMediaModelsDefinition',
+                component: ComponentCreator('/docs/api/variables/openAiMediaModelsDefinition', '896'),
                 exact: true,
                 sidebar: "docs"
               },
@@ -459,14 +459,14 @@ export default [
                 sidebar: "docs"
               },
               {
-                path: '/docs/api/variables/twitterDefinition',
-                component: ComponentCreator('/docs/api/variables/twitterDefinition', '449'),
+                path: '/docs/api/variables/whatsappDefinition',
+                component: ComponentCreator('/docs/api/variables/whatsappDefinition', '527'),
                 exact: true,
                 sidebar: "docs"
               },
               {
-                path: '/docs/api/variables/whatsappDefinition',
-                component: ComponentCreator('/docs/api/variables/whatsappDefinition', '527'),
+                path: '/docs/api/variables/xDefinition',
+                component: ComponentCreator('/docs/api/variables/xDefinition', '26f'),
                 exact: true,
                 sidebar: "docs"
               },

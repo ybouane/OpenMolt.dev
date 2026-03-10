@@ -8,4 +8,4 @@
 
 > `const` **xDefinition**: [`IntegrationDefinition`](../interfaces/IntegrationDefinition.md)
 
-Defined in: integrations/x.ts:14
+Defined in: [integrations/x.ts:14](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/integrations/x.ts#L14)

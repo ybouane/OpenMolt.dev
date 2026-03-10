@@ -107,7 +107,7 @@ export default {
           ]
         }
       ],
-      "copyright": "Copyright © 2026 OpenMolt. Built with Docusaurus."
+      "copyright": "Copyright © 2026 OpenMolt. Made in 🇨🇦 by @ybouane."
     },
     "prism": {
       "theme": {

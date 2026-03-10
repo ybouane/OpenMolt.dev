@@ -109,7 +109,7 @@ const config: Config = {
 					],
 				},
 			],
-			copyright: `Copyright © ${new Date().getFullYear()} OpenMolt. Built with Docusaurus.`,
+			copyright: `Copyright © ${new Date().getFullYear()} OpenMolt. Made in 🇨🇦 by @ybouane.`,
 		},
 		prism: {
 			theme: prismThemes.github,

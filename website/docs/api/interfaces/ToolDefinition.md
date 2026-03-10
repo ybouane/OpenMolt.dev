@@ -6,7 +6,7 @@
 
 # Interface: ToolDefinition
 
-Defined in: [types/index.ts:123](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L123)
+Defined in: [types/index.ts:123](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L123)
 
 Definition of a single tool within an integration.
 
@@ -16,7 +16,7 @@ Definition of a single tool within an integration.
 
 > `optional` **body**: `Record`\<`string`, `unknown`\>
 
-Defined in: [types/index.ts:141](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L141)
+Defined in: [types/index.ts:141](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L141)
 
 Request body. Supports Liquid templates.
 
@@ -26,7 +26,7 @@ Request body. Supports Liquid templates.
 
 > **description**: `string`
 
-Defined in: [types/index.ts:127](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L127)
+Defined in: [types/index.ts:127](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L127)
 
 Human-readable description of what the tool does.
 
@@ -36,7 +36,7 @@ Human-readable description of what the tool does.
 
 > `optional` **endpoint**: `string`
 
-Defined in: [types/index.ts:135](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L135)
+Defined in: [types/index.ts:135](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L135)
 
 Path appended to the integration's `baseUrl`. Supports Liquid templates with `input.*`.
 
@@ -46,7 +46,7 @@ Path appended to the integration's `baseUrl`. Supports Liquid templates with `in
 
 > `optional` **execute**: (`input`, `context`) => `Promise`\<`unknown`\>
 
-Defined in: [types/index.ts:145](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L145)
+Defined in: [types/index.ts:145](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L145)
 
 Custom async function invoked when the tool is called. Takes precedence over HTTP config.
 
@@ -70,7 +70,7 @@ Custom async function invoked when the tool is called. Takes precedence over HTT
 
 > **handle**: `string`
 
-Defined in: [types/index.ts:125](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L125)
+Defined in: [types/index.ts:125](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L125)
 
 Unique handle used to identify the tool within its integration.
 
@@ -80,7 +80,7 @@ Unique handle used to identify the tool within its integration.
 
 > `optional` **headers**: `Record`\<`string`, `unknown`\>
 
-Defined in: [types/index.ts:139](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L139)
+Defined in: [types/index.ts:139](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L139)
 
 Additional headers to merge for this specific tool.
 
@@ -90,7 +90,7 @@ Additional headers to merge for this specific tool.
 
 > `optional` **inputSchema**: `ZodTypeAny`
 
-Defined in: [types/index.ts:148](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L148)
+Defined in: [types/index.ts:148](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L148)
 
 Zod schema describing the expected input object.
 
@@ -100,7 +100,7 @@ Zod schema describing the expected input object.
 
 > `optional` **method**: `string`
 
-Defined in: [types/index.ts:133](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L133)
+Defined in: [types/index.ts:133](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L133)
 
 HTTP method.
 
@@ -110,7 +110,7 @@ HTTP method.
 
 > `optional` **outputSchema**: `ZodTypeAny`
 
-Defined in: [types/index.ts:150](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L150)
+Defined in: [types/index.ts:150](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L150)
 
 Zod schema describing the expected output object (informational for the agent).
 
@@ -120,7 +120,7 @@ Zod schema describing the expected output object (informational for the agent).
 
 > `optional` **queryParams**: `Record`\<`string`, `unknown`\>
 
-Defined in: [types/index.ts:137](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L137)
+Defined in: [types/index.ts:137](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L137)
 
 Query parameters. Supports Liquid templates.
 
@@ -130,6 +130,6 @@ Query parameters. Supports Liquid templates.
 
 > `optional` **scopes**: `string`[]
 
-Defined in: [types/index.ts:129](https://github.com/ybouane/OpenMolt.dev/blob/aaa1bd854d449190ce97d7f7a1084243983a3e53/src/types/index.ts#L129)
+Defined in: [types/index.ts:129](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L129)
 
 Scopes from the integration's `scopes` map that are required to use this tool.

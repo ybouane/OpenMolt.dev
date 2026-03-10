@@ -13,8 +13,8 @@
   "frontMatter": {},
   "sidebar": "docs",
   "previous": {
-    "title": "openaiImagesDefinition",
-    "permalink": "/docs/api/variables/openaiImagesDefinition"
+    "title": "openAiMediaModelsDefinition",
+    "permalink": "/docs/api/variables/openAiMediaModelsDefinition"
   },
   "next": {
     "title": "shopifyDefinition",
