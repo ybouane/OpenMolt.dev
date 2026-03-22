@@ -38,8 +38,7 @@ export class GoogleProvider extends BaseProvider {
 		const genConfig: Record<string, unknown> = {
 			temperature: config?.temperature ?? 0.7,
 			maxOutputTokens: config?.maxTokens ?? 8192,
-			// JSON mode – only set when search is disabled (search requires text mime type)
-			...(searchEnabled ? {} : { responseMimeType: 'application/json' }),
+			responseMimeType: 'application/json',
 		};
 
 		if (thinkingEnabled) {
