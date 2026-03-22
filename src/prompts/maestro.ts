@@ -52,7 +52,11 @@ You MUST respond with **valid JSON only** – no markdown, no prose, no code fen
 The response MUST be a single JSON object with a \`commands\` array:
 
 \`\`\`
-{ "commands": [ ... ] }
+{ "commands": [
+	command1,
+	command2,
+	...
+] }
 \`\`\`
 
 Any response that is not parseable JSON, or that does not contain a top-level \`commands\` array, will cause the runtime to terminate with an error.
