@@ -57,7 +57,7 @@ function parseAgentResponse(raw: string): AgentLLMResponse {
 		} catch { /* continue */ }
 	}
 
-	throw new Error(`Failed to parse agent response as JSON.\nRaw output:\n${raw.slice(0, 1000)}`);
+	throw new Error(`Failed to parse agent response as JSON.\nRaw output:\n${raw}`);
 }
 
 // ─── Agent class ──────────────────────────────────────────────────────────────
