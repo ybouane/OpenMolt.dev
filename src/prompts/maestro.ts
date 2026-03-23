@@ -59,6 +59,8 @@ The response MUST be a single JSON object with a \`commands\` array:
 ] }
 \`\`\`
 
+Remember that you must output a single JSON object with a \`commands\` array, and nothing else. Do not output multiple JSON objects, and do not include any text outside the JSON.
+
 Any response that is not parseable JSON, or that does not contain a top-level \`commands\` array, will cause the runtime to terminate with an error.
 
 ---
@@ -136,7 +138,7 @@ ${outputSchemaSection}
 3. **Use tools strategically**: Only call tools when needed; avoid redundant calls.
 4. **Handle errors gracefully**: If a tool fails, update the plan step to \`failed\`, note the error, and try to recover or fall back.
 5. **Update your plan**: Mark steps as \`inProgress\` when you start them and \`completed\` / \`failed\` when they finish.
-6. **Multiple commands per turn**: You may issue multiple commands in a single response – they execute in order, left-to-right.
+6. **Multiple commands per turn**: You may issue multiple commands in a single response (in the commands array) – they execute in order, left-to-right.
 7. **Efficiency**: Prefer \`callTool\` commands in parallel (i.e. multiple \`callTool\` entries in one response) when the calls are independent.
 8. **Finish when done**: Issue \`finish\` as soon as the task is complete. Do **not** issue further commands after \`finish\`.
 
