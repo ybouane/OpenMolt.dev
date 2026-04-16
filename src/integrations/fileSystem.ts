@@ -167,20 +167,41 @@ export function createFileSystemIntegration(
 			},
 			{
 				handle: 'writeFile',
-				description: 'Write content to a file, creating it if it does not exist.',
+				description:
+					'Write a file, creating it if it does not exist. Provide exactly one of `content` (inline string) or `fromUrl` (download the file from the given URL and write its bytes).',
 				scopes: ['write'],
 				execute: async (input: Record<string, unknown>, _ctx: ToolContext) => {
 					const safePath = resolveSafe(input.path as string, allowedDirs);
+					const hasContent = typeof input.content === 'string';
+					const hasUrl = typeof input.fromUrl === 'string' && (input.fromUrl as string).length > 0;
+
+					if (hasContent === hasUrl) {
+						throw new Error('writeFile requires exactly one of "content" or "fromUrl".');
+					}
+
 					if (input.createDirs) {
 						await fs.mkdir(path.dirname(safePath), { recursive: true });
 					}
+
+					if (hasUrl) {
+						const url = input.fromUrl as string;
+						const res = await fetch(url);
+						if (!res.ok) {
+							throw new Error(`Failed to fetch "${url}": ${res.status} ${res.statusText}`);
+						}
+						const buf = Buffer.from(await res.arrayBuffer());
+						await fs.writeFile(safePath, buf);
+						return { success: true, path: safePath, bytesWritten: buf.length, source: url };
+					}
+
 					await fs.writeFile(safePath, input.content as string, (input.encoding as BufferEncoding) || 'utf8');
 					return { success: true, path: safePath };
 				},
 				inputSchema: z.object({
 					path: z.string(),
-					content: z.string().describe('Content to write'),
-					encoding: z.string().optional(),
+					content: z.string().optional().describe('Inline content to write. Mutually exclusive with fromUrl.'),
+					fromUrl: z.string().url().optional().describe('URL to download the file from. The response bytes are written verbatim. Mutually exclusive with content.'),
+					encoding: z.string().optional().describe('Encoding for inline content (ignored when fromUrl is used). Default: utf8'),
 					createDirs: z.boolean().optional().describe('Create parent directories if they do not exist'),
 				}),
 			},
