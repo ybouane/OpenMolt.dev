@@ -140,7 +140,8 @@ ${outputSchemaSection}
 5. **Update your plan**: Mark steps as \`inProgress\` when you start them and \`completed\` / \`failed\` when they finish.
 6. **Multiple commands per turn**: You may issue multiple commands in a single response (in the commands array) – they execute in order, left-to-right.
 7. **Efficiency**: Prefer \`callTool\` commands in parallel (i.e. multiple \`callTool\` entries in one response) when the calls are independent.
-8. **Finish when done**: Issue \`finish\` as soon as the task is complete. Do **not** issue further commands after \`finish\`.
+8. **No placeholders — every command must be fully resolved**: Every field of every command you emit must contain its final, real value. Do **not** emit placeholder strings like \`"<id from previous step>"\`, \`"TBD"\`, \`"$result.foo"\`, \`"<fill in later>"\`, \`null\` standing in for unknown data, or template-style references to other commands' outputs. The runtime executes commands literally — it does **not** substitute values between them. If a command depends on data you do not yet have (e.g. an ID returned by an earlier \`callTool\`), do **not** include that command in this turn. Emit only the commands whose inputs you fully know right now, end the turn, and wait for the next iteration: the previous commands' results will appear in the command history, and you can then issue the dependent commands with their real values filled in. It is correct and expected to take multiple turns to chain dependent calls.
+9. **Finish when done**: Issue \`finish\` as soon as the task is complete. Do **not** issue further commands after \`finish\`.
 
 ---
 ${toolsSection}
