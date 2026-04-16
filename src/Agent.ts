@@ -49,7 +49,12 @@ function parseAgentResponse(raw: string): AgentLLMResponse {
 		} catch { /* continue */ }
 	}
 
-	// 3. Extract first JSON object from the text
+	// 3. Try JSONL: one JSON object per line, each with its own `commands` array.
+	//    Concatenate all `commands` arrays into a single response.
+	const jsonl = tryParseJsonl(raw);
+	if (jsonl) return jsonl;
+
+	// 4. Extract first JSON object from the text
 	const objMatch = raw.match(/\{[\s\S]*\}/);
 	if (objMatch) {
 		try {
@@ -58,6 +63,31 @@ function parseAgentResponse(raw: string): AgentLLMResponse {
 	}
 
 	throw new Error(`Failed to parse agent response as JSON.\nRaw output:\n${raw}`);
+}
+
+/**
+ * Recover from a common LLM error mode where the model returns JSONL — multiple
+ * `{ "commands": [...] }` objects, one per line — instead of a single object.
+ * Returns a merged response, or `null` if the input is not valid JSONL of this shape.
+ */
+function tryParseJsonl(raw: string): AgentLLMResponse | null {
+	const lines = raw.split('\n').map((l) => l.trim()).filter((l) => l.length > 0);
+	if (lines.length < 2) return null;
+
+	const merged: AgentCommand[] = [];
+	for (const line of lines) {
+		let obj: unknown;
+		try {
+			obj = JSON.parse(line);
+		} catch {
+			return null;
+		}
+		if (!obj || typeof obj !== 'object' || !Array.isArray((obj as AgentLLMResponse).commands)) {
+			return null;
+		}
+		merged.push(...(obj as AgentLLMResponse).commands);
+	}
+	return { commands: merged };
 }
 
 // ─── Agent class ──────────────────────────────────────────────────────────────
