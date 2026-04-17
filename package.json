@@ -1,6 +1,6 @@
 {
 	"name": "openmolt",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "Programmatic AI Agent System – create, configure, and run intelligent agents that can use tools, integrations, and LLMs.",
 	"type": "module",
 	"main": "./dist/index.js",
