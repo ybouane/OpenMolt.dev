@@ -230,15 +230,35 @@ export class Agent {
 
 			this._emit('commandsQueued', { commands: parsed.commands });
 
-			// Execute commands in order
+			// Execute commands in order. If any command fails, abort the rest of the
+			// batch and record the discarded commands in history so the next iteration
+			// can see what was skipped and why.
 			let finished = false;
 			let finishResult: unknown;
 
-			for (const command of parsed.commands) {
+			for (let i = 0; i < parsed.commands.length; i++) {
+				const command = parsed.commands[i];
 				const outcome = await this._executeCommand(command, state, step);
 				if (outcome.finished) {
 					finished = true;
 					finishResult = outcome.result;
+					break;
+				}
+				if (outcome.failed) {
+					const discarded = parsed.commands.slice(i + 1);
+					if (discarded.length > 0) {
+						logger.warn(
+							`[${this.name}] Command ${command.type} failed – discarding ${discarded.length} ` +
+							'subsequent command(s) in this batch and re-entering the loop.',
+						);
+						for (const skipped of discarded) {
+							state.commandHistory.push({
+								step,
+								command: skipped,
+								error: `Discarded: previous command (${command.type}) in the same batch failed.`,
+							});
+						}
+					}
 					break;
 				}
 			}
@@ -322,7 +342,7 @@ export class Agent {
 		command: AgentCommand,
 		state: AgentState,
 		step: number,
-	): Promise<{ finished: boolean; result?: unknown }> {
+	): Promise<{ finished: boolean; failed?: boolean; result?: unknown }> {
 		const entry: CommandHistoryEntry = { step, command };
 
 		try {
@@ -432,10 +452,12 @@ export class Agent {
 		} catch (err) {
 			entry.error = String(err);
 			logger.warn(`[${this.name}] Command ${command.type} failed: ${entry.error}`);
+			state.commandHistory.push(entry);
+			return { finished: false, failed: true };
 		}
 
 		state.commandHistory.push(entry);
-		return { finished: false };
+		return { finished: false, failed: !!entry.error };
 	}
 
 	// ─── Private: event emission ──────────────────────────────────────────────
