@@ -8,7 +8,7 @@
 
 > **AgentEventMap** = `object`
 
-Defined in: [types/index.ts:393](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L393)
+Defined in: [types/index.ts:400](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L400)
 
 Union of all agent events for use with `agent.on(...)`.
 
@@ -18,7 +18,7 @@ Union of all agent events for use with `agent.on(...)`.
 
 > **commandsQueued**: `object`
 
-Defined in: [types/index.ts:397](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L397)
+Defined in: [types/index.ts:404](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L404)
 
 Fired after the commands for a step are parsed but before execution.
 
@@ -32,7 +32,7 @@ Fired after the commands for a step are parsed but before execution.
 
 > **finish**: `object`
 
-Defined in: [types/index.ts:408](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L408)
+Defined in: [types/index.ts:415](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L415)
 
 Fired when the agent issues a `finish` command.
 
@@ -46,7 +46,7 @@ Fired when the agent issues a `finish` command.
 
 > **llmOutput**: `object`
 
-Defined in: [types/index.ts:395](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L395)
+Defined in: [types/index.ts:402](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L402)
 
 Fired after every raw LLM response.
 
@@ -60,7 +60,7 @@ Fired after every raw LLM response.
 
 > **planUpdate**: `object`
 
-Defined in: [types/index.ts:406](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L406)
+Defined in: [types/index.ts:413](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L413)
 
 Fired whenever the agent updates its plan.
 
@@ -74,7 +74,7 @@ Fired whenever the agent updates its plan.
 
 > **tool:call**: `object`
 
-Defined in: [types/index.ts:399](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L399)
+Defined in: [types/index.ts:406](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L406)
 
 Fired just before a tool is executed.
 
@@ -100,7 +100,7 @@ Fired just before a tool is executed.
 
 > **tool:response**: `object`
 
-Defined in: [types/index.ts:401](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L401)
+Defined in: [types/index.ts:408](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L408)
 
 Fired after a tool returns.
 

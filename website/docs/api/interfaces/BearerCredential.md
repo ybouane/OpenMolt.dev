@@ -6,7 +6,7 @@
 
 # Interface: BearerCredential
 
-Defined in: [types/index.ts:170](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L170)
+Defined in: [types/index.ts:177](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L177)
 
 Bearer-token credential assigned to an agent.
 
@@ -16,7 +16,7 @@ Bearer-token credential assigned to an agent.
 
 > **config**: `object`
 
-Defined in: [types/index.ts:172](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L172)
+Defined in: [types/index.ts:179](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L179)
 
 #### Index Signature
 
@@ -32,4 +32,4 @@ Defined in: [types/index.ts:172](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > **type**: `"bearer"`
 
-Defined in: [types/index.ts:171](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L171)
+Defined in: [types/index.ts:178](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L178)

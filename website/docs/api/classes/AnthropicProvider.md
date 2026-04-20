@@ -6,7 +6,7 @@
 
 # Class: AnthropicProvider
 
-Defined in: [providers/AnthropicProvider.ts:16](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/providers/AnthropicProvider.ts#L16)
+Defined in: [providers/AnthropicProvider.ts:16](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/providers/AnthropicProvider.ts#L16)
 
 Anthropic LLM provider.
 Supports all Claude models and extended thinking when enabled via
@@ -22,7 +22,7 @@ Supports all Claude models and extended thinking when enabled via
 
 > **new AnthropicProvider**(`apiKey`): `AnthropicProvider`
 
-Defined in: [providers/AnthropicProvider.ts:22](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/providers/AnthropicProvider.ts#L22)
+Defined in: [providers/AnthropicProvider.ts:22](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/providers/AnthropicProvider.ts#L22)
 
 #### Parameters
 
@@ -46,7 +46,7 @@ Anthropic API key.
 
 > **generate**(`systemPrompt`, `userMessage`, `model`, `config?`): `Promise`\<[`LLMResponse`](../interfaces/LLMResponse.md)\>
 
-Defined in: [providers/AnthropicProvider.ts:28](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/providers/AnthropicProvider.ts#L28)
+Defined in: [providers/AnthropicProvider.ts:28](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/providers/AnthropicProvider.ts#L28)
 
 Send a prompt to the underlying LLM and return a normalised response.
 

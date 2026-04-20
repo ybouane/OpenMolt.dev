@@ -6,7 +6,7 @@
 
 # Interface: UpdatePlanCommand
 
-Defined in: [types/index.ts:291](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L291)
+Defined in: [types/index.ts:298](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L298)
 
 Command: replace or append the current execution plan.
 
@@ -16,7 +16,7 @@ Command: replace or append the current execution plan.
 
 > **plan**: [`PlanStep`](PlanStep.md)[]
 
-Defined in: [types/index.ts:293](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L293)
+Defined in: [types/index.ts:300](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L300)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [types/index.ts:293](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > **type**: `"updatePlan"`
 
-Defined in: [types/index.ts:292](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L292)
+Defined in: [types/index.ts:299](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L299)

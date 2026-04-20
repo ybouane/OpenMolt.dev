@@ -6,7 +6,7 @@
 
 # Interface: CallToolCommand
 
-Defined in: [types/index.ts:273](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L273)
+Defined in: [types/index.ts:280](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L280)
 
 Command: call a tool from a registered integration.
 
@@ -16,7 +16,7 @@ Command: call a tool from a registered integration.
 
 > **input**: `Record`\<`string`, `unknown`\>
 
-Defined in: [types/index.ts:280](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L280)
+Defined in: [types/index.ts:287](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L287)
 
 Input object to pass to the tool.
 
@@ -26,7 +26,7 @@ Input object to pass to the tool.
 
 > **integration**: `string`
 
-Defined in: [types/index.ts:276](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L276)
+Defined in: [types/index.ts:283](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L283)
 
 Handle of the integration that owns the tool.
 
@@ -36,7 +36,7 @@ Handle of the integration that owns the tool.
 
 > **tool**: `string`
 
-Defined in: [types/index.ts:278](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L278)
+Defined in: [types/index.ts:285](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L285)
 
 Handle of the tool to call.
 
@@ -46,4 +46,4 @@ Handle of the tool to call.
 
 > **type**: `"callTool"`
 
-Defined in: [types/index.ts:274](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L274)
+Defined in: [types/index.ts:281](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L281)

@@ -6,7 +6,7 @@
 
 # Class: OpenAIProvider
 
-Defined in: [providers/OpenAIProvider.ts:23](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/providers/OpenAIProvider.ts#L23)
+Defined in: [providers/OpenAIProvider.ts:23](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/providers/OpenAIProvider.ts#L23)
 
 OpenAI LLM provider.
 Supports chat-completion models (GPT-4o, GPT-3.5, etc.) and
@@ -22,7 +22,7 @@ reasoning models (o1, o3 family).
 
 > **new OpenAIProvider**(`apiKey`, `baseUrl?`): `OpenAIProvider`
 
-Defined in: [providers/OpenAIProvider.ts:30](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/providers/OpenAIProvider.ts#L30)
+Defined in: [providers/OpenAIProvider.ts:30](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/providers/OpenAIProvider.ts#L30)
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Override for the API base URL (useful for proxies / Azure).
 
 > **generate**(`systemPrompt`, `userMessage`, `model`, `config?`): `Promise`\<[`LLMResponse`](../interfaces/LLMResponse.md)\>
 
-Defined in: [providers/OpenAIProvider.ts:39](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/providers/OpenAIProvider.ts#L39)
+Defined in: [providers/OpenAIProvider.ts:39](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/providers/OpenAIProvider.ts#L39)
 
 Send a prompt to the underlying LLM and return a normalised response.
 

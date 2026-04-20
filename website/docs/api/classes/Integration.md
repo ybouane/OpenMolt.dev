@@ -6,7 +6,7 @@
 
 # Class: Integration
 
-Defined in: [Integration.ts:54](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Integration.ts#L54)
+Defined in: [Integration.ts:54](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Integration.ts#L54)
 
 Runtime wrapper around an [IntegrationDefinition](../interfaces/IntegrationDefinition.md).
 Created automatically by [OpenMolt](OpenMolt.md) when an integration is registered.
@@ -17,7 +17,7 @@ Created automatically by [OpenMolt](OpenMolt.md) when an integration is register
 
 > **new Integration**(`handle`, `definition`): `Integration`
 
-Defined in: [Integration.ts:65](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Integration.ts#L65)
+Defined in: [Integration.ts:65](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Integration.ts#L65)
 
 #### Parameters
 
@@ -43,7 +43,7 @@ Full integration definition.
 
 > `readonly` **definition**: [`IntegrationDefinition`](../interfaces/IntegrationDefinition.md)
 
-Defined in: [Integration.ts:59](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Integration.ts#L59)
+Defined in: [Integration.ts:59](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Integration.ts#L59)
 
 The underlying integration definition supplied by the user or built-in config.
 
@@ -53,7 +53,7 @@ The underlying integration definition supplied by the user or built-in config.
 
 > `readonly` **handle**: `string`
 
-Defined in: [Integration.ts:56](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Integration.ts#L56)
+Defined in: [Integration.ts:56](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Integration.ts#L56)
 
 The integration's unique handle within an OpenMolt instance.
 
@@ -63,7 +63,7 @@ The integration's unique handle within an OpenMolt instance.
 
 > **executeTool**(`toolHandle`, `input`, `credential`, `context`): `Promise`\<`unknown`\>
 
-Defined in: [Integration.ts:83](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Integration.ts#L83)
+Defined in: [Integration.ts:83](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Integration.ts#L83)
 
 Execute a tool for the given agent credential.
 

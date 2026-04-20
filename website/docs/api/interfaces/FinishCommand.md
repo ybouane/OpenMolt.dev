@@ -6,7 +6,7 @@
 
 # Interface: FinishCommand
 
-Defined in: [types/index.ts:312](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L312)
+Defined in: [types/index.ts:319](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L319)
 
 Command: terminate the agent loop and return a final result.
 
@@ -16,7 +16,7 @@ Command: terminate the agent loop and return a final result.
 
 > `optional` **humanMessage**: `string`
 
-Defined in: [types/index.ts:316](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L316)
+Defined in: [types/index.ts:323](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L323)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [types/index.ts:316](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > `optional` **output**: `unknown`
 
-Defined in: [types/index.ts:314](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L314)
+Defined in: [types/index.ts:321](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L321)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [types/index.ts:314](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > **status**: `"success"` \| `"failed"`
 
-Defined in: [types/index.ts:315](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L315)
+Defined in: [types/index.ts:322](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L322)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [types/index.ts:315](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > **type**: `"finish"`
 
-Defined in: [types/index.ts:313](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L313)
+Defined in: [types/index.ts:320](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L320)

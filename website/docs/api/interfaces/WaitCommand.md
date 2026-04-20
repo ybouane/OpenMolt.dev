@@ -6,7 +6,7 @@
 
 # Interface: WaitCommand
 
-Defined in: [types/index.ts:284](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L284)
+Defined in: [types/index.ts:291](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L291)
 
 Command: pause execution for a short period.
 
@@ -16,7 +16,7 @@ Command: pause execution for a short period.
 
 > **duration**: `number`
 
-Defined in: [types/index.ts:287](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L287)
+Defined in: [types/index.ts:294](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L294)
 
 Duration in seconds (maximum 60).
 
@@ -26,4 +26,4 @@ Duration in seconds (maximum 60).
 
 > **type**: `"wait"`
 
-Defined in: [types/index.ts:285](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L285)
+Defined in: [types/index.ts:292](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L292)

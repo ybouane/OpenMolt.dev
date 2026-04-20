@@ -6,7 +6,7 @@
 
 # Interface: BasicCredential
 
-Defined in: [types/index.ts:200](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L200)
+Defined in: [types/index.ts:207](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L207)
 
 Basic Auth credential assigned to an agent.
 
@@ -16,7 +16,7 @@ Basic Auth credential assigned to an agent.
 
 > **config**: `object`
 
-Defined in: [types/index.ts:202](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L202)
+Defined in: [types/index.ts:209](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L209)
 
 #### Index Signature
 
@@ -36,4 +36,4 @@ Defined in: [types/index.ts:202](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > **type**: `"basic"`
 
-Defined in: [types/index.ts:201](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L201)
+Defined in: [types/index.ts:208](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L208)

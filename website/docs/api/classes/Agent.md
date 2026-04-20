@@ -6,7 +6,7 @@
 
 # Class: Agent
 
-Defined in: [Agent.ts:76](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Agent.ts#L76)
+Defined in: [Agent.ts:106](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Agent.ts#L106)
 
 An autonomous agent that uses the Maestro reasoning loop to complete tasks.
 
@@ -25,7 +25,7 @@ const result = await agent.run('Write a haiku about TypeScript');
 
 > **new Agent**(`config`, `omConfig`, `integrations`): `Agent`
 
-Defined in: [Agent.ts:97](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Agent.ts#L97)
+Defined in: [Agent.ts:127](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Agent.ts#L127)
 
 #### Parameters
 
@@ -57,7 +57,7 @@ All integrations registered in the OpenMolt instance.
 
 > `readonly` **name**: `string`
 
-Defined in: [Agent.ts:78](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Agent.ts#L78)
+Defined in: [Agent.ts:108](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Agent.ts#L108)
 
 The agent's display name.
 
@@ -67,7 +67,7 @@ The agent's display name.
 
 > **cancelSchedule**(`scheduleId`): `boolean`
 
-Defined in: [Agent.ts:282](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Agent.ts#L282)
+Defined in: [Agent.ts:332](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Agent.ts#L332)
 
 Cancel a previously registered schedule.
 
@@ -89,7 +89,7 @@ ID returned by [schedule](#schedule).
 
 > **off**\<`K`\>(`event`, `handler`): `this`
 
-Defined in: [Agent.ts:248](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Agent.ts#L248)
+Defined in: [Agent.ts:298](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Agent.ts#L298)
 
 Remove an event listener.
 
@@ -123,7 +123,7 @@ The exact handler reference to remove.
 
 > **on**\<`K`\>(`event`, `handler`): `this`
 
-Defined in: [Agent.ts:234](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Agent.ts#L234)
+Defined in: [Agent.ts:284](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Agent.ts#L284)
 
 Register an event listener.
 
@@ -157,7 +157,7 @@ Handler function.
 
 > **run**(`input`): `Promise`\<`unknown`\>
 
-Defined in: [Agent.ts:144](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Agent.ts#L144)
+Defined in: [Agent.ts:174](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Agent.ts#L174)
 
 Run the agent with the provided input.
 
@@ -184,7 +184,7 @@ The output from the agent's `finish` command.
 
 > **schedule**(`config`): `string`
 
-Defined in: [Agent.ts:263](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/Agent.ts#L263)
+Defined in: [Agent.ts:313](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/Agent.ts#L313)
 
 Schedule the agent to run automatically.
 

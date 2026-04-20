@@ -6,7 +6,7 @@
 
 # Interface: OAuth2Credential
 
-Defined in: [types/index.ts:185](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L185)
+Defined in: [types/index.ts:192](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L192)
 
 OAuth 2.0 credential assigned to an agent.
 
@@ -16,7 +16,7 @@ OAuth 2.0 credential assigned to an agent.
 
 > **config**: `object`
 
-Defined in: [types/index.ts:187](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L187)
+Defined in: [types/index.ts:194](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L194)
 
 #### Index Signature
 
@@ -48,7 +48,7 @@ Defined in: [types/index.ts:187](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > `optional` **onTokenRefresh**: (`newConfig`) => `Promise`\<`void`\>
 
-Defined in: [types/index.ts:196](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L196)
+Defined in: [types/index.ts:203](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L203)
 
 Called after every successful token refresh so callers can persist the new tokens.
 
@@ -86,4 +86,4 @@ Called after every successful token refresh so callers can persist the new token
 
 > **type**: `"oauth2"`
 
-Defined in: [types/index.ts:186](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L186)
+Defined in: [types/index.ts:193](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L193)

@@ -8,4 +8,4 @@
 
 > **CredentialSetup** = [`BearerCredentialSetup`](../interfaces/BearerCredentialSetup.md) \| [`CustomCredentialSetup`](../interfaces/CustomCredentialSetup.md) \| [`OAuth2CredentialSetup`](../interfaces/OAuth2CredentialSetup.md) \| [`BasicCredentialSetup`](../interfaces/BasicCredentialSetup.md)
 
-Defined in: [types/index.ts:106](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L106)
+Defined in: [types/index.ts:106](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L106)

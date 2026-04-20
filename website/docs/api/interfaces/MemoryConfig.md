@@ -6,7 +6,7 @@
 
 # Interface: MemoryConfig
 
-Defined in: [types/index.ts:236](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L236)
+Defined in: [types/index.ts:243](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L243)
 
 Agent memory configuration split into long-term and short-term stores.
 
@@ -16,7 +16,7 @@ Agent memory configuration split into long-term and short-term stores.
 
 > `optional` **longTerm**: [`MemoryStore`](MemoryStore.md)
 
-Defined in: [types/index.ts:237](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L237)
+Defined in: [types/index.ts:244](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L244)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [types/index.ts:237](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > `optional` **shortTerm**: [`MemoryStore`](MemoryStore.md)
 
-Defined in: [types/index.ts:238](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L238)
+Defined in: [types/index.ts:245](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L245)

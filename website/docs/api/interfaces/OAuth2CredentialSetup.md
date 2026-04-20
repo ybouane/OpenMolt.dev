@@ -6,7 +6,7 @@
 
 # Interface: OAuth2CredentialSetup
 
-Defined in: [types/index.ts:81](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L81)
+Defined in: [types/index.ts:81](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L81)
 
 OAuth 2.0 credential setup.
 
@@ -16,7 +16,7 @@ OAuth 2.0 credential setup.
 
 > **authUrl**: `string`
 
-Defined in: [types/index.ts:84](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L84)
+Defined in: [types/index.ts:84](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L84)
 
 URL to obtain an authorisation code.
 
@@ -26,7 +26,7 @@ URL to obtain an authorisation code.
 
 > **clientId**: `string`
 
-Defined in: [types/index.ts:88](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L88)
+Defined in: [types/index.ts:88](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L88)
 
 Client identifier template (`{{ config.clientId }}`).
 
@@ -36,7 +36,7 @@ Client identifier template (`{{ config.clientId }}`).
 
 > **clientSecret**: `string`
 
-Defined in: [types/index.ts:90](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L90)
+Defined in: [types/index.ts:90](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L90)
 
 Client secret template.
 
@@ -46,7 +46,7 @@ Client secret template.
 
 > **refreshToken**: `string`
 
-Defined in: [types/index.ts:92](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L92)
+Defined in: [types/index.ts:92](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L92)
 
 Refresh token template.
 
@@ -56,7 +56,7 @@ Refresh token template.
 
 > `optional` **scopes**: `string`[]
 
-Defined in: [types/index.ts:94](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L94)
+Defined in: [types/index.ts:94](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L94)
 
 Scopes required for the token.
 
@@ -66,7 +66,7 @@ Scopes required for the token.
 
 > **tokenUrl**: `string`
 
-Defined in: [types/index.ts:86](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L86)
+Defined in: [types/index.ts:86](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L86)
 
 URL used to exchange a refresh token for an access token.
 
@@ -76,4 +76,4 @@ URL used to exchange a refresh token for an access token.
 
 > **type**: `"oauth2"`
 
-Defined in: [types/index.ts:82](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L82)
+Defined in: [types/index.ts:82](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L82)

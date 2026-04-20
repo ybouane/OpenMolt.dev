@@ -6,7 +6,7 @@
 
 # Interface: ModelConfig
 
-Defined in: [types/index.ts:33](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L33)
+Defined in: [types/index.ts:33](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L33)
 
 Per-call model configuration passed to the LLM provider.
 
@@ -22,7 +22,7 @@ Any additional provider-specific options.
 
 > `optional` **maxTokens**: `number`
 
-Defined in: [types/index.ts:41](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L41)
+Defined in: [types/index.ts:41](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L41)
 
 Maximum output tokens.
 
@@ -32,7 +32,7 @@ Maximum output tokens.
 
 > `optional` **search**: `boolean`
 
-Defined in: [types/index.ts:37](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L37)
+Defined in: [types/index.ts:37](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L37)
 
 Enable web search grounding (Gemini).
 
@@ -42,7 +42,7 @@ Enable web search grounding (Gemini).
 
 > `optional` **temperature**: `number`
 
-Defined in: [types/index.ts:39](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L39)
+Defined in: [types/index.ts:39](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L39)
 
 Sampling temperature (0–2).
 
@@ -52,6 +52,6 @@ Sampling temperature (0–2).
 
 > `optional` **thinking**: `boolean`
 
-Defined in: [types/index.ts:35](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L35)
+Defined in: [types/index.ts:35](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L35)
 
 Enable the model's extended thinking / reasoning process.

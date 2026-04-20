@@ -6,7 +6,7 @@
 
 # Interface: IntervalSchedule
 
-Defined in: [types/index.ts:414](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L414)
+Defined in: [types/index.ts:421](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L421)
 
 Run the agent every N seconds.
 
@@ -16,7 +16,7 @@ Run the agent every N seconds.
 
 > **type**: `"interval"`
 
-Defined in: [types/index.ts:415](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L415)
+Defined in: [types/index.ts:422](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L422)
 
 ***
 
@@ -24,6 +24,6 @@ Defined in: [types/index.ts:415](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > **value**: `number`
 
-Defined in: [types/index.ts:417](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L417)
+Defined in: [types/index.ts:424](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L424)
 
 Interval in seconds.

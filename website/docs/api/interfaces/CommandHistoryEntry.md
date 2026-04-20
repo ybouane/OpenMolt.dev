@@ -6,7 +6,7 @@
 
 # Interface: CommandHistoryEntry
 
-Defined in: [types/index.ts:353](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L353)
+Defined in: [types/index.ts:360](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L360)
 
 An entry in the command execution history.
 
@@ -16,7 +16,7 @@ An entry in the command execution history.
 
 > **command**: [`AgentCommand`](../type-aliases/AgentCommand.md)
 
-Defined in: [types/index.ts:355](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L355)
+Defined in: [types/index.ts:362](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L362)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [types/index.ts:355](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > `optional` **error**: `string`
 
-Defined in: [types/index.ts:357](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L357)
+Defined in: [types/index.ts:364](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L364)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [types/index.ts:357](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > `optional` **result**: `unknown`
 
-Defined in: [types/index.ts:356](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L356)
+Defined in: [types/index.ts:363](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L363)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [types/index.ts:356](https://github.com/ybouane/OpenMolt.dev/blob/f8
 
 > **step**: `number`
 
-Defined in: [types/index.ts:354](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L354)
+Defined in: [types/index.ts:361](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L361)

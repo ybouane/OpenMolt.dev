@@ -6,7 +6,7 @@
 
 # Interface: ToolContext
 
-Defined in: [types/index.ts:113](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L113)
+Defined in: [types/index.ts:113](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L113)
 
 Tool execution context passed to `execute` functions.
 
@@ -16,7 +16,7 @@ Tool execution context passed to `execute` functions.
 
 > **agentName**: `string`
 
-Defined in: [types/index.ts:115](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L115)
+Defined in: [types/index.ts:115](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L115)
 
 Name of the agent executing the tool.
 
@@ -26,7 +26,7 @@ Name of the agent executing the tool.
 
 > `optional` **config**: `Record`\<`string`, `unknown`\>
 
-Defined in: [types/index.ts:119](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L119)
+Defined in: [types/index.ts:119](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L119)
 
 Resolved credential config for the current agent.
 
@@ -36,6 +36,6 @@ Resolved credential config for the current agent.
 
 > **integrationHandle**: `string`
 
-Defined in: [types/index.ts:117](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/types/index.ts#L117)
+Defined in: [types/index.ts:117](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/types/index.ts#L117)
 
 Handle of the integration this tool belongs to.

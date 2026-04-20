@@ -6,7 +6,7 @@
 
 # Class: OpenMolt
 
-Defined in: [OpenMolt.ts:92](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/OpenMolt.ts#L92)
+Defined in: [OpenMolt.ts:92](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/OpenMolt.ts#L92)
 
 The main OpenMolt class.
 
@@ -18,7 +18,7 @@ Manages LLM provider configuration, integration registration, and agent creation
 
 > **new OpenMolt**(`config?`): `OpenMolt`
 
-Defined in: [OpenMolt.ts:102](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/OpenMolt.ts#L102)
+Defined in: [OpenMolt.ts:102](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/OpenMolt.ts#L102)
 
 Create a new OpenMolt instance.
 
@@ -41,7 +41,7 @@ Global configuration including LLM provider API keys,
 
 > **createAgent**(`config`): [`Agent`](Agent.md)
 
-Defined in: [OpenMolt.ts:138](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/OpenMolt.ts#L138)
+Defined in: [OpenMolt.ts:138](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/OpenMolt.ts#L138)
 
 Create a new [Agent](Agent.md) instance.
 
@@ -65,7 +65,7 @@ A fully configured, ready-to-run agent.
 
 > **getIntegration**(`handle`): [`Integration`](Integration.md) \| `undefined`
 
-Defined in: [OpenMolt.ts:147](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/OpenMolt.ts#L147)
+Defined in: [OpenMolt.ts:147](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/OpenMolt.ts#L147)
 
 Retrieve a registered integration by handle.
 
@@ -87,7 +87,7 @@ Integration handle.
 
 > **listIntegrations**(): `string`[]
 
-Defined in: [OpenMolt.ts:154](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/OpenMolt.ts#L154)
+Defined in: [OpenMolt.ts:154](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/OpenMolt.ts#L154)
 
 Returns an array of all registered integration handles.
 
@@ -101,7 +101,7 @@ Returns an array of all registered integration handles.
 
 > **registerIntegration**(`handle`, `definition`): `this`
 
-Defined in: [OpenMolt.ts:127](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/OpenMolt.ts#L127)
+Defined in: [OpenMolt.ts:127](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/OpenMolt.ts#L127)
 
 Register a custom integration (or override an existing one).
 
@@ -142,7 +142,7 @@ om.registerIntegration('myApi', {
 
 > `static` **FileSystemIntegration**(`directories`): [`IntegrationDefinition`](../interfaces/IntegrationDefinition.md)
 
-Defined in: [OpenMolt.ts:171](https://github.com/ybouane/OpenMolt.dev/blob/f83b080d3401ed5b44b6d49e1e6dcc87d61eedd5/src/OpenMolt.ts#L171)
+Defined in: [OpenMolt.ts:171](https://github.com/ybouane/OpenMolt.dev/blob/459db1802289429b2b18a1c184be213817ca689a/src/OpenMolt.ts#L171)
 
 Create a FileSystem integration definition restricted to the given
 directories.
