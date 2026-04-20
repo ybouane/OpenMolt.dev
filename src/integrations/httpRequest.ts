@@ -9,6 +9,40 @@ import type { IntegrationDefinition, ToolContext } from '../types/index.js';
 
 export const httpRequestDefinition: IntegrationDefinition = {
 	name: 'HTTP Request',
+	instructions: `
+### When to use
+A **fallback** for APIs without a dedicated integration. If a dedicated integration (Gmail, Slack, GitHub, etc.) exists for the service, use it instead — it handles auth, templating, and response shaping for you.
+
+### URL & query params
+Pass the **full URL** including scheme (\`https://...\`). Query params can be embedded directly in \`url\` or passed as \`queryParams\` (which are URL-encoded for you). When in doubt, prefer \`queryParams\` — it avoids encoding bugs.
+
+### Body serialisation
+- Object → auto-JSON-encoded with \`Content-Type: application/json\` (unless you override the header).
+- String → sent verbatim with \`Content-Type: text/plain\` (again, override header to change).
+- Body is **only** sent for non-GET/HEAD methods.
+- For \`application/x-www-form-urlencoded\`, serialise the body yourself into \`"a=1&b=2"\` and set the \`Content-Type\` header explicitly.
+- For \`multipart/form-data\`, this tool does not construct multipart bodies — use a dedicated integration or surface to the user.
+
+### Auth
+No credentials are attached automatically. Put any API keys / bearer tokens in \`headers\` yourself, e.g. \`{ "Authorization": "Bearer xyz" }\`. Never put secrets in \`url\` or \`queryParams\` (they'd be logged).
+
+### Response
+- \`status\` is the numeric HTTP code; \`ok\` is \`true\` when \`200 ≤ status < 300\`. **Non-2xx responses do not throw** — check \`ok\` and \`body\` yourself.
+- \`body\` is parsed as JSON when the response's \`Content-Type\` is JSON; otherwise it's a string. Override with \`responseType: "text"\` to force raw text (useful for HTML scraping).
+
+### Timeouts & redirects
+Default timeout is 30s; bump via \`timeout\` (ms) for slow endpoints. Set \`followRedirects: false\` if you need to inspect 3xx responses (e.g. OAuth redirects).
+
+### Example — GET with bearer auth
+\`\`\`json
+{
+  "url": "https://api.example.com/v1/items",
+  "method": "GET",
+  "headers": { "Authorization": "Bearer sk-..." },
+  "queryParams": { "limit": "50" }
+}
+\`\`\`
+`,
 	apiSetup: {
 		baseUrl: '',
 		responseFormat: 'json',

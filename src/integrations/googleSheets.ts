@@ -3,6 +3,48 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const googleSheetsDefinition: IntegrationDefinition = {
 	name: 'Google Sheets',
+	instructions: `
+### Spreadsheet ID
+\`spreadsheetId\` is the long string from the URL (\`/spreadsheets/d/<ID>/edit\`), not the file's display name. Use Drive's \`searchFiles\` if you only know the title.
+
+### A1 notation for ranges
+Every \`range\` argument uses A1 notation:
+- \`"Sheet1!A1:C10"\` — 3×10 block on tab "Sheet1".
+- \`"Sheet1!A:A"\` — whole column A.
+- \`"Sheet1!2:2"\` — whole row 2.
+- \`"'My Sheet'!A1"\` — quote the sheet name when it has spaces or special chars.
+- \`"A1:C10"\` without a sheet name defaults to the first visible sheet.
+
+Get the list of tab names via \`getSpreadsheet\` (inspect \`sheets[].properties.title\`).
+
+### Values are always 2D arrays
+Every read/write of cells uses \`values: [[...], [...], ...]\` — rows of cells. A single cell is \`[["hi"]]\`, not \`"hi"\`. Empty cells come back as empty strings, and trailing empty cells are often omitted — never rely on row length being equal.
+
+### valueInputOption
+Writes (\`updateValues\`, \`appendValues\`, \`batchUpdateValues\`) accept \`valueInputOption\`:
+- \`"USER_ENTERED"\` — strings are parsed like typing in the UI (formulas, dates, numbers). Use this when you want \`=SUM(A:A)\` to work or \`"2026-01-15"\` to become a date.
+- \`"RAW"\` — store exactly as provided, no parsing.
+
+### Append vs update
+- \`updateValues\` overwrites the exact range you specify.
+- \`appendValues\` finds the **first empty row at/after** the given range and writes there. Ideal for log-style append-only sheets. Pass the top-left of the table (e.g. \`"Sheet1!A1"\`) and Sheets will figure out where to land.
+
+### Batch vs single calls
+Google Sheets enforces tight per-minute rate limits. If you need to write ~N cells, prefer:
+- \`batchUpdateValues\` when updating **several disjoint ranges** with values.
+- \`batchUpdate\` (note: different endpoint) for **structural changes** — adding sheets, formatting, merging, inserting rows, freezing panes. Takes a \`requests\` array of typed command objects (e.g. \`{ "addSheet": {...} }\`, \`{ "updateCells": {...} }\`).
+
+### Creating a new sheet
+- \`createSpreadsheet\` — new spreadsheet file (also creates a Drive file). Give it a \`properties.title\` and an initial \`sheets\` array.
+- \`addSheet\` — new tab within an existing spreadsheet.
+
+### Clearing data
+\`clearValues\` removes cell values but preserves formatting. To also delete formatting, use a \`batchUpdate\` with \`{ "updateCells": { range, fields: "*" } }\`.
+
+### sheetId vs title
+- \`title\` is user-facing (\`"Sheet1"\`).
+- \`sheetId\` is the stable numeric ID used by structural ops (\`batchUpdate\`, \`deleteSheet\`). Don't confuse the two.
+`,
 	apiSetup: {
 		baseUrl: 'https://sheets.googleapis.com/v4',
 		headers: {

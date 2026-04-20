@@ -8,6 +8,49 @@ import type { IntegrationDefinition, ToolContext } from '../types/index.js';
 
 export const slackDefinition: IntegrationDefinition = {
 	name: 'Slack',
+	instructions: `
+### Channel identifiers
+The \`channel\` field accepts:
+- A channel ID — starts with \`C\` for public, \`G\` for private, \`D\` for DMs, \`MP\` for MPIMs (group DMs).
+- A channel name like \`#general\` or just \`general\` for public channels (slower, not recommended for frequent use).
+- A user ID (\`U...\`) to open/continue a DM with that user.
+
+Prefer **channel IDs** when you have them — names can change; IDs are stable.
+
+### Responses are \`ok\` / \`error\`
+Slack Web API returns HTTP 200 even on failure. The real status is in the JSON body's \`ok\` field — check it. When \`ok: false\`, read \`error\` (e.g. \`"not_in_channel"\`, \`"channel_not_found"\`, \`"missing_scope"\`) and act on that, not on the HTTP code.
+
+### Threads
+Replies are identified by the **parent message's \`ts\`** (a stringified timestamp like \`"1700000000.000100"\`). Pass it as \`thread_ts\` to \`postMessage\`. Set \`reply_broadcast: true\` if the reply should also appear in the main channel (sparingly — it's noisy).
+
+### Message formatting
+Prefer **Block Kit** (\`blocks\`) for anything richer than plain text — buttons, sections with fields, dividers, context lines:
+\`\`\`json
+[
+  { "type": "section", "text": { "type": "mrkdwn", "text": "*Build failed* on \`main\`" } },
+  { "type": "actions", "elements": [{ "type": "button", "text": { "type": "plain_text", "text": "View logs" }, "url": "https://..." }]}
+]
+\`\`\`
+Always also send \`text\` — Slack uses it as the fallback for notifications, screen readers, and clients that don't render blocks.
+
+### mrkdwn (Slack's markdown variant)
+Not standard markdown. Bold = \`*bold*\` (single asterisks), italics = \`_ital_\`, inline code = \`\\\`code\\\`\`. Links = \`<https://url|label>\`, user mention = \`<@U123>\`, channel mention = \`<#C123|name>\`. Regular \`[label](url)\` and \`**bold**\` do **not** render.
+
+### Editing & deleting
+\`updateMessage\` / \`deleteMessage\` identify a message by \`channel\` + \`ts\`. You must have posted the message as the current token's identity; bots cannot edit a user's message and vice-versa.
+
+### Finding a user
+\`lookupUserByEmail\` turns an email into a Slack user ID. Use it once, cache the ID — do not call it per message.
+
+### Uploading files
+\`uploadFile\` attaches a file to one or more channels. Provide either a URL Slack can fetch or binary content depending on the exposed schema. Very large files (>1 GB) require the external upload flow which is not covered here.
+
+### Rate limits
+Most Web API methods are **Tier 3: ~50 req/min per workspace**. Searches and some admin endpoints are lower. On \`error: "ratelimited"\` respect the \`Retry-After\` header before retrying.
+
+### Scheduling
+\`scheduleMessage\` takes \`post_at\` as a **Unix timestamp in seconds**, not ISO 8601. Must be within 120 days and ≥60 seconds in the future.
+`,
 	apiSetup: {
 		baseUrl: 'https://slack.com/api',
 		headers: {

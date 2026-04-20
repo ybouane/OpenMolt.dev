@@ -3,6 +3,41 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const microsoftOutlookDefinition: IntegrationDefinition = {
 	name: 'Microsoft Outlook',
+	instructions: `
+### Graph API, not EWS
+This integration calls **Microsoft Graph** (\`/me/...\`). All IDs are opaque Graph item IDs (long base64-like strings). Do not compare, parse, or construct them.
+
+### OData query options
+Outlook list endpoints take standard OData modifiers — pass them with their literal names in the input (\`$filter\`, \`$top\`, \`$skip\`, \`$orderby\`, \`$select\`, \`$search\`):
+- \`$filter\`: \`"isRead eq false and importance eq 'high'"\`, \`"receivedDateTime ge 2026-04-01T00:00:00Z"\`, \`"from/emailAddress/address eq 'alice@example.com'"\`.
+- \`$orderby\`: \`"receivedDateTime desc"\`.
+- \`$select\`: limit payload, e.g. \`"subject,from,receivedDateTime"\`.
+- \`$search\`: **free-text search** (\`"project kickoff"\`). Note: \`$search\` and \`$filter\` cannot be combined on message endpoints.
+
+Strings in \`$filter\` use single quotes; escape with doubling (\`''\`). Dates are ISO 8601 UTC.
+
+### Sending email
+\`sendMessage\` uses Graph's nested shape. Each recipient is \`{ "emailAddress": { "address": "a@b.com", "name": "..." } }\` — not a bare string. \`body.contentType\` is \`"Text"\` or \`"HTML"\` (case-sensitive).
+
+### Replies & forwards
+\`replyToMessage\` and \`forwardMessage\` take a Graph message \`id\` plus a \`comment\` that is **prepended** to the original body — the original content is included automatically by the server. Do not reconstruct the quoted content yourself.
+
+### Folders
+\`listFolders\` returns mail folders; use well-known names directly when appropriate: \`inbox\`, \`sentitems\`, \`drafts\`, \`deleteditems\`, \`junkemail\`, \`archive\`. \`moveMessage\` accepts either a folder ID or one of those names as \`destinationId\`.
+
+### Calendar events
+- \`start\` / \`end\` are \`{ dateTime: "2026-04-20T14:30:00", timeZone: "Pacific Standard Time" }\`. Graph uses **Windows timezone names** (\`Pacific Standard Time\`, \`Eastern Standard Time\`, …) by default; pass IANA names only if you also send the \`Prefer: outlook.timezone\` header (not exposed here).
+- All-day events: set \`isAllDay: true\` and use date-only \`dateTime\` values (\`2026-04-20T00:00:00\`) with \`end.dateTime\` **exclusive** (next day).
+- Attendees: \`{ emailAddress: { address, name }, type: "required" | "optional" }\`.
+- \`getCalendarView\` returns expanded recurring events between \`startDateTime\` / \`endDateTime\` — prefer this over \`listCalendarEvents\` when working with repeating events.
+
+### Pagination
+Responses include \`@odata.nextLink\` when more data exists. This integration exposes \`$top\` / \`$skip\`; prefer \`$top: 50\`-ish and iterate \`$skip\` rather than page through the link.
+
+### Read/unread, deletes
+- \`deleteMessage\` moves to \`deleteditems\` (Outlook's Trash), not permanent — can be recovered from there.
+- To mark read, PATCH the message with \`isRead: true\` — not exposed as a dedicated tool here, use \`httpRequest\` if needed.
+`,
 	apiSetup: {
 		baseUrl: 'https://graph.microsoft.com/v1.0',
 		headers: {

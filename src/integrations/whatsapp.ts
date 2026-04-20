@@ -8,6 +8,41 @@ import type { IntegrationDefinition, ToolContext } from '../types/index.js';
 
 export const whatsappDefinition: IntegrationDefinition = {
 	name: 'WhatsApp',
+	instructions: `
+### Credentials & IDs
+- \`apiKey\` is a **System User access token** (not a regular Meta OAuth token) from Meta Business Manager. Long-lived tokens are recommended.
+- Every send tool takes a \`phoneNumberId\` — the **numeric ID** of your WhatsApp Business number (found in the Meta WhatsApp Manager → your number → details). This is **not the phone number itself**.
+- Use \`businessAccountId\` (WABA ID) for template-management tools.
+
+### Recipient Numbers
+- \`to\` is a phone number in **international format without the \`+\`** (e.g. \`15551234567\`). Some docs show \`+\` — both tend to work but omitting the \`+\` is the spec.
+- The recipient must have a WhatsApp account tied to that number.
+
+### 24-Hour Customer Service Window
+- You can send **free-form** messages (text, media, interactive) only within 24h of the user's last message to you.
+- Outside that window, you must send a **pre-approved template** via \`sendTemplateMessage\`. Templates are created and submitted for Meta review in Business Manager before use.
+
+### Template Components
+- \`components\` is an array like: \`[{ type: 'body', parameters: [{ type: 'text', text: 'John' }, { type: 'text', text: '42' }] }]\`. The \`{{1}}\`, \`{{2}}\` placeholders in the template body map positionally to \`parameters\`.
+- Header components support \`image\`, \`video\`, \`document\` with \`{ type: 'image', image: { link: 'https://...' } }\`.
+- \`languageCode\` uses format like \`en_US\`, \`es\`, \`pt_BR\` — must match the approved template's language exactly.
+
+### Media
+- Two options for sending images/videos/docs: (1) pass a public HTTPS \`link\`, or (2) pre-upload via \`uploadMedia\` to get a \`media_id\` then pass \`{ id: media_id }\`. IDs expire after 30 days.
+- Max size: image 5MB, video 16MB, document 100MB, audio 16MB.
+
+### Interactive Messages
+- Buttons (max 3): \`type: 'interactive', interactive: { type: 'button', body: { text: '...' }, action: { buttons: [{ type: 'reply', reply: { id: 'yes', title: 'Yes' } }] } }\`.
+- Lists (up to 10 rows across 10 sections) are better for larger choice sets.
+
+### Reading Incoming Messages
+- Incoming messages arrive via **webhooks** (configured in Meta App Dashboard, not via this integration). The webhook payload contains \`messages[]\` with \`from\`, \`type\`, \`text.body\`, etc.
+- Mark read with \`markMessageAsRead\` to show blue ticks.
+
+### Response Envelope
+- Success returns \`{ messaging_product, contacts: [{ wa_id }], messages: [{ id }] }\`. Save \`messages[0].id\` — you need it for \`context.message_id\` to reply-thread.
+- Errors return Meta's standard \`{ error: { message, type, code, error_subcode, fbtrace_id } }\`.
+`,
 	apiSetup: {
 		baseUrl: 'https://graph.facebook.com/v20.0',
 		headers: {

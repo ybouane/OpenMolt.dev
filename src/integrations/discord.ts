@@ -8,6 +8,44 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const discordDefinition: IntegrationDefinition = {
 	name: 'Discord',
+	instructions: `
+### Identifiers
+All Discord IDs are 17–20 digit **snowflakes** delivered as strings. Do not truncate or cast them to numbers. Common ones: \`guild_id\` (server), \`channel_id\`, \`message_id\`, \`user_id\`, \`webhook_id\`.
+
+### Discovering IDs
+If you do not have the IDs you need, start with \`listGuilds\` → \`listChannels\` (with the chosen \`guild_id\`) → \`getMessages\` (with the chosen \`channel_id\`). \`getCurrentUser\` confirms the bot's own identity.
+
+### Sending messages
+- \`content\` is plain text capped at **2000 chars**. For long/formatted output, use Markdown or split across messages.
+- To **reply** to a message, set \`message_reference\`:
+\`\`\`json
+{ "message_reference": { "message_id": "123...", "channel_id": "456..." } }
+\`\`\`
+- To **suppress @everyone / role pings**, pass \`"allowed_mentions": { "parse": [] }\`.
+- Embeds let you post richer content. Shape (simplified):
+\`\`\`json
+{ "embeds": [{ "title": "Build failed", "description": "See logs", "color": 15158332, "fields": [{ "name": "Commit", "value": "abc123", "inline": true }] }] }
+\`\`\`
+Max 10 embeds per message.
+
+### Editing
+\`editMessage\` only works on messages **the bot itself sent**. Passing \`""\` clears text, \`[]\` clears embeds/components.
+
+### Channel types (for \`createChannel\`)
+0=text, 2=voice, 4=category, 5=announcement, 15=forum, 16=media. Use \`parent_id\` to nest a text/voice channel under a category.
+
+### Reactions
+\`addReaction\` requires the emoji to be URL-encoded in the path. For Unicode, pass the emoji character directly (e.g. \`"👍"\`). For custom emoji, use \`"name:id"\` (e.g. \`"partyparrot:123..."\`).
+
+### Permissions
+The bot needs its own permissions in the server. If a call fails with 403, the likely cause is a missing permission (\`MANAGE_MESSAGES\`, \`MANAGE_CHANNELS\`, \`KICK_MEMBERS\`, \`BAN_MEMBERS\`, \`MANAGE_WEBHOOKS\`, \`MANAGE_ROLES\`) or a missing privileged intent (e.g. \`GUILD_MEMBERS\` for \`listGuildMembers\`). Surface this to the user rather than retrying.
+
+### Role permissions
+\`permissions\` on \`createRole\` is a **bitwise integer encoded as a string** (Discord permissions exceed 32 bits). Example: \`"8"\` = Administrator. Combine permissions by OR-ing the bits in a language-level integer before stringifying.
+
+### Webhooks vs bot messages
+Use \`executeWebhook\` when you want to post with a custom username/avatar or into a channel where the bot isn't directly active. The \`webhook_token\` is returned by \`createWebhook\` and should be treated as a secret.
+`,
 	apiSetup: {
 		baseUrl: 'https://discord.com/api/v10',
 		headers: {

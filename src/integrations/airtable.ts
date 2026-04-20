@@ -8,6 +8,35 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const airtableDefinition: IntegrationDefinition = {
 	name: 'Airtable',
+	instructions: `
+### Identifiers
+- \`baseId\` starts with \`app\` (e.g. \`appXXXXXXXXXXXXXX\`).
+- Table IDs start with \`tbl\`, record IDs with \`rec\`, field IDs with \`fld\`. Most endpoints accept either the table's name or its \`tbl\` ID via \`tableIdOrName\`.
+
+### Discover schema before writing
+If you do not already know the exact field names and types of a table, call \`getBaseSchema\` first. Airtable field names are **case-sensitive** and must match exactly, including spaces and accents. Call \`listBases\` if you don't even know the \`baseId\`.
+
+### Creating / updating records
+- The \`fields\` map is keyed by field **name** (unless \`returnFieldsByFieldId: true\`). Values must match each field's type — e.g. a \`number\` field must receive a number, not a numeric string. Set \`typecast: true\` to let Airtable coerce strings into the target type (useful for dates, numbers, single-selects).
+- Linked-record fields expect an **array of record IDs**, e.g. \`{ "Projects": ["recAAA", "recBBB"] }\`.
+- Attachment fields expect \`[{ "url": "https://..." }]\`.
+- Multi-select fields expect \`["Option A", "Option B"]\`.
+- Batch writes are capped at **10 records per call** — split larger workloads across multiple calls.
+
+### Upsert pattern
+\`updateRecords\` with \`performUpsert.fieldsToMergeOn\` will create a new record when no match is found on those fields. The listed fields must be unique in the table (e.g. an email column). Omit the \`id\` on each record when upserting.
+
+### Filtering with formulas
+\`filterByFormula\` uses Airtable formula syntax (not SQL). Wrap field names in curly braces when they contain spaces: \`{First Name}='Alice'\`. Common helpers: \`AND(...)\`, \`OR(...)\`, \`SEARCH("foo", {Notes})\`, \`IS_AFTER({Created}, '2024-01-01')\`. String literals use single quotes.
+
+Example:
+\`\`\`json
+{ "filterByFormula": "AND({Status}='Active', SEARCH('paid', LOWER({Tags})))" }
+\`\`\`
+
+### Pagination
+List/search responses include an \`offset\` string when more records exist. Pass it back as the \`offset\` input on the next call to fetch the next page. Do not assume all records were returned in a single call.
+`,
 	apiSetup: {
 		baseUrl: 'https://api.airtable.com/v0',
 		headers: {

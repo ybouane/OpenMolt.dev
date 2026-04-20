@@ -5,6 +5,34 @@ const GEMINI_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta';
 
 export const geminiMediaModelsDefinition: IntegrationDefinition = {
 	name: 'Gemini Media Models',
+	instructions: `
+### Image in, image out: everything is base64
+Every \`base64\` field (\`baseImageBase64\`, \`maskBase64\`, \`imageBase64\`, generated \`base64Data\`) is the **raw base64 string only** — no \`data:\` prefix, no surrounding quotes. If you receive an image from another tool as a URL or data URI, fetch/decode it to pure base64 first.
+
+### generateImage (Imagen 3)
+Returns \`images: [{ base64Data, mimeType }]\`. \`aspectRatio\` must be one of \`1:1\`, \`9:16\`, \`16:9\`, \`3:4\`, \`4:3\` — other ratios are rejected. Up to 4 images per call. Use \`negativePrompt\` for things you want to **avoid**, not for quality modifiers.
+
+### editImage (Imagen 3 capability)
+- \`baseImageBase64\` is required; the edit is applied to that image.
+- \`maskBase64\` is optional. When provided, **white pixels = areas to edit, black pixels = areas to preserve**. Mask must be the same dimensions as the base image.
+- The prompt describes the **target result**, not the diff (e.g. "a red door" rather than "change the door to red").
+
+### generateVideo (Veo 3) is long-running
+\`generateVideo\` starts an async operation and usually returns \`{ operationName, done: false }\`. Workflow:
+1. Call \`generateVideo\`.
+2. If \`done: true\`, read \`videoUri\`. Otherwise keep \`operationName\`.
+3. \`wait\` 20–30 seconds.
+4. Call \`pollVideoOperation\` with the \`operationName\`. Repeat step 3–4 until \`done: true\`. A single generation can take **1–5 minutes** — do not poll in a tight loop.
+
+Duration is clamped to 5–8 seconds. Aspect ratio for video is only \`16:9\` or \`9:16\`.
+
+The returned \`videoUri\` points to Google's CDN; persist it elsewhere if you need it longer than ~an hour.
+
+### generateContent (text / multimodal)
+- Default model is \`gemini-2.0-flash\` (fast, cheap). Use \`gemini-1.5-pro\` / \`gemini-2.5-pro\` when the task needs heavier reasoning.
+- For vision, pass \`imageBase64\` **and** \`imageMimeType\` together — one without the other is silently ignored.
+- \`temperature\` range is 0–2 (not 0–1). Default ~1. Use \`0\` for deterministic extractive tasks.
+`,
 	credentialSetup: [
 		{
 			type: 'custom',

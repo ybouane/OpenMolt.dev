@@ -9,6 +9,35 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const telegramDefinition: IntegrationDefinition = {
 	name: 'Telegram',
+	instructions: `
+### Bot Setup
+- Create a bot via **@BotFather** on Telegram to get a token (format \`123456:ABC-DEF...\`). This is the \`apiKey\`. The token is embedded in the URL — there is no Authorization header.
+- The bot can only message users who have **started a conversation** with it (sent \`/start\`). For groups, add the bot as a member first.
+
+### Chat Identifiers
+- \`chat_id\` accepts either a **numeric ID** (e.g. \`123456789\` for users, negative like \`-1001234567890\` for supergroups/channels) or a **@username** string for public channels (e.g. \`@mychannel\`).
+- To discover numeric IDs, call \`getUpdates\` (if no webhook is set) or have the user message \`@userinfobot\`.
+
+### Parse Modes (Formatting)
+- \`MarkdownV2\` is the recommended mode but requires **escaping** of \`_ * [ ] ( ) ~ \\\` > # + - = | { } . !\` with a backslash. \`HTML\` is often simpler for programmatic output (\`<b>\`, \`<i>\`, \`<code>\`, \`<a href="">\`). Legacy \`Markdown\` is simpler but limited.
+
+### Reply Markup (Keyboards)
+- \`reply_markup\` is an object. For inline buttons: \`{ inline_keyboard: [[ { text: 'Click', url: 'https://...' }, { text: 'Action', callback_data: 'do_x' } ]] }\` (array of rows of buttons). For a custom keyboard: \`{ keyboard: [[ 'Yes', 'No' ]], resize_keyboard: true, one_time_keyboard: true }\`. Remove with \`{ remove_keyboard: true }\`.
+
+### Media
+- \`photo\`, \`document\`, \`video\`, etc. accept either an HTTPS URL Telegram will download, or a \`file_id\` from a previously-sent file (reuse is free and instant). Direct file uploads require multipart (not supported by this integration — upload to a URL first).
+- Caption max: photos/videos 1024 chars, text messages 4096 chars. Split long text across multiple sends.
+
+### Webhooks vs Polling
+- A bot uses **either** webhooks (set via \`setWebhook\`) **or** long polling (\`getUpdates\`) — not both. Calling \`getUpdates\` while a webhook is active will fail.
+- Webhook URL must be HTTPS with a valid cert. Use \`deleteWebhook\` to switch back to polling.
+
+### Response Envelope
+- Every response is wrapped: \`{ ok: true, result: ... }\` on success, \`{ ok: false, error_code, description }\` on failure. Check \`ok\` before using \`result\`.
+
+### Rate Limits
+- ~30 messages/sec globally, 1 msg/sec per chat, 20 msgs/min per group. Burst above these and Telegram returns \`429\` with a \`retry_after\` hint.
+`,
 	apiSetup: {
 		baseUrl: 'https://api.telegram.org/bot{{ config.apiKey }}',
 		headers: {

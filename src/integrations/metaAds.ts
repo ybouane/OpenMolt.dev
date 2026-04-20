@@ -12,6 +12,55 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const metaAdsDefinition: IntegrationDefinition = {
 	name: 'Meta Ads',
+	instructions: `
+### Ad account IDs
+\`actId\` must be prefixed with \`act_\` (e.g. \`"act_1234567890"\`) in every request. Campaign / ad set / ad / creative IDs are bare numeric strings (no prefix). \`getAdAccounts\` returns the \`id\` already prefixed.
+
+### Hierarchy
+**Campaign → Ad Set → Ad → Creative**. You cannot create an ad without an ad set, and an ad set without a campaign. Typical create flow:
+1. \`createCampaign\` (choose \`objective\`) → copy \`id\`.
+2. \`createAdSet\` under that campaign (choose targeting, budget, optimization goal).
+3. \`createAdCreative\` (creative asset + link + copy).
+4. \`createAd\` tying an ad set to a creative.
+
+Always start new entities with \`status: "PAUSED"\` unless the user explicitly asked for live activation — pushing \`ACTIVE\` immediately can spend real money on misconfigured campaigns.
+
+### Money is in account-currency minor units
+\`dailyBudget\`, \`lifetimeBudget\`, \`spendCap\`, and the results of \`getAdInsights\` are all in **cents / minor units** of the account's currency (e.g. \`dailyBudget: 5000\` = $50 in a USD account). Always confirm currency via \`getAdAccount\`.
+
+### Objectives (current naming)
+Newer \`OUTCOME_*\` values replace the legacy list:
+- \`OUTCOME_TRAFFIC\`, \`OUTCOME_ENGAGEMENT\`, \`OUTCOME_LEADS\`, \`OUTCOME_SALES\`, \`OUTCOME_APP_PROMOTION\`, \`OUTCOME_AWARENESS\`.
+
+Legacy values (\`LINK_CLICKS\`, \`CONVERSIONS\`, etc.) still work on older accounts but are deprecated.
+
+### Special ad categories
+If the campaign pitches \`CREDIT\`, \`EMPLOYMENT\`, \`HOUSING\`, \`ISSUES_ELECTIONS_POLITICS\`, or similar regulated content, \`specialAdCategories\` **must** be set. Targeting options are restricted automatically.
+
+### Targeting spec (ad sets)
+Ad set targeting is a nested object, e.g.:
+\`\`\`json
+{
+  "geo_locations": { "countries": ["US"] },
+  "age_min": 18,
+  "age_max": 44,
+  "interests": [{ "id": "6003107902433", "name": "Coffee" }]
+}
+\`\`\`
+Interest/behavior IDs come from Meta's targeting search API — do not invent them.
+
+### Dates
+\`start_time\`, \`stop_time\` are ISO 8601 strings. Times are interpreted in the ad account's timezone (\`timezone_name\`). Prefer explicit offsets (\`2026-05-01T09:00:00-07:00\`) to avoid drift.
+
+### Insights queries
+\`getAdInsights\` / \`getAdAccountInsights\` take \`fields\` (comma-separated metric names) and either \`date_preset\` (\`last_7d\`, \`last_30d\`, \`this_month\`, …) **or** a \`time_range: { since, until }\`. For breakdowns (by age, placement, country, etc.) pass \`breakdowns\`. Meta caches insight responses — fresh data can lag up to an hour.
+
+### Pagination
+All list endpoints paginate with \`after\` cursors, not page numbers. Response has \`paging.cursors.after\`; pass it back as \`after\` to continue.
+
+### Rate limits
+Marketing API rate limits are **per-account, per-hour** and scale with ad spend. On 429, back off for several minutes — retrying immediately will extend the lockout.
+`,
 	apiSetup: {
 		baseUrl: 'https://graph.facebook.com/v20.0',
 		requestFormat: 'json',

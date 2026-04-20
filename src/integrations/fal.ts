@@ -21,6 +21,42 @@ async function getFalClient(context: ToolContext) {
 
 export const falDefinition: IntegrationDefinition = {
 	name: 'fal.ai',
+	instructions: `
+### Model IDs are required
+You must supply a specific fal.ai model ID on every call. fal.ai hosts hundreds of models and none is the default. Common IDs:
+- Fast text-to-image: \`fal-ai/flux/schnell\` (4 steps, seconds)
+- High-quality text-to-image: \`fal-ai/flux/dev\`, \`fal-ai/flux-pro\`
+- Photorealistic: \`fal-ai/stable-diffusion-v3-medium\`
+- Text-to-video: \`fal-ai/kling-video/v1.6/standard/text-to-video\`, \`fal-ai/runway-gen3/turbo/text-to-video\`
+- Image-to-video: pass \`image_url\` with a kling/runway image-to-video model.
+- Background removal: \`fal-ai/imageutils/rembg\` (use \`runModel\`).
+
+If the user hasn't named a model, pick the cheapest that fits the task (e.g. \`flux/schnell\` for quick image drafts) and surface the choice.
+
+### Synchronous subscribe vs queue
+\`generateImage\`, \`generateVideo\`, and \`runModel\` all use \`fal.subscribe\`, which blocks until the model finishes and returns the final result directly — you do **not** need to poll. \`getQueueStatus\` is only needed if you separately enqueued a job via the raw queue API (uncommon in this integration).
+
+### Image inputs must be URLs
+Every model that accepts an image expects a **publicly fetchable URL** (\`image_url\`, \`init_image\`, etc). If you have a local file or a non-public URL:
+1. Upload via \`uploadFile\` (accepts https URLs and \`data:\` URLs) → returns a fal CDN URL.
+2. Pass that returned URL to the next \`generateImage\`/\`generateVideo\`/\`runModel\` call.
+
+### Image sizes
+\`generateImage.image_size\` accepts presets (\`square_hd\`, \`landscape_4_3\`, \`portrait_16_9\`, \`landscape_16_9\`, \`portrait_4_3\`) **or** an explicit \`"WIDTHxHEIGHT"\` string. Not all models accept arbitrary dimensions.
+
+### Using runModel
+For anything not covered by the specialised tools, use \`runModel\` and pass the model's full input object under \`input\`. Example:
+\`\`\`json
+{
+  "model": "fal-ai/face-swap",
+  "input": { "source_image_url": "https://...", "target_image_url": "https://..." }
+}
+\`\`\`
+Consult the specific model's fal.ai page for its input schema — guessing field names will fail.
+
+### Output URLs are temporary
+Generated image/video URLs live on fal's CDN and may expire or change. If the result needs to persist, download or re-host it (e.g. S3/Dropbox/Google Drive) before returning.
+`,
 	credentialSetup: [
 		{
 			type: 'bearer',

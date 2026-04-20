@@ -8,6 +8,34 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const tiktokDefinition: IntegrationDefinition = {
 	name: 'TikTok',
+	instructions: `
+### OAuth Scopes
+- Each tool requires specific TikTok scopes: \`user.info.basic\` for profile, \`video.list\` for reading own videos, \`video.upload\`/\`video.publish\` for posting, \`research.adlib.basic\` for Research API. Scopes must be authorized during OAuth — you cannot add them later without re-consent.
+
+### User IDs
+- \`open_id\` is unique **per app**. \`union_id\` is stable across apps owned by the same developer. Users are identified by these — not by \`@username\`.
+
+### Video Posting Flow (Two-Phase)
+1. **Initialize** a post via \`initVideoUpload\` (direct file) or \`initPhotoUpload\` (carousel). TikTok returns a \`publish_id\` and an \`upload_url\`.
+2. **Upload** the video bytes via PUT to \`upload_url\` with the correct \`Content-Range\` header (this step is typically done outside this integration, via a separate HTTP client).
+3. Status is available via \`getPostStatus\` using \`publish_id\`. States: \`PROCESSING_UPLOAD\`, \`SEND_TO_USER_INBOX\`, \`PUBLISH_COMPLETE\`, \`FAILED\`.
+- For **PULL_FROM_URL** mode, pass a public HTTPS URL and TikTok fetches it — simpler but the domain must be pre-verified in the app dashboard.
+
+### Sandbox vs Unaudited Apps
+- Apps in **sandbox / unaudited** state can only post as \`SELF_ONLY\` (private/draft), cannot make videos public, and have whitelist-only target accounts. Submit for audit to enable public posting.
+
+### Fields Parameter
+- \`fields\` is a **comma-separated string** (not a JSON array). Only fields explicitly listed are returned — omitting it typically returns a small default set, so request what you need.
+
+### Pagination
+- \`listVideos\` uses \`cursor\` (a Unix timestamp in **milliseconds** of the oldest video returned). Pass the value from \`cursor\` in the previous response. \`has_more: false\` signals end.
+
+### Rate Limits
+- Generally 6 req/sec per user token, with daily caps per endpoint. On \`429\`, back off exponentially.
+
+### Error Envelope
+- Responses include \`error: { code, message, log_id }\`. \`code: 'ok'\` means success. Always inspect \`error.code\` before assuming the call succeeded.
+`,
 	apiSetup: {
 		baseUrl: 'https://open.tiktokapis.com/v2',
 		headers: {

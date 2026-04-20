@@ -9,6 +9,43 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const stripeDefinition: IntegrationDefinition = {
 	name: 'Stripe',
+	instructions: `
+### API Keys & Modes
+- Use a **test-mode** key (\`sk_test_...\`) during development and **live-mode** (\`sk_live_...\`) for production. The objects in each mode are completely isolated — a test customer does not exist in live.
+
+### Amounts Are in Minor Units
+- All monetary values are integers in the smallest currency unit: **cents** for USD/EUR, **yen** for JPY (no decimals), etc. \`$10.00\` → \`1000\`. \`¥500\` → \`500\`.
+- \`currency\` is a three-letter ISO code, lowercase (e.g. \`usd\`, \`eur\`, \`gbp\`).
+
+### IDs
+- Every object has a prefix: \`cus_\` customers, \`pi_\` payment intents, \`prod_\` products, \`price_\` prices, \`ch_\` charges, \`in_\` invoices, \`sub_\` subscriptions, \`re_\` refunds, \`cs_\` checkout sessions.
+
+### Pagination
+- List endpoints return \`{ data: [...], has_more: true/false }\`. To fetch the next page, pass \`starting_after\` set to the \`id\` of the last item in \`data\`. \`ending_before\` walks backwards. Max \`limit\` is 100.
+
+### Payment Intent Flow
+1. \`createPaymentIntent\` with \`amount\`, \`currency\`, optionally \`customer\` and \`payment_method\`. Returns a PI with \`client_secret\`.
+2. If collecting card details client-side, the frontend uses \`client_secret\` with Stripe.js to confirm. Server-side confirmation uses \`confirmPaymentIntent\` with a \`payment_method\` ID (e.g. \`pm_card_visa\` in test mode).
+3. Check \`status\`: \`succeeded\`, \`requires_action\` (3DS), \`requires_payment_method\` (failed — retry with a new method), \`processing\`.
+
+### Checkout Sessions (Hosted Checkout)
+- For low-code payments, prefer \`createCheckoutSession\`. Provide \`line_items\` with either existing \`price\` IDs or inline \`price_data\`, \`mode\` (\`payment\`, \`subscription\`, \`setup\`), and \`success_url\`/\`cancel_url\`. Redirect the user to the returned \`url\`.
+
+### Products & Prices
+- A **Product** is the thing being sold; a **Price** is how much it costs. You can attach multiple prices to one product (monthly/yearly, different currencies). For recurring billing, set \`recurring[interval]\` = \`month\`/\`year\` on the price.
+
+### Refunds
+- Refund a charge or a payment_intent. Omit \`amount\` for a full refund, or specify a partial amount in minor units.
+
+### Webhooks
+- \`createWebhookEndpoint\` registers a URL to receive events. Store the returned \`secret\` — it is shown once and used to verify \`Stripe-Signature\` headers on incoming webhooks.
+
+### Nested & Array Params (url-encoded)
+- Stripe expects PHP-style bracket notation for nested data: \`metadata[order_id]=123\`, \`line_items[0][price]=price_abc\`, \`line_items[0][quantity]=2\`. Tools generally handle this shape for you via the input schema.
+
+### Idempotency
+- For any create call that might be retried, include an \`Idempotency-Key\` header (a UUID you generate). Stripe will return the original response for duplicate keys within 24h, preventing double-charges.
+`,
 	apiSetup: {
 		baseUrl: 'https://api.stripe.com/v1',
 		headers: {

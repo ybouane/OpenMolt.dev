@@ -8,6 +8,39 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const googleCalendarDefinition: IntegrationDefinition = {
 	name: 'Google Calendar',
+	instructions: `
+### calendarId
+\`"primary"\` always refers to the authenticated user's main calendar. To work with another calendar, call \`listCalendars\` and use the returned \`id\` (an email-like string, e.g. \`team@group.calendar.google.com\`).
+
+### Timed vs all-day events
+The \`start\` and \`end\` objects must use **exactly one** shape:
+- **Timed event**: \`{ "dateTime": "2026-04-20T14:30:00-07:00", "timeZone": "America/Los_Angeles" }\`. Use an RFC 3339 timestamp with offset, and an IANA timezone in \`timeZone\`.
+- **All-day event**: \`{ "date": "2026-04-20" }\` (YYYY-MM-DD, no time). The \`end.date\` is **exclusive** — a one-day event on April 20 needs \`end.date: "2026-04-21"\`.
+
+Never mix \`dateTime\` and \`date\` in the same object.
+
+### Recurrence
+\`recurrence\` is an array of RFC 5545 rule strings, each prefixed:
+- \`"RRULE:FREQ=WEEKLY;BYDAY=MO,WE;UNTIL=20261231T000000Z"\`
+- \`"EXDATE;TZID=America/Los_Angeles:20261225T090000"\` (skip Christmas)
+
+Use UTC (\`Z\`) for \`UNTIL\` when the event itself is in a named timezone — mixing them causes silent off-by-one errors.
+
+### Updates
+\`updateEvent\` is **PUT**, so it replaces the event body. Fetch with \`getEvent\` first, merge your changes, then send the full object. Omitting a field **clears it** on the server.
+
+### Attendees and invites
+Attendees get invites automatically when an event is created/updated unless \`sendUpdates=none\` is set (not currently exposed here). Each attendee is an object with at least \`email\`. Mark optional attendees with \`optional: true\`.
+
+### Free/busy
+\`listFreeBusy\` takes an \`items\` array of \`{ id: "calendarId" }\` plus \`timeMin\`/\`timeMax\` in RFC 3339. Use it to find open slots without reading each event — much cheaper than \`listEvents\` when you only need availability.
+
+### Quick-add
+\`quickAddEvent\` parses a natural-language string (\`"Lunch with Alex tomorrow 12-1pm"\`) and creates the event. Good for casual user input; no control over attendees, reminders, or recurrence — use \`createEvent\` when precision matters.
+
+### Timezones
+If \`timeZone\` is omitted, Google falls back to the calendar's default zone. When the agent's input comes from a human ("next Tuesday at 3pm"), always explicitly set \`timeZone\` to the user's local zone rather than assuming UTC.
+`,
 	apiSetup: {
 		baseUrl: 'https://www.googleapis.com/calendar/v3',
 		requestFormat: 'json',

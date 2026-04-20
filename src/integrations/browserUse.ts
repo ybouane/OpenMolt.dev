@@ -9,6 +9,31 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const browserUseDefinition: IntegrationDefinition = {
 	name: 'Browser Use',
+	instructions: `
+### What this is
+Browser Use runs an autonomous LLM-driven browser agent on your behalf. You describe the goal in natural language and it navigates, clicks, types, and extracts data. You do **not** control individual clicks or keystrokes — write goal-oriented tasks, not step scripts.
+
+### Workflow
+1. \`createTask\` with a clear natural-language \`task\` (and optional \`startUrl\`). It returns a \`taskId\`.
+2. Poll \`getTask\` until \`status\` becomes \`completed\` or \`failed\`. Use the \`wait\` command (30–60s) between polls — browser tasks typically take minutes. Do not poll in a tight loop.
+3. When \`status === 'completed'\`, read \`output\` for the final answer. Use \`getMedia\` only if you need screenshots or the video.
+
+### Writing a good task prompt
+- Be explicit about the goal and the exact information to return (e.g. "Return the product title, price, and first review as JSON").
+- Include any login info, filters, or constraints directly in the \`task\` string.
+- If the task naturally starts from a specific URL, pass \`startUrl\` instead of asking the agent to search for it.
+- Example:
+\`\`\`json
+{
+  "task": "Find the current price of a 1kg bag of Kenyan coffee on the first 3 results from google. Return a JSON array of { vendor, url, priceUSD }.",
+  "startUrl": "https://www.google.com"
+}
+\`\`\`
+
+### Control
+- \`pauseTask\` / \`resumeTask\` / \`stopTask\` only affect tasks in \`running\` / \`paused\` state. \`stopTask\` is irreversible.
+- Set \`saveVideo: true\` on \`createTask\` if you intend to later call \`getMedia\` for the recording — it is off by default.
+`,
 	apiSetup: {
 		baseUrl: 'https://api.browser-use.com/api/v1',
 		headers: {

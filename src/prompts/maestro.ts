@@ -164,6 +164,10 @@ function buildToolsSection(integrations: MaestroIntegrationInfo[]): string {
 		const allowedScopes = info.agentConfig.scopes;
 		lines.push(`\n### Integration: \`${info.handle}\` — ${info.name}`);
 
+		if (info.definition.instructions) {
+			lines.push(`\n**Usage Guide:**\n${info.definition.instructions.trim()}`);
+		}
+
 		for (const tool of info.definition.tools) {
 			// Filter by scopes
 			if (allowedScopes && allowedScopes !== 'all' && tool.scopes) {

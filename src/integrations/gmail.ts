@@ -49,6 +49,42 @@ function buildRfc2822Message(opts: {
 
 export const gmailDefinition: IntegrationDefinition = {
 	name: 'Gmail',
+	instructions: `
+### userId is almost always \`"me"\`
+Every endpoint takes \`userId\`. In practice this is the literal string \`"me"\` (the authenticated mailbox). Pass a real email only for delegated-access scenarios.
+
+### Sending email — prefer \`sendSimpleMessage\`
+\`sendSimpleMessage\` takes plain fields (\`to\`, \`subject\`, \`body\`, etc.) and builds the MIME + base64url wrapper for you. Use it for 95% of cases.
+
+Use \`sendMessage\` only when you need to send **HTML, attachments, or multipart** content — then you must build a full RFC 2822 message yourself and base64url-encode it:
+- \`-\` and \`_\` replace \`+\` and \`/\`; \`=\` padding is stripped.
+- Required headers: \`To\`, \`Subject\`, \`MIME-Version: 1.0\`, \`Content-Type\`.
+- For HTML: \`Content-Type: text/html; charset=UTF-8\`.
+
+### Replies stay in thread
+To reply rather than start a new conversation, pass \`threadId\` (from a previous \`listMessages\`/\`getMessage\`). Include an \`In-Reply-To:\` header with the original message's \`Message-ID\` when crafting a \`raw\` MIME for proper threading.
+
+### Search query syntax (\`q\`)
+\`listMessages.q\` uses Gmail's search operators, not SQL. Cheat-sheet:
+- \`from:alice@example.com\`, \`to:me\`, \`cc:\`, \`bcc:\`
+- \`subject:"quarterly report"\`
+- \`is:unread\`, \`is:starred\`, \`is:important\`, \`has:attachment\`
+- \`label:INBOX\`, \`label:INBOX label:unread\` (space = AND)
+- Date: \`after:2026/01/01\`, \`before:2026/02/01\`, \`newer_than:7d\`
+- Combine with \`OR\` or \`()\`. Quote multi-word values.
+
+### Reading body content
+\`getMessage\` with \`format: "full"\` returns \`payload.parts[]\` where each part's \`body.data\` is **base64url-encoded**. For plain text, find the part with \`mimeType: "text/plain"\` and decode. For a quick summary, \`snippet\` already holds the first ~200 chars of plaintext.
+
+### Labels
+\`createLabel\` requires a unique \`name\`. System labels (INBOX, SENT, TRASH, SPAM, UNREAD, STARRED, IMPORTANT) cannot be created or deleted — only applied via \`modifyMessage\` using \`addLabelIds\` / \`removeLabelIds\`.
+
+### Trash vs delete
+\`trashMessage\` moves to Trash (recoverable for 30 days). \`deleteMessage\` is **permanent** — do not use as a default and confirm with the user first.
+
+### Pagination
+All list endpoints return \`nextPageToken\` when more results exist. Pass it back as \`pageToken\` to fetch the next page. \`resultSizeEstimate\` is a rough total — do not rely on it exactly.
+`,
 	apiSetup: {
 		baseUrl: 'https://gmail.googleapis.com/gmail/v1',
 		requestFormat: 'json',

@@ -13,6 +13,38 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const xDefinition: IntegrationDefinition = {
 	name: 'X',
+	instructions: `
+### Two Types of Tokens
+- \`config.apiKey\` is an **App-only Bearer token** — works for read endpoints (lookups, search, public timelines) but **cannot post** or act as a user.
+- \`config.accessToken\` is a **user-context OAuth 2.0 token** — required for any write action (tweet, like, follow, retweet, bookmark, DM). Write tools in this integration automatically switch the Authorization header to \`accessToken\`.
+
+### API Tiers & Rate Limits
+- The X API has strict tiers: Free, Basic, Pro, Enterprise. The **Free tier cannot search or read the timeline** — it's write-only with very low caps (e.g. ~500 posts/month). Most useful read endpoints require **Basic+**.
+- Rate-limit headers (\`x-rate-limit-remaining\`, \`x-rate-limit-reset\`) indicate when to back off. A \`429\` means you've hit the cap.
+
+### Fields Parameter System
+- By default, responses return a minimal set of fields. To get more, request \`tweet.fields\`, \`user.fields\`, \`media.fields\`, etc. as **comma-separated strings** (e.g. \`tweet.fields=created_at,public_metrics,entities\`).
+- \`expansions\` pulls in referenced objects (e.g. \`expansions=author_id,referenced_tweets.id\`) which arrive in an \`includes\` block alongside \`data\`.
+
+### Character Counting
+- The 280-char limit counts **weighted** characters: URLs always count as 23, most CJK chars as 2. Emojis count as 2. Plan for this when composing tweets programmatically.
+
+### Threading
+- To post a thread, create the first tweet, then for each subsequent tweet set \`reply.in_reply_to_tweet_id\` to the previous tweet's \`id\` from the response.
+
+### Media
+- Media must be uploaded via the legacy v1.1 \`media/upload\` endpoint (chunked for video). The v2 \`createTweet\` only accepts \`media_ids\` returned by that upload. Max 4 images or 1 video/GIF per tweet.
+
+### Search
+- \`query\` uses X's search operator syntax: \`from:username\`, \`to:username\`, \`#hashtag\`, \`lang:en\`, \`-is:retweet\`, \`has:media\`, \`place:\`. Combine with AND (implicit) / OR. Quote phrases: \`"exact phrase"\`.
+- Recent search reaches back ~7 days on most tiers. Full-archive search needs Pro/Enterprise.
+
+### Pagination
+- Cursor-based: response includes \`meta.next_token\`. Pass it as \`pagination_token\` on the next call. \`max_results\` varies by endpoint (usually 10–100).
+
+### Errors
+- Partial failures return \`200\` with an \`errors\` array alongside \`data\`. Always inspect both — a \`data\` block doesn't mean everything succeeded.
+`,
 	apiSetup: {
 		baseUrl: 'https://api.twitter.com/2',
 		headers: {

@@ -3,6 +3,39 @@ import type { IntegrationDefinition, ToolContext } from '../types/index.js';
 
 export const googleDriveDefinition: IntegrationDefinition = {
 	name: 'Google Drive',
+	instructions: `
+### File IDs, not paths
+Google Drive has no paths; every file and folder has a **unique \`fileId\`**. Use \`listFiles\` or \`searchFiles\` with \`name\` / \`parents\` / \`mimeType\` filters to find IDs. To place something "in a folder", set \`parents: ["<folder_id>"]\`.
+
+### Folders are files too
+A folder is a file with \`mimeType: "application/vnd.google-apps.folder"\`. Filter for folders with \`q: "mimeType = 'application/vnd.google-apps.folder'"\`.
+
+### Search query syntax (\`searchFiles.query\`)
+Drive's own query DSL. String values are **single-quoted**; escape single quotes with a backslash:
+- \`"name contains 'report' and trashed = false"\`
+- \`"'<folder_id>' in parents"\` — items in a specific folder
+- \`"mimeType = 'application/pdf' and modifiedTime > '2026-01-01T00:00:00'"\`
+- Combine with \`and\` / \`or\` / \`not\`.
+
+### Google Workspace files need \`exportFile\`, not \`downloadFile\`
+- Native Workspace types (\`application/vnd.google-apps.document\`, \`.spreadsheet\`, \`.presentation\`) **cannot** be downloaded with \`downloadFile\` — use \`exportFile\` with a target \`mimeType\`:
+  - Docs → \`application/pdf\`, \`text/plain\`, \`text/html\`, \`application/vnd.openxmlformats-officedocument.wordprocessingml.document\` (docx)
+  - Sheets → \`text/csv\`, \`application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\` (xlsx)
+  - Slides → \`application/pdf\`, \`application/vnd.openxmlformats-officedocument.presentationml.presentation\` (pptx)
+- Regular files (PDFs, images, ZIPs, uploaded docx, etc.) work with \`downloadFile\`, which returns either \`utf-8\` text or \`base64\`.
+
+### Moving files
+\`moveFile\` swaps parents — pass the current \`parents\` to \`removeParents\` and the new folder ID in \`addParents\`. To get current parents, \`getFile\` with \`fields: "parents"\`.
+
+### Sharing
+\`createPermission\` — roles in decreasing power: \`owner\`, \`organizer\` (shared drives only), \`fileOrganizer\`, \`writer\`, \`commenter\`, \`reader\`. Types: \`user\` / \`group\` (need \`emailAddress\`), \`domain\` (need \`domain\`), \`anyone\` (public link). Set \`sendNotificationEmail: false\` to share silently.
+
+### Shared drives
+For files in a Shared Drive, pass \`driveId\` on list/search and accept that \`supportsAllDrives=true\` is already on every call — shared-drive content is included transparently.
+
+### Pagination
+All list endpoints return \`nextPageToken\` when more results exist. Pass it back as \`pageToken\`. \`pageSize\` max is 1000 for files, but 100 is the API default.
+`,
 	apiSetup: {
 		baseUrl: 'https://www.googleapis.com/drive/v3',
 		headers: {

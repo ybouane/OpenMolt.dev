@@ -8,6 +8,36 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const etsyDefinition: IntegrationDefinition = {
 	name: 'Etsy',
+	instructions: `
+### Finding your shop
+Call \`getMe\` first — it returns the authenticated user, including their \`shop_id\`. Nearly every write operation needs \`shopId\`.
+
+### Creating listings (two-phase)
+A listing is created in **draft state** and cannot be activated in a single call. Typical flow:
+1. \`createListing\` with \`state\` omitted → returns a draft listing with a \`listing_id\`.
+2. \`updateListingInventory\` to set variations / SKUs / per-variant pricing.
+3. Upload images (not currently exposed in this integration — would need a separate API call to go live).
+4. \`updateListing\` with \`state: "active"\` to publish.
+
+### Required fields for \`createListing\`
+All of: \`quantity\`, \`title\` (≤140 chars), \`description\`, \`price\` (decimal number), \`whoMade\` (\`i_did\` | \`someone_else\` | \`collective\`), \`whenMade\` (e.g. \`"made_to_order"\`, \`"2020_2024"\`, \`"2010_2019"\` — Etsy uses fixed era buckets), \`taxonomyId\` (numeric category; Etsy's sellerTaxonomy tree — ask the user or look it up before guessing).
+
+### Tags & materials
+- \`tags\`: up to **13 tags**, **≤20 characters each**, letters/numbers/spaces/hyphens only. Etsy rejects the whole listing if any tag is invalid.
+- \`materials\`: free-form strings, same character limits.
+
+### Money & currency
+Prices are numbers in the shop's currency (not minor units). \`4.99\` means $4.99 in a USD shop. Responses wrap money as \`{ amount, divisor, currency_code }\` where \`amount / divisor\` is the display price.
+
+### Pagination
+\`limit\` maxes at **100**; iterate with \`offset\`. Default \`limit\` is 25 on most endpoints.
+
+### Orders
+Receipts are orders. Filter with \`wasPaid\`, \`wasShipped\`, etc. Dates are **Unix timestamps in seconds**, not ms. Attach tracking via \`createReceiptShipment\` — \`carrierId\` is the lowercase carrier key (\`usps\`, \`fedex\`, \`ups\`, \`dhl\`, \`canada_post\`, etc.).
+
+### Search marketplace
+\`searchListings\` is public marketplace search and does not require shop scopes. \`color\` is hex **without \`#\`** (e.g. \`"ff0000"\`).
+`,
 	apiSetup: {
 		baseUrl: 'https://openapi.etsy.com/v3',
 		headers: {

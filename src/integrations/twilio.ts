@@ -12,6 +12,38 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const twilioDefinition: IntegrationDefinition = {
 	name: 'Twilio',
+	instructions: `
+### Credentials
+- \`username\` is the **Account SID** (starts with \`AC...\`), \`password\` is the **Auth Token**. The SID is also interpolated into most endpoint paths. Basic auth is used.
+- For subaccounts, use that subaccount's SID as \`username\`.
+
+### Phone Number Format
+- All \`to\` / \`from\` numbers must be **E.164**: \`+\` followed by country code and number, no spaces or dashes. E.g. \`+15551234567\`, not \`(555) 123-4567\`.
+- The \`from\` number must be a Twilio-owned number, a verified caller ID, or (for trial accounts) a verified destination for \`to\`.
+
+### SMS vs MMS vs WhatsApp
+- \`sendSMS\` with \`mediaUrl\` becomes MMS (US/Canada only). Each \`Body\` over 160 GSM-7 chars (70 UCS-2 for emojis) splits into segments you're billed for individually.
+- \`sendWhatsApp\`: both \`from\` and \`to\` MUST be prefixed with \`whatsapp:\` (e.g. \`whatsapp:+14155238886\`). For sandbox testing, use Twilio's shared sender \`+14155238886\` and the user must opt in via the join code first.
+- WhatsApp business-initiated conversations outside the 24-hour window require an approved **template** — free-form messages will fail.
+
+### Voice (TwiML)
+- \`makeCall\` needs either a \`Url\` returning TwiML XML or a \`Twiml\` body with inline XML. Minimal example: \`<Response><Say>Hello</Say></Response>\`. Twilio fetches/executes this when the call connects.
+
+### Verify (OTP)
+- Verify is a separate API (\`verify.twilio.com\`) — use it instead of rolling your own SMS-OTP. Create a Service once, then \`createVerification\` → \`checkVerification\` with the user-entered code.
+
+### Status Callbacks
+- \`statusCallback\` is a webhook Twilio hits on state changes (\`queued\`, \`sending\`, \`sent\`, \`delivered\`, \`undelivered\`, \`failed\`). Register a publicly reachable HTTPS URL.
+
+### Pagination
+- List endpoints return \`{ ..., next_page_uri, previous_page_uri }\`. Fetch \`next_page_uri\` (already a full path) to paginate. \`PageSize\` max is 1000.
+
+### Response Format
+- Request body is **url-encoded** (Twilio's standard), response is JSON. Error responses include \`code\` (e.g. \`21211\` invalid To number) and a \`more_info\` URL pointing to docs.
+
+### Trial Accounts
+- Trial accounts can only send to verified numbers and prepend \`Sent from your Twilio trial account — \` to all messages. Upgrade to remove this.
+`,
 	apiSetup: {
 		baseUrl: 'https://api.twilio.com/2010-04-01',
 		requestFormat: 'url-encoded',

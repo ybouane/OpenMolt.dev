@@ -154,6 +154,13 @@ export interface ToolDefinition {
 export interface IntegrationDefinition {
 	/** Display name of the integration. */
 	name: string;
+	/**
+	 * Markdown-formatted guidance injected into the agent prompt to help it use the
+	 * integration's tools effectively. Should clarify non-obvious input formats,
+	 * common workflows, id/handle conventions, and pitfalls that the input/output
+	 * schemas alone do not convey.
+	 */
+	instructions?: string;
 	/** Default API configuration used for all HTTP tool calls. */
 	apiSetup?: APISetup;
 	/** One or more credential schemes supported by the integration. */

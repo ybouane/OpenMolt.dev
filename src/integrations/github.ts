@@ -8,6 +8,45 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const githubDefinition: IntegrationDefinition = {
 	name: 'GitHub',
+	instructions: `
+### Identifying a repo
+Every repo-scoped call needs \`owner\` (user or org login) and \`repo\` (the short name, not the \`owner/repo\` slug). Example: for \`https://github.com/openai/gpt-4\`, \`owner: "openai"\`, \`repo: "gpt-4"\`.
+
+### File contents are always base64
+- \`getFileContents\` returns \`{ content, encoding: "base64", sha, ... }\` — decode \`content\` from base64 to read it.
+- \`createOrUpdateFile\` requires \`content\` to be **base64-encoded**, not raw text. Encode before sending.
+- **Updating** an existing file requires passing the file's current \`sha\` (returned by \`getFileContents\`). Without it, GitHub returns 422. A typical update flow:
+  1. \`getFileContents\` → read \`content\` (decode), \`sha\`.
+  2. Produce new content, base64-encode it.
+  3. \`createOrUpdateFile\` with \`content\` (new base64), \`sha\` (original), \`message\`, \`branch\`.
+- \`deleteFile\` similarly requires the current \`sha\`.
+
+### Creating a branch
+There is no "create branch from name" endpoint. Use \`createBranch\` which creates a git ref:
+1. \`listCommits\` on the source branch to get its head \`sha\`.
+2. \`createBranch\` with \`ref: "refs/heads/<new-branch>"\` and that \`sha\`.
+
+### Pull requests
+- \`createPullRequest\` needs \`head\` and \`base\` (both branch names). \`head\` can be \`"user:branch"\` for cross-fork PRs.
+- PRs are just issues under the hood — PR numbers live in the same sequence as issue numbers. \`issue_number\` in \`createIssueComment\` works for both.
+- \`mergePullRequest\` supports \`merge_method\`: \`merge\` (default), \`squash\`, or \`rebase\`.
+
+### Search API
+- \`searchCode\`, \`searchRepos\`, \`searchIssues\` use GitHub's **query string syntax**, not plain keywords. Examples:
+  - Code: \`"language:typescript fetch in:file repo:octocat/hello"\`
+  - Issues: \`"is:open label:bug author:ybouane repo:owner/repo"\`
+  - Repos: \`"stars:>100 language:go"\`
+- Search is **heavily rate-limited** (30 req/min) — avoid in tight loops.
+
+### Rate limits & pagination
+Unauthenticated calls are capped at 60/hour, authenticated at 5000/hour. All list endpoints accept \`per_page\` (max 100) and \`page\`; keep \`per_page: 100\` to minimise request count. If a list seems cut off, advance \`page\`.
+
+### Workflow dispatch
+\`triggerWorkflow\` requires the workflow to have \`on: workflow_dispatch\` configured in its YAML. \`ref\` is the branch/tag to run against. \`inputs\` must match the workflow's declared inputs exactly (extra or missing required inputs cause 422).
+
+### Reactions
+\`addReactionToIssue\` content is a fixed vocabulary: \`+1\`, \`-1\`, \`laugh\`, \`confused\`, \`heart\`, \`hooray\`, \`rocket\`, \`eyes\`. No other values accepted.
+`,
 	apiSetup: {
 		baseUrl: 'https://api.github.com',
 		headers: {

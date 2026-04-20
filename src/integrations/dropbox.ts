@@ -23,6 +23,34 @@ function dropboxHeaders(context: ToolContext, extra?: Record<string, string>): R
 
 export const dropboxDefinition: IntegrationDefinition = {
 	name: 'Dropbox',
+	instructions: `
+### Paths
+All paths are **case-insensitive, forward-slash**, and **start with a leading slash** — e.g. \`/Documents/report.pdf\`. The one exception: \`listFolder\` treats \`""\` (empty string, not \`"/"\`) as the account root. Paths are Dropbox-relative, never local filesystem paths.
+
+### Listing & pagination
+\`listFolder\` returns \`{ entries, cursor, has_more }\`. If \`has_more\` is true, pass \`cursor\` to \`listFolderContinue\` to fetch the next page. Each entry has a \`.tag\` of \`file\`, \`folder\`, or \`deleted\`.
+
+### Upload / download content
+\`uploadFile\` and \`downloadFile\` use custom \`execute\` functions, not the generic API base:
+- \`uploadFile\` \`content\`: pass plain text for text files or a **base64 string** for binary (images, PDFs, etc). Set \`contentType\` to the correct MIME. Use \`mode: "overwrite"\` to replace an existing file; default \`"add"\` fails if the path is taken. Set \`autorename: true\` to avoid collisions on \`add\`.
+- \`downloadFile\` returns \`{ content, contentType, size, metadata }\`. \`content\` is plain text for text-ish MIME types, base64 otherwise — decode accordingly.
+
+### Sharing a file externally
+Preferred order:
+1. \`createSharedLink\` → returns a persistent \`url\` (e.g. shareable with others, can be password/expiry-protected via \`settings\`).
+2. \`getTemporaryLink\` → returns a direct-download URL valid for **~4 hours**. Use this when you need a machine-fetchable URL to hand to another tool.
+
+\`revokeSharedLink\` takes the URL itself, not a path.
+
+### Move vs copy
+Both require source and destination paths; they don't create missing parent directories — call \`createFolder\` first if needed. Use \`autorename: true\` to sidestep destination conflicts.
+
+### Search
+\`searchFiles\` v2 is full-text over filename and contents. Pass extras via \`options\`, e.g.:
+\`\`\`json
+{ "query": "invoice", "options": { "path": "/Finance", "max_results": 20, "filename_only": true } }
+\`\`\`
+`,
 	apiSetup: {
 		baseUrl: DROPBOX_API_BASE,
 		headers: {

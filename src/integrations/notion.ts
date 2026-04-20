@@ -8,6 +8,58 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const notionDefinition: IntegrationDefinition = {
 	name: 'Notion',
+	instructions: `
+### Access is explicit
+The bot integration can only touch pages & databases that have been **shared with it** inside Notion. A 404 usually means "object exists but isn't shared with this integration" — surface that rather than retrying.
+
+### IDs are UUIDs
+Page / database / block / user IDs are UUIDs (with or without hyphens). Both forms are accepted; use what the API returns verbatim.
+
+### Everything is a block
+Notion's content model is a recursive **block tree**. A page's content is its children blocks, reached via \`getBlockChildren\` with the page ID as \`block_id\`. Each block has a \`type\` (\`paragraph\`, \`heading_1\`, \`bulleted_list_item\`, \`to_do\`, \`code\`, \`image\`, \`toggle\`, …) whose payload lives under a key matching that type.
+
+### Rich text shape (used everywhere)
+Almost all text fields take a \`rich_text\` array of segments, not plain strings:
+\`\`\`json
+[{ "type": "text", "text": { "content": "Hello " } },
+ { "type": "text", "text": { "content": "world", "link": { "url": "https://example.com" } }, "annotations": { "bold": true } }]
+\`\`\`
+For simple text, a single segment is fine: \`[{ "type": "text", "text": { "content": "…" } }]\`. You cannot pass a bare string.
+
+### Page vs database page
+- \`createPage\` with \`parent: { "page_id": "..." }\` → normal page, takes \`properties.title\` and \`children\` blocks.
+- \`createPage\` with \`parent: { "database_id": "..." }\` → row in a database; \`properties\` must match the database schema exactly (case-sensitive property names, correct type shape).
+
+Check the schema with \`getDatabase\` before creating rows. Each property type has its own shape, e.g.:
+- Title: \`{ "Name": { "title": [{ "type": "text", "text": { "content": "Foo" } }] } }\`
+- Select: \`{ "Status": { "select": { "name": "In Progress" } } }\`
+- Multi-select: \`{ "Tags": { "multi_select": [{ "name": "urgent" }] } }\`
+- Number: \`{ "Budget": { "number": 1000 } }\`
+- Date: \`{ "Due": { "date": { "start": "2026-04-30" } } }\`
+- Relation: \`{ "Project": { "relation": [{ "id": "<page-id>" }] } }\`
+- People: \`{ "Owner": { "people": [{ "id": "<user-id>" }] } }\`
+
+### Querying databases
+\`queryDatabase\` supports \`filter\` (compound with \`and\` / \`or\`) and \`sorts\`. Example:
+\`\`\`json
+{
+  "filter": { "and": [
+    { "property": "Status", "select": { "equals": "In Progress" } },
+    { "property": "Due", "date": { "past_week": {} } }
+  ]},
+  "sorts": [{ "property": "Due", "direction": "ascending" }]
+}
+\`\`\`
+
+### Appending content to a page
+Use \`appendBlockChildren\` with the page (or parent block) ID and a \`children\` array of block objects. Each block is \`{ "object": "block", "type": "paragraph", "paragraph": { "rich_text": [...] } }\` etc. You cannot insert into the middle — appending always lands at the end of the target.
+
+### Updating vs archiving
+\`updatePage\` with \`archived: true\` moves a page to trash (recoverable). \`deleteBlock\` is permanent for blocks. There is no hard-delete for pages via the API.
+
+### Pagination
+List endpoints return \`has_more\` and \`next_cursor\`. Pass \`start_cursor\` on the next call. Default \`page_size\` is 100 (max).
+`,
 	apiSetup: {
 		baseUrl: 'https://api.notion.com/v1',
 		headers: {

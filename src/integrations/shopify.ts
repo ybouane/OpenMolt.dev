@@ -8,6 +8,39 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const shopifyDefinition: IntegrationDefinition = {
 	name: 'Shopify',
+	instructions: `
+### Shop domain & auth
+Requests hit \`https://<shop>.myshopify.com/admin/api/2024-10\`. The \`shopDomain\` config (e.g. \`coolstore.myshopify.com\`) must be the full myshopify host, not the custom domain. Auth is via the \`X-Shopify-Access-Token\` header populated from \`config.accessToken\`.
+
+### REST vs GraphQL
+This integration uses the **Admin REST API** (being actively deprecated by Shopify in favor of GraphQL but still fully functional for 2024-10). Endpoint names are snake_case (\`line_items\`, \`billing_address\`) and most resources are wrapped in a top-level key — a product creation body looks like \`{ "product": { "title": "...", ... } }\`.
+
+### Money & currency
+Money fields are **decimal strings** in the shop's currency, not integers or numbers: \`"price": "19.99"\`. Most reads return both the "current" and "shop-currency" variants for multi-currency stores.
+
+### Products → variants → inventory
+Every Shopify product has at least one **variant** (defaulting to a single variant when you don't define options). Inventory tracking uses \`inventory_item_id\` (distinct from \`variant_id\`) and \`location_id\`:
+1. \`getProduct\` → read \`variants[].inventory_item_id\`.
+2. \`getInventoryLevel\` with that \`inventory_item_id\` + a location ID.
+3. \`adjustInventory\` to change quantity (delta, positive or negative).
+
+Tags on products are a single comma-separated string, not an array: \`"tags": "summer,sale,featured"\`.
+
+### Orders
+Orders are mostly read-only from the API's perspective — you can update notes, tags, and a few metadata fields but not line items. To mark an order as shipped, use \`createFulfillment\` against the order's fulfillment order IDs (Shopify's separate \`fulfillment_orders\` resource). \`cancelOrder\` is irreversible once confirmed.
+
+### Pagination
+REST uses cursor-based pagination via the \`Link\` header. This integration exposes a \`page_info\` param; pass the cursor from the previous response's \`Link\` header (the integration surfaces it in the response shape) to get the next page. \`page=2\`-style numeric pagination **does not work** on newer API versions.
+
+### Timestamps
+\`created_at_min\`, \`updated_at_min\`, etc. accept ISO 8601 timestamps with timezone (\`2026-04-01T00:00:00-07:00\`).
+
+### Rate limits
+Shopify enforces a bucket-token model (40-call burst, 2/s steady state by default; Shopify Plus is higher). On 429, back off several seconds. Use \`fields\` query param to request only the columns you need.
+
+### Webhooks not included
+This integration is REST-only. For real-time order/product events, set up webhooks separately — they are not modelled as tools here.
+`,
 	apiSetup: {
 		baseUrl: 'https://{{ config.shopDomain }}/admin/api/2024-10',
 		headers: {

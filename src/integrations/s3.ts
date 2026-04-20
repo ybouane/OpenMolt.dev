@@ -8,6 +8,44 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const s3Definition: IntegrationDefinition = {
 	name: 'AWS S3',
+	instructions: `
+### Scope
+Works with AWS S3 and S3-compatible providers (Cloudflare R2, MinIO, Backblaze B2, DigitalOcean Spaces, etc.) — the \`endpoint\` setting in the credential config decides which. Bucket-policy and CORS calls are AWS-only; some compatibility providers accept them, others reject with 501.
+
+### Region matters
+Every bucket lives in exactly one region. Cross-region calls return \`PermanentRedirect\`. If you don't know the bucket's region, call \`listBuckets\` (global) and use its info, or try \`headObject\` and inspect the error.
+
+### Keys, not paths
+S3 has no real folders — a "folder" is just a common **prefix**. \`listObjects\` with \`prefix: "photos/2026/"\` and \`delimiter: "/"\` gives you "folder-like" listings. \`commonPrefixes\` in the response are the sub-"folders".
+
+### Uploading content
+\`putObject.body\` accepts:
+- A **plain string** → stored as UTF-8 text. Good for JSON, CSV, logs.
+- A **base64-encoded** string if you set \`contentEncoding: "base64"\` (or similar; confirm with the tool's schema) — for binary data like images.
+- For files larger than a few MB, prefer \`createMultipartUpload\` + \`completeMultipartUpload\` rather than a single \`putObject\`.
+
+Always set \`contentType\` for correctness (e.g. \`image/png\`, \`application/pdf\`) — browsers rely on it for inline display.
+
+### Reading content
+\`getObject\` returns the body. For binary keys, expect base64-encoded content (or a URL — check the tool output). For very large objects, prefer \`getPresignedUrl\` and hand the URL to another tool (download to disk, stream to user, etc.) rather than round-tripping bytes through the agent.
+
+### Presigned URLs
+\`getPresignedUrl\` issues a time-limited signed URL (default 15 min, override \`expiresIn\` seconds). Ideal for:
+- Sharing a private object with a human or a third-party tool.
+- Letting a user upload directly (use \`operation: "put_object"\`).
+
+The URL contains the secret signature — treat it as sensitive and never log beyond the immediate response.
+
+### Deletion
+- \`deleteObject\` is **not undoable** unless the bucket has versioning enabled (check \`listObjectVersions\`).
+- \`deleteObjects\` batches up to 1000 keys in one call — use it for bulk cleanups.
+
+### Bucket policies & CORS
+JSON documents go in verbatim as strings. A malformed policy returns \`MalformedPolicy\` — re-read \`getBucketPolicy\` before editing, never invent fields. \`putBucketCors\` uses the \`CORSRules\` shape, not HTTP header names.
+
+### Errors to surface, not retry
+\`NoSuchBucket\`, \`AccessDenied\`, \`InvalidAccessKeyId\`, \`SignatureDoesNotMatch\` are configuration problems — report to the user rather than retrying.
+`,
 	credentialSetup: [
 		{
 			type: 'custom',

@@ -8,6 +8,43 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const youtubeDefinition: IntegrationDefinition = {
 	name: 'YouTube',
+	instructions: `
+### Two Auth Modes
+- **API key** (\`config.apiKey\`) — works for **public read-only** endpoints (search, public video/channel info). Simpler, no user consent.
+- **OAuth 2.0** (\`config.accessToken\`) — required for anything that acts on a user's account: uploads, playlists (private), subscriptions, comments, rating, managing own channel.
+- If a call returns 401, the operation needs OAuth (or the token lacks the right scope).
+
+### Quota
+- Every call costs **quota units** from a daily pool (default 10,000/day/project). Typical costs: \`search.list\` = **100**, \`videos.list\` = **1**, \`videos.insert\` (upload) = **1600**. Search is the expensive one — cache results when possible.
+
+### The \`part\` Parameter
+- Most list/get endpoints require a \`part\` query param listing which resource sections to return, e.g. \`part=snippet,contentDetails,statistics\`. Only request what you need — more parts = higher cost per call.
+- Common parts: \`snippet\` (title/desc/thumbs), \`contentDetails\` (duration/definition), \`statistics\` (views/likes), \`status\` (privacy/embeddable), \`player\` (embed HTML).
+
+### IDs
+- **videoId** is the 11-char string from the URL (\`https://youtu.be/{videoId}\`). **channelId** starts with \`UC\`. **playlistId** starts with \`PL\`, \`UU\` (uploads), or \`WL\` (Watch Later — not accessible via API).
+- To find a user's uploads playlist: fetch their channel with \`part=contentDetails\` and read \`contentDetails.relatedPlaylists.uploads\`.
+
+### Uploading Videos
+- Uploads are a two-step resumable process: metadata first, then binary. This integration's \`uploadVideo\` typically handles the metadata + URL-source flow. For raw bytes, you generally need a resumable upload endpoint outside this integration.
+- New uploads on unverified channels are **capped at 15 minutes** and limited daily. Verify via phone to lift caps.
+- Privacy status: \`private\`, \`unlisted\`, \`public\`. \`selfDeclaredMadeForKids\` is legally required — set it explicitly.
+
+### Search Quirks
+- \`search.list\` returns IDs + \`snippet\` only. To get stats/duration/etc, take the IDs and call \`videos.list\` with them — cheaper than requesting more parts on search.
+- \`publishedAfter\`/\`publishedBefore\` must be **RFC 3339** timestamps (\`2024-01-01T00:00:00Z\`).
+- Search results are capped at ~500 items regardless of pagination, by design.
+
+### Pagination
+- \`nextPageToken\` in the response — pass it as \`pageToken\` for the next page. \`pageInfo.totalResults\` is an estimate, not exact.
+
+### Comments
+- To read comments: \`commentThreads.list\` with \`part=snippet,replies&videoId=...\`. Top-level threads carry a \`snippet.topLevelComment\`; reply threads nest under \`replies.comments\`.
+- Posting comments requires OAuth with the \`youtube.force-ssl\` scope.
+
+### Shorts
+- No dedicated Shorts API — they're regular videos with vertical aspect + ≤60s duration. Filter by \`contentDetails.duration\` (ISO 8601 like \`PT45S\`).
+`,
 	apiSetup: {
 		baseUrl: 'https://www.googleapis.com/youtube/v3',
 		headers: {

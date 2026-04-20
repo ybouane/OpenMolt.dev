@@ -9,6 +9,41 @@ import type { IntegrationDefinition } from '../types/index.js';
 
 export const instagramDefinition: IntegrationDefinition = {
 	name: 'Instagram',
+	instructions: `
+### Account type prerequisite
+Only **Instagram Business** or **Creator** accounts are supported, and they must be connected to a Facebook Page. Personal accounts cannot publish or read insights via this API — surface a helpful error rather than retrying.
+
+### userId
+\`userId\` is the **Instagram Business Account ID** (a Graph-API numeric ID tied to the connected Facebook Page), not the Instagram username or handle. Obtain it once from \`/me/accounts\` on Facebook Graph API; in this integration treat it as a known configuration value.
+
+### Publishing is a two-step dance
+All posts go through: **create container → wait → publish**.
+1. \`createImageContainer\` / \`createVideoContainer\` / \`createCarouselContainer\` → returns a container \`id\`.
+2. \`getContainerStatus\` until \`status_code\` is \`FINISHED\` (images are near-instant; videos/Reels typically take 10–60s — use \`wait\` 15–30s between polls). Other codes: \`IN_PROGRESS\`, \`ERROR\`, \`EXPIRED\`, \`PUBLISHED\`.
+3. \`publishMedia\` with \`creationId\` = the container ID.
+
+### Media URLs must be public HTTPS
+\`imageUrl\` / \`videoUrl\` must point to a publicly-reachable HTTPS resource — Instagram's servers fetch it. S3/Drive/Dropbox shares that require auth will fail. If you only have private media, re-host it on a public bucket or signed URL first.
+
+### Carousels
+To post 2–10 images/videos in one swipeable post:
+1. For each item, call \`createImageContainer\` or \`createVideoContainer\` with \`isCarouselItem: true\` (or equivalent). Collect the returned IDs.
+2. \`createCarouselContainer\` with \`children: [id1, id2, ...]\`.
+3. \`publishMedia\` on the carousel container.
+
+### Reels
+Use \`createVideoContainer\` with \`mediaType: "REELS"\`. Set \`shareToFeed: true\` to also show on the user's grid. Duration/aspect-ratio limits (3–90s, 9:16) are enforced by Instagram; videos outside those fail with \`status_code: ERROR\`.
+
+### Captions & hashtags
+\`caption\` max 2200 chars and **up to 30 hashtags**. Hashtags go inline with the caption text (\`#coffee\`) — there is no separate tags field.
+
+### Rate limits & publishing quotas
+Instagram limits **25 API-published posts per 24h** per account. If you hit the quota, the next publish call returns a specific error — respect the limit rather than backing off blindly.
+
+### Insights
+- \`getInsights\` takes a \`metric\` list — e.g. \`"impressions,reach,engagement"\`. Valid metrics depend on media type.
+- \`getAccountInsights\` requires a \`period\` (\`day\`, \`week\`, or \`days_28\`) and a metric set; using day-only metrics with \`period: "week"\` fails.
+`,
 	apiSetup: {
 		baseUrl: 'https://graph.facebook.com/v20.0',
 		headers: {

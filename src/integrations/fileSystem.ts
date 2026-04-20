@@ -140,6 +140,31 @@ export function createFileSystemIntegration(
 
 	return {
 		name: 'FileSystem',
+		instructions: `
+### Scope
+This integration only exposes paths under the configured allowed directories: **${allowedDirs.join(', ')}**. Any attempt to read/write outside these roots fails with an access-denied error. Do not try to traverse out with \`..\` — it will be rejected.
+
+### Paths
+Pass **absolute** paths when possible. Relative paths are resolved against the runtime's current working directory (see \`getWorkingDirectory\`), which is rarely what you want. If you only have a relative path from the user, call \`getWorkingDirectory\` first to confirm the anchor.
+
+### Reading
+\`readFile\` defaults to \`utf8\`. For binaries (images, PDFs, zip) pass \`encoding: "base64"\` — the result \`content\` will be base64-encoded and safe for piping into tools that accept base64 (e.g. vision APIs).
+
+### Writing
+\`writeFile\` requires **exactly one** of:
+- \`content\`: inline string (text or already-encoded bytes, honours \`encoding\`).
+- \`fromUrl\`: HTTP(S) URL whose response bytes are written verbatim (best for downloading a file to disk).
+
+Providing both, or neither, is an error. Set \`createDirs: true\` if parent directories may not exist — otherwise writes into missing directories will fail.
+
+### Directory ops
+- \`listDirectory\` with \`recursive: true\` can be expensive on large trees. Prefer \`searchFiles\` when you know a name pattern.
+- \`deleteDirectory\` requires \`recursive: true\` to remove non-empty directories.
+- \`searchFiles\` uses a simple glob (\`*\`, \`?\`) over filenames only, case-insensitive — not a full regex and not content search.
+
+### Safety
+File operations are irreversible. Before \`deleteFile\`, \`deleteDirectory\`, or overwriting an existing file, consider confirming with the user (\`requestHumanInput\`) if the data appears non-trivial.
+`,
 		credentialSetup: [{ type: 'custom', headers: {} }],
 		scopes: {
 			read: 'Read files and list directories.',

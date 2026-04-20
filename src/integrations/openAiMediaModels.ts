@@ -8,6 +8,41 @@ import type { IntegrationDefinition, ToolContext } from '../types/index.js';
 
 export const openAiMediaModelsDefinition: IntegrationDefinition = {
 	name: 'OpenAI Media Models',
+	instructions: `
+### Model choice
+- \`gpt-image-1\` — newest, best quality, supports transparency/format control, most expensive.
+- \`dall-e-3\` — strong prompt adherence, \`n\` must be \`1\`, supports \`style\` (\`vivid\` | \`natural\`), supports \`hd\` quality.
+- \`dall-e-2\` — cheapest, supports \`n\` up to 10, only square sizes (\`256/512/1024\`), and is the **only** model for \`createVariation\`.
+
+Default behaviour is \`dall-e-2\`. Prefer \`dall-e-3\` for single high-quality renders and \`gpt-image-1\` when you need transparency or format control.
+
+### Sizes
+- dall-e-3: \`1024x1024\`, \`1792x1024\`, \`1024x1792\`.
+- dall-e-2 & variations: \`256x256\`, \`512x512\`, \`1024x1024\` only.
+- gpt-image-1: \`1024x1024\`, \`1024x1536\`, \`1536x1024\`, \`auto\`.
+
+Passing an unsupported size fails with a 400.
+
+### response_format
+- \`url\` (default) — returns a temporary OpenAI CDN URL that **expires in ~1 hour**. Download and persist if you need it longer.
+- \`b64_json\` — image embedded in the response as base64. Use when piping directly into another tool that accepts base64; skips a round-trip but uses much more context/memory.
+
+### editImage
+- Provide **one of** \`imageUrl\` or \`imageBase64\` — not both. Same rule for the mask.
+- Source image: **PNG, ≤4 MB**. For dall-e-2 edits it must be square.
+- \`mask\` is optional. Transparent (alpha=0) pixels = areas to regenerate; opaque pixels are preserved. Mask must match the source's dimensions.
+- Without a mask, the whole image can change — use a mask for targeted edits.
+
+### createVariation
+DALL-E 2 only. No prompt — the model just riffs on the input image's composition and style. Source must be a square PNG ≤4 MB.
+
+### gpt-image-1 extras
+\`background: "transparent"\` produces PNGs with alpha (use \`output_format: "png"\`). \`output_format\` (\`png\`/\`jpeg\`/\`webp\`) + \`output_compression\` (0–100) only apply to this model.
+
+### Tips
+- Prompts for generation describe the **desired image** directly ("a vintage travel poster of Mars, art-deco style"). For edits, describe the **desired result after the edit**, not the instruction ("a red door" rather than "paint the door red").
+- If content is refused, the API returns a moderation error; surface it to the user rather than retrying with the same prompt.
+`,
 	apiSetup: {
 		baseUrl: 'https://api.openai.com/v1',
 		headers: {
